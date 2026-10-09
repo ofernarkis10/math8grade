@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הפונקציה הקווית: קצב שינוי ושיפוע · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="algebra-02-linear-function-practice.html">לתרגול מעשי ←</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום אלגברי · דף הסבר</span><h1>הפונקציה הקווית: קצב שינוי ושיפוע</h1><p class="lead">קצב שינוי אחיד, שיפוע הישר, הייצוג y = mx + b ומשמעותו, ומציאת משוואת ישר לפי שיפוע ונקודה או לפי שתי נקודות.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#rate">קצב שינוי</a></li><li><a href="#slope">השיפוע</a></li><li><a href="#equation">משוואת הישר: \(y=mx+b\)</a></li><li><a href="#find">מציאת משוואת ישר</a></li><li><a href="#parallel">ישרים מקבילים</a></li><li><a href="#mistakes">טעויות נפוצות</a></li><li><a href="#check">בדקו את עצמכם </a></li><li><a href="#next">ממשיכים לתרגול</a></li></ol></nav>
+<section class="ch" id="rate"><h2>קצב שינוי</h2>
+<div class="meaning">
+<p><strong>קצב שינוי</strong> אומר בכמה משתנה <span class="m">\(y\)</span> כאשר <span class="m">\(x\)</span> גדל ב־1. אם הקצב קבוע לאורך כל הדרך, זה <strong>קצב שינוי אחיד</strong>, והגרף הוא <strong>קו ישר</strong>. פונקציה כזו נקראת <strong>פונקציה קווית</strong> (לינארית).</p>
+</div>
+<div class="two">
+<div><b>קצב אחיד: y גדל תמיד ב־3</b>
+<div class="tablebox"><table><thead><tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><th>y</th><td>1</td><td>4</td><td>7</td><td>10</td><td>13</td></tr></tbody></table></div></div>
+<div><b>קצב לא אחיד: הגידול משתנה</b>
+<div class="tablebox"><table><thead><tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><th>y</th><td>0</td><td>1</td><td>4</td><td>9</td><td>16</td></tr></tbody></table></div></div>
+</div>
+<p>בטבלה הימנית ההפרשים הם 3, 3, 3, 3, ולכן הגרף ישר. בשמאלית ההפרשים הם 1, 3, 5, 7, והגרף מתעקם.</p>
+</section>
+
+<section class="ch" id="slope"><h2>השיפוע</h2>
+<div class="two">
+<div class="meaning">
+<p>ה<strong>שיפוע</strong> של ישר, <span class="m">\(m\)</span>, הוא קצב השינוי שלו: היחס בין השינוי ב־<span class="m">\(y\)</span> לשינוי ב־<span class="m">\(x\)</span>, בין כל שתי נקודות על הישר.</p>
+<div class="big"><span class="m">\(m=\dfrac{y_2-y_1}{x_2-x_1}=\dfrac{\Delta y}{\Delta x}\)</span><small>״כמה עולים, חלקי כמה זזים ימינה״</small></div>
+</div>
+<figure>
+<svg viewBox="0 0 330 270" width="320" role="img" aria-label="ישר דרך הנקודות (1,1) ו-(5,4) עם משולש שיפוע">
+<g class="gr"><line x1="90" y1="20" x2="90" y2="250"/><line x1="140" y1="20" x2="140" y2="250"/><line x1="190" y1="20" x2="190" y2="250"/><line x1="240" y1="20" x2="240" y2="250"/><line x1="290" y1="20" x2="290" y2="250"/><line x1="40" y1="200" x2="320" y2="200"/><line x1="40" y1="150" x2="320" y2="150"/><line x1="40" y1="100" x2="320" y2="100"/><line x1="40" y1="50" x2="320" y2="50"/></g>
+<line class="ax" x1="35" y1="250" x2="325" y2="250"/><line class="ax" x1="40" y1="255" x2="40" y2="15"/>
+<line class="ac" x1="40" y1="237.5" x2="320" y2="27.5"/>
+<line class="mk" x1="90" y1="200" x2="290" y2="200"/><line class="mk" x1="290" y1="200" x2="290" y2="50"/>
+<g class="dot"><circle cx="90" cy="200" r="5"/><circle cx="290" cy="50" r="5"/></g>
+<text x="62" y="190" class="a">A(1,1)</text><text x="230" y="44" class="a">B(5,4)</text><text x="160" y="222" class="k">Δx = 4</text><text x="296" y="130" class="k">Δy = 3</text>
+</svg><figcaption>השיפוע: <span class="m">\(m=\frac{3}{4}\)</span></figcaption></figure>
+</div>
+<div class="example"><span class="tag">דוגמה 1</span>
+<p>מצאו את השיפוע של הישר העובר דרך <span class="m">\((-1,5)\)</span> ו־<span class="m">\((3,-3)\)</span>.</p>
+<p><span class="m">\(m=\frac{-3-5}{3-(-1)}=\frac{-8}{4}=-2\)</span>. השיפוע שלילי, ולכן הישר יורד.</p></div>
+<div class="formulas">
+<div class="f"><b>m &gt; 0</b>הישר עולה</div>
+<div class="f"><b>m &lt; 0</b>הישר יורד</div>
+<div class="f"><b>m = 0</b>ישר אופקי, <span class="m">\(y=b\)</span></div>
+<div class="f"><b>|m| גדול</b>הישר תלול יותר</div>
+</div>
+</section>
+
+<section class="ch" id="equation"><h2>משוואת הישר: <span class="m">\(y=mx+b\)</span></h2>
+<div class="two">
+<div class="meaning">
+<p>כל ישר שאינו אנכי אפשר לכתוב בצורה <span class="m">\(y=mx+b\)</span>:</p>
+<ul class="plain">
+<li><span class="m">\(m\)</span> הוא השיפוע.</li>
+<li><span class="m">\(b\)</span> הוא נקודת החיתוך עם ציר y: הישר עובר דרך <span class="m">\((0,b)\)</span>.</li>
+</ul>
+<p>בגרף משמאל: <span class="m">\(y=2x+1\)</span> (עולה, חותך את ציר y ב־1), <span class="m">\(y=-x+3\)</span> (יורד, חותך ב־3) ו־<span class="m">\(y=-2\)</span> (אופקי).</p>
+</div>
+<figure>
+<svg viewBox="0 0 300 300" width="290" role="img" aria-label="שלושה ישרים: y=2x+1, y=-x+3, y=-2">
+<g class="gr"><line x1="30" y1="30" x2="30" y2="270"/><line x1="60" y1="30" x2="60" y2="270"/><line x1="90" y1="30" x2="90" y2="270"/><line x1="120" y1="30" x2="120" y2="270"/><line x1="180" y1="30" x2="180" y2="270"/><line x1="210" y1="30" x2="210" y2="270"/><line x1="240" y1="30" x2="240" y2="270"/><line x1="270" y1="30" x2="270" y2="270"/><line x1="30" y1="60" x2="270" y2="60"/><line x1="30" y1="90" x2="270" y2="90"/><line x1="30" y1="120" x2="270" y2="120"/><line x1="30" y1="180" x2="270" y2="180"/><line x1="30" y1="210" x2="270" y2="210"/><line x1="30" y1="240" x2="270" y2="240"/></g>
+<line class="ax" x1="25" y1="150" x2="278" y2="150"/><line class="ax" x1="150" y1="278" x2="150" y2="22"/>
+<line class="ac" x1="75" y1="270" x2="195" y2="30"/>
+<line class="mk" x1="120" y1="30" x2="270" y2="180"/>
+<line class="dash" x1="30" y1="210" x2="270" y2="210" style="stroke:var(--ink)"/>
+<text x="198" y="44" class="a">y=2x+1</text><text x="210" y="160" class="k">y=−x+3</text><text x="34" y="230">y=−2</text>
+<text x="154" y="168">0</text><text x="176" y="168">1</text><text x="154" y="124">1</text><text x="154" y="64">3</text><text x="272" y="168">x</text><text x="156" y="28">y</text>
+</svg></figure>
+</div>
+<div class="example"><span class="tag">דוגמה 2: לזהות m ו־b</span>
+<p>ב־<span class="m">\(y=5-3x\)</span>: השיפוע <span class="m">\(m=-3\)</span> (המקדם של x), ו־<span class="m">\(b=5\)</span>.</p>
+<p>ב־<span class="m">\(2y=4x+6\)</span> צריך קודם לבודד את y: <span class="m">\(y=2x+3\)</span>, ולכן <span class="m">\(m=2\)</span>, <span class="m">\(b=3\)</span>.</p></div>
+<div class="example"><span class="tag">דוגמה 3: המשמעות בבעיה</span>
+<p>נסיעה במונית: 12 ₪ בכניסה ועוד 4 ₪ לכל ק״מ. המחיר: <span class="m">\(y=4x+12\)</span>. השיפוע 4 הוא <strong>המחיר לק״מ</strong> (קצב השינוי), ו־12 הוא <strong>הערך ההתחלתי</strong> (כש־x=0).</p></div>
+</section>
+
+<section class="ch" id="find"><h2>מציאת משוואת ישר</h2>
+<div class="example"><span class="tag">דוגמה 4: לפי שיפוע ונקודה</span>
+<p>מצאו את משוואת הישר ששיפועו 3 והוא עובר דרך <span class="m">\((2,4)\)</span>.</p>
+<p><span class="m">\(y=3x+b\)</span>. מציבים את הנקודה: <span class="m">\(4=3\cdot2+b\Rightarrow b=-2\)</span>.</p>
+<p>המשוואה: <span class="m">\(y=3x-2\)</span>.</p></div>
+<div class="example"><span class="tag">דוגמה 5: לפי שתי נקודות</span>
+<p>מצאו את משוואת הישר העובר דרך <span class="m">\((1,7)\)</span> ו־<span class="m">\((4,1)\)</span>.</p>
+<p>שלב 1, שיפוע: <span class="m">\(m=\frac{1-7}{4-1}=-2\)</span>.</p>
+<p>שלב 2, הצבה של אחת הנקודות: <span class="m">\(7=-2\cdot1+b\Rightarrow b=9\)</span>.</p>
+<p>המשוואה: <span class="m">\(y=-2x+9\)</span>. בדיקה עם הנקודה השנייה: <span class="m">\(-8+9=1\)</span> ✓</p></div>
+<div class="example"><span class="tag">דוגמה 6: חיתוך עם הצירים</span>
+<p>הישר <span class="m">\(y=-2x+9\)</span>: עם ציר y ב־<span class="m">\((0,9)\)</span>. עם ציר x: <span class="m">\(-2x+9=0\Rightarrow x=4.5\)</span>, בנקודה <span class="m">\((4.5,0)\)</span>.</p></div>
+</section>
+
+<section class="ch" id="parallel"><h2>ישרים מקבילים</h2>
+<div class="meaning"><p>לישרים מקבילים <strong>אותו שיפוע</strong> ו־b שונה. למשל <span class="m">\(y=2x+1\)</span> ו־<span class="m">\(y=2x-5\)</span> מקבילים. ישרים עם שיפועים שונים נחתכים בנקודה אחת.</p></div>
+<div class="example"><span class="tag">דוגמה 7</span>
+<p>מצאו את משוואת הישר המקביל ל־<span class="m">\(y=-x+4\)</span> ועובר דרך <span class="m">\((3,5)\)</span>.</p>
+<p><span class="m">\(m=-1\)</span>. <span class="m">\(5=-3+b\Rightarrow b=8\)</span>. המשוואה: <span class="m">\(y=-x+8\)</span>.</p></div>
+</section>
+
+<section class="ch" id="mistakes"><h2>טעויות נפוצות</h2>
+<ul class="mistakes">
+<li>להפוך את סדר החיסור במונה ובמכנה: אם במונה <span class="m">\(y_2-y_1\)</span>, אז במכנה <span class="m">\(x_2-x_1\)</span>, באותו סדר.</li>
+<li>לקחת את b כשיפוע ב־<span class="m">\(y=5-3x\)</span>. השיפוע הוא המקדם של x, בלי קשר לסדר הכתיבה.</li>
+<li>לשכוח לבודד את y לפני שמזהים את השיפוע.</li>
+<li>לחשוב ש־<span class="m">\(m=\frac{\Delta x}{\Delta y}\)</span>. השינוי ב־y תמיד במונה.</li>
+</ul>
+</section>
+
+<section class="ch level" id="check"><h2>בדקו את עצמכם <small>7 שאלות</small></h2>
+<ol class="exercises">
+<li>מצאו את השיפוע בין <span class="m">\((2,3)\)</span> ל־<span class="m">\((6,11)\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{8}{4}=2\)</span>.</p></div></details></li>
+<li>מצאו את השיפוע בין <span class="m">\((-2,4)\)</span> ל־<span class="m">\((2,2)\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{-2}{4}=-\frac{1}{2}\)</span>.</p></div></details></li>
+<li>מה השיפוע ומה נקודת החיתוך עם ציר y של <span class="m">\(y=7-4x\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(m=-4\)</span>, נקודה <span class="m">\((0,7)\)</span>.</p></div></details></li>
+<li>מצאו את משוואת הישר ששיפועו <span class="m">\(-2\)</span> ועובר דרך <span class="m">\((1,5)\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(5=-2+b\Rightarrow b=7\)</span>. <span class="m">\(y=-2x+7\)</span>.</p></div></details></li>
+<li>מצאו את משוואת הישר העובר דרך <span class="m">\((0,-3)\)</span> ו־<span class="m">\((2,5)\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(m=4\)</span>, <span class="m">\(b=-3\)</span>. <span class="m">\(y=4x-3\)</span>.</p></div></details></li>
+<li>האם הישרים <span class="m">\(y=3x+1\)</span> ו־<span class="m">\(2y=6x-4\)</span> מקבילים?<details><summary>הצג פתרון</summary><div class="sol"><p>השני הוא <span class="m">\(y=3x-2\)</span>. אותו שיפוע ו־b שונה: מקבילים.</p></div></details></li>
+<li>מצאו את נקודות החיתוך של <span class="m">\(y=3x-12\)</span> עם הצירים.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((0,-12)\)</span> ו־<span class="m">\((4,0)\)</span>.</p></div></details></li>
+</ol>
+</section>
+
+<section class="ch next" id="next"><h2>ממשיכים לתרגול</h2><p><a href="algebra-02-linear-function-practice.html">תרגול: הפונקציה הקווית</a>.</p></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

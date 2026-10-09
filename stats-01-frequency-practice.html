@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תרגול: איסוף מידע, שכיחות ושכיחות יחסית · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="stats-01-frequency-learn.html">← לדף ההסבר</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום אי־ודאות · דף תרגול</span><h1>תרגול: איסוף מידע, שכיחות ושכיחות יחסית</h1><p class="lead">תרגול בניית טבלאות שכיחות, קריאת דיאגרמות ושכיחות יחסית, עם רמזים ופתרונות מלאים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#remind">תזכורת קצרה</a></li><li><a href="#lvl1">רמה א׳: בסיס </a></li><li><a href="#lvl2">רמה ב׳: ביסוס </a></li><li><a href="#lvl3">רמה ג׳: אתגר </a></li></ol></nav>
+<section class="ch" id="remind"><h2>תזכורת קצרה</h2>
+<div class="formulas">
+<div class="f"><b>שכיחות</b>כמה פעמים ערך מופיע</div>
+<div class="f"><b>שכיחות יחסית</b>השכיחות ÷ מספר הנתונים</div>
+<div class="f"><b>זווית בדיאגרמת עיגול</b>שכיחות יחסית × 360°</div>
+<div class="f"><b>השוואת קבוצות</b>לפי שכיחות יחסית</div>
+</div>
+<p>הסברים ב<a class="inline" href="stats-01-frequency-learn.html">דף ההסבר</a>.</p>
+</section>
+
+<section class="ch level" id="lvl1"><h2>רמה א׳: בסיס <small>שאלות 1–6</small></h2>
+<ol class="exercises" start="1">
+<li>ציוני 20 תלמידים בבוחן (מתוך 5): 3, 4, 5, 2, 4, 4, 3, 5, 1, 4, 3, 4, 5, 2, 4, 3, 4, 5, 3, 4. בנו טבלת שכיחויות ושכיחויות יחסיות.<details><summary>הצג פתרון</summary><div class="sol"><p>1: 1 (5%), 2: 2 (10%), 3: 5 (25%), 4: 8 (40%), 5: 4 (20%). סה״כ 20.</p></div></details></li>
+<li>לפי השאלה הקודמת: כמה אחוזים מהתלמידים קיבלו 4 ומעלה?<details><summary>הצג פתרון</summary><div class="sol"><p>40% + 20% = 60%.</p></div></details></li>
+<li>השלימו את הטבלה (40 תלמידים):<div class="tablebox"><table><thead><tr><th>אמצעי הגעה</th><th>ברגל</th><th>אוטובוס</th><th>רכב</th><th>אופניים</th></tr></thead><tbody><tr><th>שכיחות</th><td>14</td><td>?</td><td>8</td><td>?</td></tr><tr><th>שכיחות יחסית</th><td>?</td><td>0.3</td><td>?</td><td>?</td></tr></tbody></table></div><details><summary>הצג פתרון</summary><div class="sol"><p>אוטובוס: 12. אופניים: <span class="m">\(40-14-12-8=6\)</span>. שכיחויות יחסיות: 0.35, 0.3, 0.2, 0.15.</p></div></details></li>
+<li>חשבו את הזוויות בדיאגרמת עיגול לנתוני שאלה 3.<details><summary>הצג פתרון</summary><div class="sol"><p>126°, 108°, 72°, 54°. סכום 360° ✓</p></div></details></li>
+<li>שכיחות יחסית של ״כחול״ בסקר היא <span class="m">\(\frac{3}{8}\)</span>, ו־15 אנשים בחרו כחול. כמה אנשים השתתפו בסקר?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(15:\frac38=40\)</span>.</p></div></details></li>
+<li>הגדירו אוכלוסייה ומדגם: ״כדי לבדוק כמה שעות ישנים תלמידי בית הספר, שאלו 3 תלמידים מכל כיתה.״<details><summary>הצג פתרון</summary><div class="sol"><p>אוכלוסייה: כל תלמידי בית הספר. מדגם: התלמידים שנשאלו (3 מכל כיתה).</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl2"><h2>רמה ב׳: ביסוס <small>שאלות 7–11</small></h2>
+<ol class="exercises" start="7">
+<li>בבית ספר א׳ (500 תלמידים) 120 תלמידים מנגנים. בבית ספר ב׳ (320 תלמידים) 80 מנגנים. באיזה בית ספר נגינה נפוצה יותר?<details><summary>הצג פתרון</summary><div class="sol"><p>א׳: 24%. ב׳: 25%. מעט יותר בבית ספר ב׳.</p></div></details></li>
+<li>בדיאגרמת עיגול של 72 תשובות, לגזרת ״כן״ זווית של 150°. כמה ענו ״כן״?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{150}{360}\cdot72=30\)</span>.</p></div></details></li>
+<li><figure><svg viewBox="0 0 300 200" width="280" role="img" aria-label="דיאגרמת עמודות עם ציר y שמתחיל ב-90">
+<line class="ax" x1="40" y1="170" x2="290" y2="170"/><line class="ax" x1="40" y1="174" x2="40" y2="20"/>
+<rect x="80" y="130" width="60" height="40" style="fill:var(--accent)"/><rect x="190" y="30" width="60" height="140" style="fill:var(--mark)"/>
+<text x="14" y="174">90</text><text x="14" y="134">92</text><text x="14" y="34">97</text>
+<text x="88" y="190">חברה א׳</text><text x="198" y="190">חברה ב׳</text><text x="96" y="124" class="a">92%</text><text x="206" y="24" class="k">97%</text>
+</svg></figure>חברה ב׳ מפרסמת את הגרף: ״הלקוחות שלנו מרוצים פי 3.5!״. מה הבעיה בגרף? מה ההבדל האמיתי?<details><summary>הצג פתרון</summary><div class="sol"><p>ציר y מתחיל ב־90 ולא ב־0, ולכן העמודה של ב׳ נראית ארוכה פי 3.5. בפועל ההבדל 5 נקודות אחוז (92% מול 97%).</p></div></details></li>
+<li>בסקר השתתפו 50 בנים ו־30 בנות. 40% מהבנים ו־60% מהבנות אמרו ״כן״. מה השכיחות היחסית של ״כן״ בכל המדגם?<details class="hint"><summary>רמז</summary><div class="sol"><p>אי אפשר לעשות ממוצע של 40% ו־60%. חשבו כמה אמרו ״כן״ בכל קבוצה.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p>20 בנים ו־18 בנות: 38 מתוך 80, <span class="m">\(47.5\%\)</span>.</p></div></details></li>
+<li>שכיחויות יחסיות של ארבעה ערכים הן 0.1, 0.3, x, 2x. מצאו את x.<details><summary>הצג פתרון</summary><div class="sol"><p>הסכום 1: <span class="m">\(0.4+3x=1\Rightarrow x=0.2\)</span>. השכיחויות היחסיות: 0.1, 0.3, 0.2, 0.4.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl3"><h2>רמה ג׳: אתגר <small>שאלות 12–14</small></h2>
+<ol class="exercises" start="12">
+<li>בכיתה 30 תלמידים. השכיחות היחסית של הבנות היא 0.4. הצטרפו לכיתה כמה בנות, ועכשיו השכיחות היחסית שלהן 0.5. כמה בנות הצטרפו?<details><summary>הצג פתרון</summary><div class="sol"><p>בנות: 12, בנים: 18. כדי ששיעור הבנות יהיה 50%, צריך 18 בנות: הצטרפו 6.</p></div></details></li>
+<li>הסבירו מדוע סקר ״באיזו תדירות אתם קוראים ספרים?״ שנעשה בספרייה העירונית יכול לתת תוצאה מוטה.<details><summary>הצג פתרון</summary><div class="sol"><p>מי שנמצא בספרייה כנראה קורא יותר מהממוצע. המדגם אינו מייצג את כלל האוכלוסייה.</p></div></details></li>
+<li>בדיאגרמת עיגול הזוויות מתייחסות כ־<span class="m">\(1:2:3:4\)</span>, ויש 200 נתונים. מה השכיחות של כל ערך, ומה הזווית של כל גזרה?<details><summary>הצג פתרון</summary><div class="sol"><p>10 חלקים: שכיחויות 20, 40, 60, 80. זוויות 36°, 72°, 108°, 144°.</p></div></details></li>
+</ol></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

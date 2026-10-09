@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תרגול: משולש שווה שוקיים · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="geometry-07-isosceles-learn.html">← לדף ההסבר</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום גאומטרי · דף תרגול</span><h1>תרגול: משולש שווה שוקיים</h1><p class="lead">תרגול חישובים והוכחות במשולש שווה שוקיים, עם רמזים ופתרונות מלאים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#remind">תזכורת קצרה</a></li><li><a href="#lvl1">רמה א׳: בסיס </a></li><li><a href="#lvl2">רמה ב׳: ביסוס </a></li><li><a href="#lvl3">רמה ג׳: אתגר </a></li></ol></nav>
+<section class="ch" id="remind"><h2>תזכורת קצרה</h2>
+<div class="formulas">
+<div class="f"><b>זוויות בסיס</b>שוות: <span class="m">\(\angle B=\angle C=\frac{180°-\angle A}{2}\)</span></div>
+<div class="f"><b>הקטע מזווית הראש לבסיס</b>חוצה זווית = תיכון = גובה</div>
+<div class="f"><b>הפוך</b>שתי זוויות שוות ← הצלעות שמולן שוות</div>
+<div class="f"><b>שווה צלעות</b>כל הזוויות 60°</div>
+</div>
+<p>הסברים ב<a class="inline" href="geometry-07-isosceles-learn.html">דף ההסבר</a>.</p>
+</section>
+
+<section class="ch level" id="lvl1"><h2>רמה א׳: בסיס <small>שאלות 1–8</small></h2>
+<p class="lead">בכל השאלות, <span class="m">\(AB=AC\)</span>.</p>
+<ol class="exercises" start="1">
+<li><span class="m">\(\angle A=50°\)</span>. מצאו את <span class="m">\(\angle B\)</span> ו־<span class="m">\(\angle C\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p>65° כל אחת.</p></div></details></li>
+<li><span class="m">\(\angle B=72°\)</span>. מצאו את <span class="m">\(\angle A\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p>36°.</p></div></details></li>
+<li><span class="m">\(\angle A=2\angle B\)</span>. מצאו את הזוויות.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(2x+x+x=180\Rightarrow x=45\)</span>. <span class="m">\(\angle A=90°\)</span>, <span class="m">\(\angle B=\angle C=45°\)</span>.</p></div></details></li>
+<li><span class="m">\(\angle B=3x+5°\)</span>, <span class="m">\(\angle C=5x-15°\)</span>. מצאו את x ואת <span class="m">\(\angle A\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(3x+5=5x-15\Rightarrow x=10\)</span>. זוויות הבסיס 35°, <span class="m">\(\angle A=110°\)</span>.</p></div></details></li>
+<li>AD חוצה את <span class="m">\(\angle A\)</span>, ו־<span class="m">\(BC=18\)</span>. מה BD? מה <span class="m">\(\angle ADC\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(BD=9\)</span>, <span class="m">\(\angle ADC=90°\)</span>.</p></div></details></li>
+<li><span class="m">\(AB=17\)</span>, <span class="m">\(BC=16\)</span>. מצאו את הגובה לבסיס ואת השטח.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(h=\sqrt{289-64}=15\)</span>. שטח 120.</p></div></details></li>
+<li>היקף המשולש 32, והבסיס 10. מה אורך השוק?<details><summary>הצג פתרון</summary><div class="sol"><p>11.</p></div></details></li>
+<li>הזווית החיצונית ב־A (בהמשך הצלע BA) היא 110°. מצאו את זוויות המשולש.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle A=70°\)</span>, <span class="m">\(\angle B=\angle C=55°\)</span>.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl2"><h2>רמה ב׳: ביסוס <small>שאלות 9–14</small></h2>
+<ol class="exercises" start="9">
+<li>במשולש שווה שוקיים זווית הראש גדולה ב־30° מזווית הבסיס. מצאו את הזוויות.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x+x+(x+30)=180\Rightarrow x=50\)</span>. 50°, 50°, 80°.</p></div></details></li>
+<li>ב־<span class="m">\(\triangle ABC\)</span>, <span class="m">\(\angle B=\angle C\)</span>, <span class="m">\(AB=2x+3\)</span>, <span class="m">\(AC=4x-5\)</span>, <span class="m">\(BC=x+8\)</span>. מצאו את ההיקף.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(AB=AC\Rightarrow x=4\)</span>. צלעות 11, 11, 12. היקף 34.</p></div></details></li>
+<li>ב־<span class="m">\(\triangle ABC\)</span> שווה שוקיים (<span class="m">\(AB=AC\)</span>), D אמצע BC. <span class="m">\(\angle BAD=25°\)</span>. מצאו את כל זוויות המשולש.<details><summary>הצג פתרון</summary><div class="sol"><p>AD תיכון, ולכן גם חוצה זווית: <span class="m">\(\angle A=50°\)</span>, <span class="m">\(\angle B=\angle C=65°\)</span>.</p></div></details></li>
+<li>במשולש שווה צלעות שצלעו 8, מה הגובה ומה השטח (בקירוב)?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(h=\sqrt{64-16}=\sqrt{48}\approx6.93\)</span>. שטח <span class="m">\(\approx27.7\)</span>.</p></div></details></li>
+<li>על הצלע BC של <span class="m">\(\triangle ABC\)</span> נמצאת הנקודה D כך ש־<span class="m">\(AD=BD\)</span>. <span class="m">\(\angle B=35°\)</span>. מה <span class="m">\(\angle ADC\)</span>?<details class="hint"><summary>רמז</summary><div class="sol"><p><span class="m">\(\triangle ABD\)</span> שווה שוקיים, ו־<span class="m">\(\angle ADC\)</span> היא זווית חיצונית שלו.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle BAD=35°\)</span>. <span class="m">\(\angle ADC=35+35=70°\)</span>.</p></div></details></li>
+<li>הוכיחו: אם במשולש הגובה הוא גם תיכון, המשולש שווה שוקיים.<details><summary>הצג פתרון</summary><div class="sol"><p>AD גובה ותיכון. ב־<span class="m">\(\triangle ABD\)</span> וב־<span class="m">\(\triangle ACD\)</span>: <span class="m">\(BD=DC\)</span> (תיכון), <span class="m">\(\angle ADB=\angle ADC=90°\)</span> (גובה), AD משותפת. צ.ז.צ, לכן <span class="m">\(AB=AC\)</span>.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl3"><h2>רמה ג׳: אתגר <small>שאלות 15–18</small></h2>
+<ol class="exercises" start="15">
+<li>ב־<span class="m">\(\triangle ABC\)</span>, <span class="m">\(AB=AC\)</span>, ו־BD חוצה את <span class="m">\(\angle B\)</span> (D על AC). נתון <span class="m">\(\angle A=36°\)</span>. הוכיחו ש־<span class="m">\(\triangle BDC\)</span> ו־<span class="m">\(\triangle ABD\)</span> הם שווי שוקיים.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle B=\angle C=72°\)</span>, <span class="m">\(\angle ABD=\angle DBC=36°\)</span>.</p><p>ב־<span class="m">\(\triangle ABD\)</span>: <span class="m">\(\angle A=\angle ABD=36°\)</span>, לכן <span class="m">\(AD=BD\)</span>.</p><p>ב־<span class="m">\(\triangle BDC\)</span>: <span class="m">\(\angle BDC=180-36-72=72°=\angle C\)</span>, לכן <span class="m">\(BD=BC\)</span>.</p></div></details></li>
+<li>ב־<span class="m">\(\triangle ABC\)</span>, <span class="m">\(AB=AC\)</span>. ממשיכים את BA מעבר ל־A עד D כך ש־<span class="m">\(AD=AB\)</span>. הוכיחו: <span class="m">\(\angle BCD=90°\)</span>.<details class="hint"><summary>רמז</summary><div class="sol"><p>גם <span class="m">\(\triangle ACD\)</span> שווה שוקיים. סמנו את זוויות הבסיס בשני המשולשים.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle B=\angle ACB=x\)</span>. <span class="m">\(AD=AB=AC\)</span>, לכן <span class="m">\(\angle D=\angle ACD=y\)</span>.</p><p>ב־<span class="m">\(\triangle BCD\)</span>: <span class="m">\(x+y+(x+y)=180\Rightarrow x+y=90°\)</span>, ו־<span class="m">\(\angle BCD=x+y=90°\)</span>.</p></div></details></li>
+<li>במשולש שווה שוקיים ההיקף 50, והשוק ארוכה מהבסיס ב־1. מה השטח?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x+2(x+1)=50\Rightarrow x=16\)</span>. בסיס 16, שוקיים 17. גובה: <span class="m">\(\sqrt{289-64}=15\)</span>. שטח 120.</p></div></details></li>
+<li>הנקודה P נמצאת על האנך האמצעי של הקטע AB (הישר שמאונך ל־AB ועובר באמצעו). הוכיחו: <span class="m">\(PA=PB\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p>M אמצע AB. <span class="m">\(AM=MB\)</span>, <span class="m">\(\angle PMA=\angle PMB=90°\)</span>, PM משותפת. צ.ז.צ, לכן <span class="m">\(PA=PB\)</span>.</p></div></details></li>
+</ol></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

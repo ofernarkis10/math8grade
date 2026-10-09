@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תוכנית הלימודים · כיתה ח׳ · תשפ״ז</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: reference page on graph-paper ground (same system as the grade 11 site); one card per domain, then a month-by-month table, assessments and a build plan for site pages */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:460px;font-size:.95rem}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
+th{background:var(--accent-soft);font-weight:700}
+td.h,th.h{text-align:center;width:5.5rem;font-family:var(--f-math);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tfoot td{font-weight:700;background:var(--accent-soft)}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+section.ch .tablebox{border-radius:8px}
+.num{font-family:var(--f-math);color:var(--muted);font-size:.85rem}
+.ch-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pill{font-size:.82rem;font-weight:700;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:2px 10px;white-space:nowrap}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+ul.topics{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:12px}
+ul.topics li::marker{color:var(--accent)}
+.when{display:inline-block;font-size:.8rem;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:99px;padding:0 9px;margin-inline-start:6px;white-space:nowrap}
+.ext{display:block;margin-top:4px;font-size:.92rem;color:var(--muted)}
+.ext b{color:var(--mark)}
+.bar{display:flex;height:14px;border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar span{display:block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-inline-end:6px;vertical-align:-1px}
+.c1{background:#1f6f8b}.c2{background:#b4561e}.c3{background:#5a7f3a}.c4{background:#7a5aa6}
+ol.plan{margin:0;padding-inline-start:0;list-style:none;display:flex;flex-direction:column;gap:8px;counter-reset:p}
+ol.plan li{display:grid;grid-template-columns:2.6rem 1fr;gap:2px 12px;align-items:baseline}
+ol.plan li::before{counter-increment:p;content:counter(p,decimal-leading-zero);font-family:var(--f-math);color:var(--accent);font-weight:600;grid-row:span 2}
+ol.plan code{font-family:var(--f-math);font-size:.82rem;color:var(--muted);direction:ltr;unicode-bidi:isolate}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+a.inline{color:var(--accent);font-weight:600}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.14em}.m:has(.katex){white-space:normal}</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">→ חזרה לדף הראשי</a>
+<header>
+  <span class="eyebrow">מתמטיקה · כיתה ח׳ · מסמך עזר · תשפ״ז (2026–2027)</span>
+  <h1>נושאי הלימוד בכיתה ח׳</h1>
+  <p class="lead">רשימת כל הנושאים שנלמדים במתמטיקה בכיתה ח׳ השנה, לפי פריסת ההוראה הרשמית של משרד החינוך לתשפ״ז. הנושאים מסודרים לפי ארבעה תחומים, ולכל נושא מצוינים החודש ומספר השעות. בסוף המסמך יש לוח זמנים חודשי, מועדי המשימות והמבחנים, ותוכנית לדפי הלימוד שייבנו באתר.</p>
+</header>
+
+<div class="note"><strong>שנת מעבר:</strong> תשפ״ז היא שנת מעבר בין תוכנית הלימודים הקודמת לתוכנית המעודכנת. ספרי לימוד חדשים צפויים רק בתשפ״ח, ולכן לומדים מהספרים הקיימים לפי הסדר של הפריסה. בגלל המעבר, חלק מהנושאים (משפט פיתגורס, גליל וחרוט, דמיון משולשים, אי־שוויונות) הוקדמו לכיתה ח׳.</div>
+
+<nav aria-label="תוכן"><strong>תוכן</strong><ol>
+<li><a href="#overview">התפלגות השעות</a></li>
+<li><a href="#d1">תחום מספרי</a></li>
+<li><a href="#d2">תחום אלגברי</a></li>
+<li><a href="#d3">תחום גאומטרי</a></li>
+<li><a href="#d4">תחום אי־ודאות (סטטיסטיקה והסתברות)</a></li>
+<li><a href="#months">לוח זמנים חודשי</a></li>
+<li><a href="#tests">משימות הערכה ומבחנים</a></li>
+<li><a href="#focus">דגשים לקראת 4 יחידות</a></li>
+<li><a href="#plan">תוכנית דפי האתר</a></li>
+</ol></nav>
+
+<section class="ch" id="overview"><div class="ch-head"><h2>התפלגות השעות</h2><span class="pill">162 שעות בשנה</span></div>
+<div class="bar" role="img" aria-label="מספרי 15, אלגברי 45, גאומטרי 57, אי־ודאות 30, חזרות 15 שעות">
+  <span class="c1" style="flex:15"></span><span class="c2" style="flex:45"></span><span class="c3" style="flex:57"></span><span class="c4" style="flex:30"></span><span style="flex:15;background:var(--line)"></span>
+</div>
+<div class="legend"><span><i class="c1"></i>מספרי · 15</span><span><i class="c2"></i>אלגברי · 45</span><span><i class="c3"></i>גאומטרי · 57</span><span><i class="c4"></i>אי־ודאות · 30</span><span><i style="background:var(--line)"></i>חזרות · 15</span></div>
+<p>הגאומטריה והאלגברה הן כ־60% מהשנה. בגאומטריה עיקר המשקל על משולשים (חפיפה, שווה שוקיים, דמיון) ועל משפט פיתגורס, ובאלגברה על הפונקציה הקווית, משוואות ובעיות מילוליות ומערכות משוואות.</p>
+</section>
+
+<section class="ch" id="d1"><span class="num">01</span><div class="ch-head"><h2>תחום מספרי</h2><span class="pill">15 שעות</span></div>
+<ul class="topics">
+<li><strong>יחס, פרופורציה וקנה מידה.</strong><span class="when">ספט׳–אוק׳ · 8 ש׳</span> יחס בין שני גדלים ושל כמה גדלים, צמצום והרחבה של יחס, חלוקה לפי יחס נתון, פרופורציה ותכונותיה (מכפלת הקצוות שווה למכפלת האמצעים, <span class="m">\(\frac{a}{b}=\frac{c}{d} \Leftrightarrow ad=bc\)</span>), יחס ישר, קנה מידה במפות ובשרטוטים, והגדלה והקטנה של צורות.
+<span class="ext"><b>פרויקט אוריינות:</b> ציור קיר.</span></li>
+<li><strong>אחוזים.</strong><span class="when">אוק׳ · 7 ש׳</span> אחוז כשבר וכיחס, חישוב אחוז מכמות, חישוב הכמות השלמה לפי חלק ואחוז, אחוז שינוי (עלייה והנחה), שינויים חוזרים ושינוי באחוזים אחרי שינוי (כפל במקדם <span class="m">\(1+\frac{p}{100}\)</span>), ובעיות יום־יומיות (מע״מ, הנחות, ריבית פשוטה).
+<span class="ext"><b>פרויקט אוריינות:</b> מודל הזמן של נועה.</span></li>
+</ul>
+</section>
+
+<section class="ch" id="d2"><span class="num">02</span><div class="ch-head"><h2>תחום אלגברי</h2><span class="pill">45 שעות</span></div>
+<ul class="topics">
+<li><strong>מבוא לפונקציות וייצוגיהן.</strong><span class="when">נוב׳ · 8 ש׳</span> מהי פונקציה (משתנה תלוי ובלתי תלוי), ייצוג מילולי, טבלה, גרף וביטוי אלגברי, ומעבר בין הייצוגים. קריאת גרף: תחומי עלייה וירידה, נקודות מקסימום ומינימום, נקודות חיתוך עם הצירים, וגרפים של מצבים מהחיים (מרחק־זמן, טמפרטורה).</li>
+<li><strong>גרפים לינאריים.</strong><span class="when">נוב׳ · 2 ש׳</span> זיהוי גרף של קו ישר מטבלה, ושרטוט ישר לפי טבלת ערכים.</li>
+<li><strong>קצב שינוי ושיפוע, הפונקציה הקווית.</strong><span class="when">דצמ׳ · 6 ש׳</span> קצב שינוי אחיד ולא אחיד, שיפוע ישר כקצב השינוי <span class="m">\(m=\frac{y_2-y_1}{x_2-x_1}\)</span>, שיפוע חיובי, שלילי ואפס, הייצוג <span class="m">\(y=mx+b\)</span> ומשמעות <span class="m">\(m\)</span> ו־<span class="m">\(b\)</span>, ישרים מקבילים, ומציאת משוואת ישר לפי שיפוע ונקודה או לפי שתי נקודות.</li>
+<li><strong>משוואות ובעיות מילוליות.</strong><span class="when">דצמ׳–פבר׳ · 12 ש׳</span> חזרה על משוואות ממעלה ראשונה, משוואות עם סוגריים ומכנים, משוואות מיוחדות (אין פתרון, אינסוף פתרונות), ותרגום בעיה מילולית למשוואה: בעיות אחוזים, בעיות תנועה (<span class="m">\(s=v\cdot t\)</span>), בעיות גילים ומספרים.</li>
+<li><strong>מערכת של שתי משוואות עם שני נעלמים.</strong><span class="when">פבר׳–מאי · ~11 ש׳</span> שיטת ההצבה ושיטת השוואת המקדמים (חיבור וחיסור משוואות), פתרון גרפי כנקודת חיתוך של שני ישרים, מערכות ללא פתרון ועם אינסוף פתרונות, ובעיות מילוליות שנפתרות במערכת.
+<span class="ext"><b>פרויקט אוריינות:</b> באיזו חברה כדאי לבחור?</span></li>
+<li><strong>אי־שוויונות.</strong><span class="when">מאי · ~6 ש׳</span> אי־שוויון ממעלה ראשונה, היפוך כיוון בכפל או בחילוק במספר שלילי, הצגת הפתרון על ישר המספרים, ובעיות מילוליות עם אי־שוויון.
+<span class="ext"><b>הרחבה (עתודה מדעית):</b> מערכות אי־שוויונות עם ״וגם״ ו״או״.</span></li>
+</ul>
+</section>
+
+<section class="ch" id="d3"><span class="num">03</span><div class="ch-head"><h2>תחום גאומטרי</h2><span class="pill">57 שעות</span></div>
+<ul class="topics">
+<li><strong>זוויות בין ישרים מקבילים.</strong><span class="when">ספט׳ · 4 ש׳</span> השלמה מכיתה ז׳ אם לא נלמד: זוויות מתחלפות, מתאימות וחד־צדדיות, והמשפטים ההפוכים (מתי ישרים מקבילים).</li>
+<li><strong>היקף מעגל ושטח עיגול.</strong><span class="when">אוק׳ · הקדמה</span> <span class="m">\(P=2\pi r\)</span> ו־<span class="m">\(S=\pi r^2\)</span>. נלמד לפני גליל וחרוט, אם טרם נלמד.</li>
+<li><strong>משפט פיתגורס.</strong><span class="when">ספט׳–אוק׳ · 4 ש׳</span> <span class="m">\(a^2+b^2=c^2\)</span> במשולש ישר זווית, חישוב ניצב ויתר, המשפט ההפוך (בדיקה אם משולש ישר זווית), ושימושים: אלכסון מלבן, גובה במשולש שווה שוקיים, מרחק בין נקודות.</li>
+<li><strong>גליל וחרוט.</strong><span class="when">אוק׳–נוב׳ · 6 ש׳</span> פריסה, שטח מעטפת ושטח פנים, נפח גליל <span class="m">\(V=\pi r^2h\)</span> ונפח חרוט <span class="m">\(V=\frac{1}{3}\pi r^2h\)</span>, ושימוש בפיתגורס לחישוב קו יוצר בחרוט.
+<span class="ext"><b>פרויקט אוריינות:</b> תכנון הביטאט על המאדים.</span></li>
+<li><strong>טרנספורמציות וצורות חופפות.</strong><span class="when">נוב׳ · 5 ש׳</span> הזזה, שיקוף וסיבוב, ומה נשמר בהן (אורכים וזוויות), וחפיפה כהתאמה בין צורות.
+<span class="ext"><b>פרויקט אוריינות:</b> סודות הפסיפס של יונתן.</span></li>
+<li><strong>חפיפת משולשים.</strong><span class="when">ינו׳–פבר׳ · ~10 ש׳</span> משפטי החפיפה צ.ז.צ, ז.צ.ז ו־צ.צ.צ, כתיבת הוכחה בטבלה (טענה ונימוק), והוכחת שוויון קטעים וזוויות בעזרת חפיפה.</li>
+<li><strong>צלעות במשולש ותיכון.</strong><span class="when">פבר׳ · ~6 ש׳</span> אי־שוויון המשולש (סכום שתי צלעות גדול מהשלישית), הקשר בין צלע גדולה לזווית גדולה, ותיכון במשולש.</li>
+<li><strong>זווית חיצונית למשולש.</strong><span class="when">מרץ</span> זווית חיצונית שווה לסכום שתי הזוויות הפנימיות שאינן צמודות לה.</li>
+<li><strong>משולש שווה שוקיים.</strong><span class="when">מרץ–אפר׳ · ~10 ש׳</span> זוויות הבסיס שוות, התיכון, הגובה וחוצה זווית הראש מתלכדים, והמשפטים ההפוכים (מתי משולש הוא שווה שוקיים). שימוש בהוכחות.</li>
+<li><strong>דמיון משולשים.</strong><span class="when">מרץ–אפר׳ · ~6 ש׳</span> צורות דומות ויחס דמיון, משפטי דמיון במשולשים, יחס היקפים ויחס שטחים (<span class="m">\(k\)</span> ו־<span class="m">\(k^2\)</span>), וחישוב אורכים בעזרת דמיון.</li>
+<li><strong>משפט פיתגורס במרחב.</strong><span class="when">מאי–יוני · 6 ש׳</span> אלכסון תיבה <span class="m">\(d=\sqrt{a^2+b^2+c^2}\)</span>, אלכסוני פאות, וגובה בפירמידה ובחרוט.</li>
+</ul>
+</section>
+
+<section class="ch" id="d4"><span class="num">04</span><div class="ch-head"><h2>תחום אי־ודאות</h2><span class="pill">30 שעות</span></div>
+<ul class="topics">
+<li><strong>איסוף וקריאת מידע, שכיחות.</strong><span class="when">אוק׳–נוב׳ · 5 ש׳</span> שאלון וסקר, טבלת שכיחויות, דיאגרמת עמודות ודיאגרמת עיגול, וקריאה ביקורתית של גרפים.</li>
+<li><strong>שכיחות יחסית.</strong><span class="when">נוב׳ · 3 ש׳</span> שכיחות יחסית כשבר וכאחוז, והשוואה בין קבוצות בגדלים שונים.</li>
+<li><strong>טווח נתונים ומדדי מרכז.</strong><span class="when">דצמ׳–ינו׳ · ~9 ש׳</span> ממוצע, חציון ושכיח, טווח, ההשפעה של ערך חריג על כל מדד, ובחירת המדד המתאים.</li>
+<li><strong>השוואה בין שני מקורות מידע.</strong><span class="when">ינו׳ · ~3 ש׳</span> השוואה בין שתי קבוצות נתונים בעזרת מדדי מרכז ופיזור.
+<span class="ext"><b>פרויקטי אוריינות:</b> רחפנים בשירות הפארק, מבחן טעימות.</span></li>
+<li><strong>אינטרפולציה ואקסטרפולציה.</strong><span class="when">ינו׳ · 4 ש׳</span> הערכת ערכים בין נתונים קיימים ומחוץ להם, וזהירות בחיזוי מגמה.</li>
+<li><strong>הסתברות.</strong><span class="when">מרץ · 6 ש׳</span> ניסוי, תוצאות ומאורע, הסתברות כיחס בין מספר התוצאות הרצויות למספר התוצאות האפשריות, מאורע משלים, הסתברות ניסויית לעומת תאורטית, וניסויים דו־שלביים בטבלה או בעץ.
+<span class="ext"><b>פרויקט אוריינות:</b> אלגוריתם חכם.</span></li>
+</ul>
+</section>
+
+<section class="ch" id="months"><h2>לוח זמנים חודשי</h2>
+<div class="tablebox"><table>
+<thead><tr><th>חודש</th><th>נושאים</th><th class="h">שעות</th></tr></thead>
+<tbody>
+<tr><td>ספטמבר</td><td>יחס, פרופורציה וקנה מידה · זוויות בין מקבילים</td><td class="h">10</td></tr>
+<tr><td>אוקטובר</td><td>יחס וקנה מידה (סיום) · אחוזים · פיתגורס · גליל וחרוט · איסוף מידע ושכיחות</td><td class="h">20</td></tr>
+<tr><td>נובמבר</td><td>שכיחות ושכיחות יחסית · גליל וחרוט (סיום) · טרנספורמציות · מבוא לפונקציות · גרפים לינאריים</td><td class="h">22</td></tr>
+<tr><td>דצמבר</td><td>קצב שינוי ושיפוע, הפונקציה הקווית · משוואות ובעיות מילוליות · מדדי מרכז</td><td class="h">15</td></tr>
+<tr><td>ינואר</td><td>משוואות ובעיות מילוליות · מדדי מרכז ושני מקורות מידע · אינטרפולציה · חפיפת משולשים</td><td class="h">21</td></tr>
+<tr><td>פברואר</td><td>חפיפת משולשים · צלעות במשולש · תיכון · בעיות מילוליות · מערכות משוואות</td><td class="h">20</td></tr>
+<tr><td>מרץ</td><td>זווית חיצונית · משולש שווה שוקיים · דמיון משולשים · הסתברות</td><td class="h">18</td></tr>
+<tr><td>אפריל</td><td>דמיון משולשים · מערכת משוואות</td><td class="h">5</td></tr>
+<tr><td>מאי</td><td>פיתגורס במרחב · אי־שוויונות · מערכות משוואות ובעיות מילוליות</td><td class="h">19</td></tr>
+<tr><td>יוני</td><td>חזרה על פיתגורס במרחב ועל נושאי השנה</td><td class="h">12</td></tr>
+</tbody>
+<tfoot><tr><td>סה״כ</td><td></td><td class="h">162</td></tr></tfoot>
+</table></div>
+</section>
+
+<section class="ch" id="tests"><h2>משימות הערכה ומבחנים</h2>
+<div class="tablebox"><table>
+<thead><tr><th>משימה</th><th>מועד</th><th>תכנים</th></tr></thead>
+<tbody>
+<tr><td>משימה 1</td><td>25.10.26–6.11.26</td><td>יחס, פרופורציה, קנה מידה, אחוזים, זוויות בין מקבילים, פיתגורס, היקף מעגל ושטח עיגול, משוואות לינאריות. חצי שאלות קצרות וחצי שאלה אוריינית, כ־60 דקות.</td></tr>
+<tr><td>משימה 2</td><td>26.1.27–4.2.27</td><td>לא פורסם. לפי הפריסה, כנראה פונקציות, שיפוע, משוואות ובעיות מילוליות, טרנספורמציות וסטטיסטיקה.</td></tr>
+<tr><td>משימה 3</td><td>14.3.27–26.3.27</td><td>לא פורסם. לפי הפריסה, כנראה חפיפת משולשים, צלעות ותיכון, ומערכות משוואות.</td></tr>
+<tr><td>מבחן מפמ״ר</td><td>23.5.27–4.6.27</td><td>מבחן ארצי על נושאי השנה.</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="ch" id="focus"><h2>דגשים לקראת 4 יחידות</h2>
+<p>אין חלוקה ליחידות לימוד בכיתה ח׳. ההמלצות כאן הן הערכה שלנו: אלה הנושאים שעליהם נשען החומר של 4 יחידות בחטיבה העליונה, ולכן כדאי לתרגל אותם לעומק.</p>
+<ul class="topics">
+<li><strong>הפונקציה הקווית.</strong> שיפוע, משוואת ישר ומעבר בין ייצוגים הם הבסיס להנדסה אנליטית ולחקירת פונקציות.</li>
+<li><strong>משוואות, מערכות ובעיות מילוליות.</strong> הכלי המרכזי בכל שאלון בגרות. תרגום טקסט למשוואה צריך להיות אוטומטי.</li>
+<li><strong>הוכחה בגאומטריה.</strong> חפיפה, שווה שוקיים ודמיון הם הבסיס לגאומטריה בתיכון. חשוב לתרגל כתיבת הוכחה מסודרת עם נימוקים.</li>
+<li><strong>פיתגורס ודמיון.</strong> מופיעים כמעט בכל שאלה בגאומטריה ובטריגונומטריה בהמשך.</li>
+<li><strong>אחוזים.</strong> הבסיס לבעיות גדילה ודעיכה ולסדרות הנדסיות.</li>
+</ul>
+<p class="ext"><b>תוספות של תוכנית העתודה המדעית (עמ״ט):</b> שאלות מתקדמות במעגל, ארבעה ייצוגים של הפונקציה הקווית, חפיפה ושווה שוקיים ברמה מתקדמת, ואי־שוויונות עם ״וגם״/״או״. כדאי להוסיף אותן כשאלות אתגר בדפי התרגול.</p>
+</section>
+
+<section class="ch" id="plan"><h2>תוכנית דפי האתר</h2>
+<p>הדפים שייבנו באתר, לפי סדר הלימוד בשנה. כל דף יכלול הסבר, דוגמאות פתורות ושאלות תרגול בשלוש רמות עם פתרונות.</p>
+<ol class="plan">
+<li><strong>יחס, פרופורציה וקנה מידה</strong><code>number-01-ratio-proportion.html</code></li>
+<li><strong>אחוזים</strong><code>number-02-percent.html</code></li>
+<li><strong>זוויות בין ישרים מקבילים</strong><code>geometry-01-parallel-angles.html</code></li>
+<li><strong>משפט פיתגורס</strong><code>geometry-02-pythagoras.html</code></li>
+<li><strong>מעגל, גליל וחרוט</strong><code>geometry-03-cylinder-cone.html</code></li>
+<li><strong>סטטיסטיקה: איסוף מידע, שכיחות ושכיחות יחסית</strong><code>stats-01-frequency.html</code></li>
+<li><strong>טרנספורמציות וצורות חופפות</strong><code>geometry-04-transformations.html</code></li>
+<li><strong>מבוא לפונקציות וייצוגים</strong><code>algebra-01-functions.html</code></li>
+<li><strong>הפונקציה הקווית: קצב שינוי ושיפוע</strong><code>algebra-02-linear-function.html</code></li>
+<li><strong>משוואות ובעיות מילוליות</strong><code>algebra-03-equations-word-problems.html</code></li>
+<li><strong>מדדי מרכז, טווח ושני מקורות מידע</strong><code>stats-02-measures.html</code></li>
+<li><strong>אינטרפולציה ואקסטרפולציה</strong><code>stats-03-interpolation.html</code></li>
+<li><strong>חפיפת משולשים</strong><code>geometry-05-congruence.html</code></li>
+<li><strong>צלעות במשולש, תיכון וזווית חיצונית</strong><code>geometry-06-triangle-sides-median.html</code></li>
+<li><strong>מערכת משוואות</strong><code>algebra-04-systems.html</code></li>
+<li><strong>משולש שווה שוקיים</strong><code>geometry-07-isosceles.html</code></li>
+<li><strong>הסתברות</strong><code>stats-04-probability.html</code></li>
+<li><strong>דמיון משולשים</strong><code>geometry-08-similarity.html</code></li>
+<li><strong>אי־שוויונות</strong><code>algebra-05-inequalities.html</code></li>
+<li><strong>משפט פיתגורס במרחב</strong><code>geometry-09-pythagoras-3d.html</code></li>
+<li><strong>חזרה למבחן מפמ״ר</strong><code>review-final.html</code></li>
+</ol>
+</section>
+
+<footer>מקור: פריסת ההוראה במתמטיקה לכיתה ח׳, תשפ״ז, משרד החינוך (פריסה רגילה ופריסת עתודה מדעית טכנולוגית). התוכנית עשויה להתעדכן במהלך השנה, ולכן כדאי לוודא מול המרחב הפדגוגי ״מתמטיקה חט״ב״.</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>יחס, פרופורציה וקנה מידה · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="number-01-ratio-proportion-practice.html">לתרגול מעשי ←</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום מספרי · דף הסבר</span><h1>יחס, פרופורציה וקנה מידה</h1><p class="lead">מה זה יחס ואיך משווים כמויות בעזרתו, חלוקה לפי יחס, פרופורציה ופתרונה, וקנה מידה במפות ובשרטוטים. בסוף הדף יש תרגילים לבדיקה עצמית.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#ratio">מהו יחס?</a></li><li><a href="#simplify">צמצום והרחבה של יחס</a></li><li><a href="#divide">חלוקה לפי יחס</a></li><li><a href="#proportion">פרופורציה</a></li><li><a href="#scale">קנה מידה</a></li><li><a href="#mistakes">טעויות נפוצות</a></li><li><a href="#check">בדקו את עצמכם </a></li><li><a href="#next">ממשיכים לתרגול</a></li></ol></nav>
+<section class="ch" id="ratio"><h2>מהו יחס?</h2>
+<div class="meaning">
+<p><strong>יחס</strong> משווה בין שני גדלים מאותו סוג ואומר <em>כמה פעמים</em> גודל אחד גדול מהשני, או איזה חלק הוא ממנו. כותבים יחס בעזרת נקודתיים, <span class="m">\(a:b\)</span>, וקוראים ״a ל־b״. אפשר לכתוב אותו גם כשבר <span class="m">\(\frac{a}{b}\)</span>.</p>
+<p>בכיתה יש 12 בנים ו־18 בנות. היחס בין מספר הבנים למספר הבנות הוא <span class="m">\(12:18\)</span>. הסדר חשוב: היחס בין הבנות לבנים הוא <span class="m">\(18:12\)</span>, וזה יחס אחר.</p>
+</div>
+<div class="formulas">
+<div class="f"><b>יחס בין שני גדלים</b><span class="m">\(a:b=\frac{a}{b}\)</span></div>
+<div class="f"><b>יחס בין שלושה גדלים</b><span class="m">\(a:b:c\)</span></div>
+</div>
+<div class="note"><strong>שימו לב:</strong> משווים רק גדלים באותן יחידות. היחס בין 50 ס״מ ל־2 מטר הוא <span class="m">\(50:200\)</span>, ולא <span class="m">\(50:2\)</span>.</div>
+</section>
+
+<section class="ch" id="simplify"><h2>צמצום והרחבה של יחס</h2>
+<div class="meaning">
+<p>כמו בשבר, אם מכפילים או מחלקים את שני האיברים של היחס באותו מספר (שאינו 0), מקבלים יחס <strong>שווה</strong>. יחס מצומצם הוא יחס שאי אפשר לצמצם יותר, כלומר המספרים שלמים ואין להם מחלק משותף גדול מ־1.</p>
+</div>
+<div class="example"><span class="tag">דוגמה 1</span>
+<p>צמצמו את היחס <span class="m">\(12:18\)</span>.</p>
+<p>המחלק המשותף הגדול ביותר הוא 6: <span class="m">\(12:18=2:3\)</span>. כלומר על כל 2 בנים יש 3 בנות.</p></div>
+<div class="example"><span class="tag">דוגמה 2</span>
+<p>כתבו כיחס של מספרים שלמים: <span class="m">\(1.5:2.5\)</span> ו־<span class="m">\(\frac{1}{2}:\frac{2}{3}\)</span>.</p>
+<p><span class="m">\(1.5:2.5\)</span>: מכפילים ב־10 ומצמצמים ב־5, <span class="m">\(15:25=3:5\)</span>.</p>
+<p><span class="m">\(\frac{1}{2}:\frac{2}{3}\)</span>: מכפילים במכנה המשותף 6, <span class="m">\(3:4\)</span>.</p></div>
+</section>
+
+<section class="ch" id="divide"><h2>חלוקה לפי יחס</h2>
+<div class="meaning">
+<p>כשמחלקים כמות לפי יחס <span class="m">\(a:b\)</span>, חושבים על הכמות כאילו היא מורכבת מ־<span class="m">\(a+b\)</span> <strong>חלקים שווים</strong>. מוצאים כמה שווה חלק אחד, ואז כופלים.</p>
+</div>
+<div class="big"><p>חלק אחד = הכמות כולה ÷ <span class="m">\((a+b)\)</span></p><small>הגודל הראשון הוא <span class="m">\(a\)</span> חלקים, והשני <span class="m">\(b\)</span> חלקים</small></div>
+<div class="example"><span class="tag">דוגמה 3</span>
+<p>דנה ויואב חילקו 60 ₪ ביחס <span class="m">\(2:3\)</span>. כמה קיבל כל אחד?</p>
+<p>מספר החלקים: <span class="m">\(2+3=5\)</span>. חלק אחד: <span class="m">\(60:5=12\)</span> ₪.</p>
+<p>דנה: <span class="m">\(2\cdot12=24\)</span> ₪. יואב: <span class="m">\(3\cdot12=36\)</span> ₪. בדיקה: <span class="m">\(24+36=60\)</span> ✓</p></div>
+<div class="example"><span class="tag">דוגמה 4: שלושה גדלים</span>
+<p>זוויות משולש מתייחסות כ־<span class="m">\(2:3:4\)</span>. מצאו אותן.</p>
+<p>סכום הזוויות במשולש הוא <span class="m">\(180°\)</span>. מספר החלקים: <span class="m">\(2+3+4=9\)</span>, חלק אחד: <span class="m">\(180:9=20°\)</span>.</p>
+<p>הזוויות: <span class="m">\(40°, 60°, 80°\)</span>.</p></div>
+<div class="example"><span class="tag">דוגמה 5: נתון ההפרש</span>
+<p>היחס בין מספר התלמידים בחוג שחמט למספר התלמידים בחוג ציור הוא <span class="m">\(3:5\)</span>. בחוג הציור יש 8 תלמידים יותר. כמה תלמידים יש בכל חוג?</p>
+<p>ההפרש הוא <span class="m">\(5-3=2\)</span> חלקים, והם 8 תלמידים, לכן חלק אחד הוא 4 תלמידים.</p>
+<p>שחמט: <span class="m">\(3\cdot4=12\)</span>, ציור: <span class="m">\(5\cdot4=20\)</span>.</p></div>
+</section>
+
+<section class="ch" id="proportion"><h2>פרופורציה</h2>
+<div class="meaning">
+<p><strong>פרופורציה</strong> היא שוויון בין שני יחסים: <span class="m">\(a:b=c:d\)</span>, או <span class="m">\(\frac{a}{b}=\frac{c}{d}\)</span>. התכונה החשובה: <strong>מכפלת הקצוות שווה למכפלת האמצעים</strong> (״כפל בהצלבה״).</p>
+</div>
+<div class="big"><span class="m">\(\dfrac{a}{b}=\dfrac{c}{d}\;\Longleftrightarrow\;a\cdot d=b\cdot c\)</span><small>בתנאי ש־b ו־d שונים מ־0</small></div>
+<div class="example"><span class="tag">דוגמה 6</span>
+<p>פתרו: <span class="m">\(\frac{x}{4}=\frac{15}{6}\)</span>.</p>
+<p>כפל בהצלבה: <span class="m">\(6x=4\cdot15=60\)</span>, ולכן <span class="m">\(x=10\)</span>.</p></div>
+<div class="example"><span class="tag">דוגמה 7: יחס ישר</span>
+<p>3 מחברות עולות 21 ₪. כמה עולות 7 מחברות?</p>
+<p>המחיר והכמות ב<strong>יחס ישר</strong>: כשהכמות גדלה פי כמה, גם המחיר גדל פי אותו מספר. לכן היחס בין המחיר לכמות קבוע:</p>
+<p><span class="m">\(\frac{21}{3}=\frac{x}{7}\;\Rightarrow\;3x=147\;\Rightarrow\;x=49\)</span> ₪.</p>
+<p>דרך נוספת: מחברת אחת עולה <span class="m">\(21:3=7\)</span> ₪, ו־7 מחברות עולות <span class="m">\(7\cdot7=49\)</span> ₪.</p></div>
+<div class="tablebox"><table>
+<thead><tr><th>מספר מחברות</th><td>1</td><td>3</td><td>5</td><td>7</td><td>10</td></tr></thead>
+<tbody><tr><th>מחיר (₪)</th><td>7</td><td>21</td><td>35</td><td>49</td><td>70</td></tr></tbody>
+</table></div>
+<p>בטבלה של יחס ישר, המנה בין שורה לשורה קבועה (כאן 7).</p>
+</section>
+
+<section class="ch" id="scale"><h2>קנה מידה</h2>
+<div class="meaning">
+<p><strong>קנה מידה</strong> הוא היחס בין אורך בשרטוט (או במפה) לבין האורך המתאים במציאות. קנה מידה <span class="m">\(1:50{,}000\)</span> פירושו ש־1 ס״מ במפה הוא 50,000 ס״מ במציאות, כלומר 500 מטר.</p>
+</div>
+<div class="formulas">
+<div class="f"><b>קנה מידה</b>אורך בשרטוט : אורך במציאות</div>
+<div class="f"><b>המרות שימושיות</b><span class="m">\(1\,\text{m}=100\,\text{cm},\;1\,\text{km}=100{,}000\,\text{cm}\)</span></div>
+</div>
+<div class="example"><span class="tag">דוגמה 8: ממפה למציאות</span>
+<p>במפה בקנה מידה <span class="m">\(1:50{,}000\)</span> המרחק בין שני כפרים הוא 6 ס״מ. מה המרחק במציאות?</p>
+<p><span class="m">\(6\cdot50{,}000=300{,}000\)</span> ס״מ <span class="m">\(=3\)</span> ק״מ.</p></div>
+<div class="example"><span class="tag">דוגמה 9: מהמציאות לשרטוט</span>
+<p>אורך חדר הוא 4.5 מטר. מה יהיה אורכו בתוכנית בקנה מידה <span class="m">\(1:50\)</span>?</p>
+<p><span class="m">\(4.5\,\text{m}=450\)</span> ס״מ, ו־<span class="m">\(450:50=9\)</span> ס״מ.</p></div>
+<div class="example"><span class="tag">דוגמה 10: מציאת קנה המידה</span>
+<p>דגם של מכונית באורך 4 מטר הוא באורך 20 ס״מ. מהו קנה המידה?</p>
+<p><span class="m">\(20:400=1:20\)</span>. (קודם ממירים לאותן יחידות: 4 מ׳ = 400 ס״מ.)</p></div>
+<div class="tip"><strong>הרחבה:</strong> אם כל האורכים גדלים פי <span class="m">\(k\)</span>, השטח גדל פי <span class="m">\(k^2\)</span>. בקנה מידה <span class="m">\(1:100\)</span>, ריבוע של 1 סמ״ר בשרטוט הוא <span class="m">\(100\cdot100=10{,}000\)</span> סמ״ר במציאות, כלומר מטר רבוע אחד.</div>
+</section>
+
+<section class="ch" id="mistakes"><h2>טעויות נפוצות</h2>
+<ul class="mistakes">
+<li>להחליף את סדר האיברים. ״היחס בין הבנות לבנים״ מתחיל במספר הבנות.</li>
+<li>להשוות גדלים ביחידות שונות (מטרים מול סנטימטרים) בלי להמיר.</li>
+<li>בחלוקה לפי יחס <span class="m">\(2:3\)</span>, לחלק ב־2 או ב־3 במקום ב־<span class="m">\(2+3=5\)</span> חלקים.</li>
+<li>בקנה מידה, לחלק במקום לכפול: מהמפה למציאות <strong>כופלים</strong>, ומהמציאות למפה <strong>מחלקים</strong>.</li>
+</ul>
+</section>
+
+<section class="ch level" id="check"><h2>בדקו את עצמכם <small>8 שאלות</small></h2>
+<ol class="exercises">
+<li>צמצמו את היחס <span class="m">\(24:36\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p>מחלקים ב־12: <span class="m">\(2:3\)</span>.</p></div></details></li>
+<li>כתבו כיחס מצומצם של מספרים שלמים: <span class="m">\(0.6:1.5\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(6:15=2:5\)</span>.</p></div></details></li>
+<li>מהו היחס בין 40 דקות לשעה וחצי?<details><summary>הצג פתרון</summary><div class="sol"><p>שעה וחצי = 90 דקות. <span class="m">\(40:90=4:9\)</span>.</p></div></details></li>
+<li>חלקו 84 ביחס <span class="m">\(3:4\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p>7 חלקים, חלק אחד = 12. התשובה: 36 ו־48.</p></div></details></li>
+<li>פתרו: <span class="m">\(\frac{5}{x}=\frac{20}{12}\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(20x=60\Rightarrow x=3\)</span>.</p></div></details></li>
+<li>4 ק״ג תפוחים עולים 30 ₪. כמה עולים 6 ק״ג?<details><summary>הצג פתרון</summary><div class="sol"><p>ק״ג אחד: 7.5 ₪. 6 ק״ג: <span class="m">\(6\cdot7.5=45\)</span> ₪.</p></div></details></li>
+<li>במפה בקנה מידה <span class="m">\(1:200{,}000\)</span> המרחק בין שתי ערים הוא 7.5 ס״מ. מה המרחק במציאות בק״מ?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(7.5\cdot200{,}000=1{,}500{,}000\)</span> ס״מ = 15 ק״מ.</p></div></details></li>
+<li>היחס בין מספר הכדורים האדומים לכחולים בשקית הוא <span class="m">\(5:2\)</span>, ויש 15 כדורים אדומים יותר מכחולים. כמה כדורים יש בשקית?<details><summary>הצג פתרון</summary><div class="sol"><p>ההפרש הוא 3 חלקים = 15, לכן חלק = 5. אדומים: 25, כחולים: 10, סה״כ 35 כדורים.</p></div></details></li>
+</ol>
+</section>
+
+<section class="ch next" id="next"><h2>ממשיכים לתרגול</h2><p>בדף התרגול יש שאלות נוספות בשלוש רמות, עם רמזים: <a href="number-01-ratio-proportion-practice.html">תרגול: יחס, פרופורציה וקנה מידה</a>.</p></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

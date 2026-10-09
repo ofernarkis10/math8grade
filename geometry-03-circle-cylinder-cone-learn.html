@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מעגל, גליל וחרוט · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="geometry-03-circle-cylinder-cone-practice.html">לתרגול מעשי ←</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום גאומטרי · דף הסבר</span><h1>מעגל, גליל וחרוט</h1><p class="lead">היקף מעגל ושטח עיגול, ואחריהם הגליל והחרוט: פריסה, שטח מעטפת ושטח פנים, ונפח.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#circle">היקף מעגל ושטח עיגול</a></li><li><a href="#cylinder">גליל</a></li><li><a href="#cone">חרוט</a></li><li><a href="#mistakes">טעויות נפוצות</a></li><li><a href="#check">בדקו את עצמכם </a></li><li><a href="#next">ממשיכים לתרגול</a></li></ol></nav>
+<section class="ch" id="circle"><h2>היקף מעגל ושטח עיגול</h2>
+<div class="meaning">
+<p>בכל מעגל, היחס בין ההיקף לקוטר הוא אותו מספר, שמסמנים <span class="m">\(\pi\)</span> (פאי). <span class="m">\(\pi\approx3.14\)</span>. <strong>מעגל</strong> הוא הקו, ו<strong>עיגול</strong> הוא השטח שבתוכו.</p>
+</div>
+<div class="formulas">
+<div class="f"><b>היקף מעגל</b><span class="m">\(P=2\pi r=\pi d\)</span></div>
+<div class="f"><b>שטח עיגול</b><span class="m">\(S=\pi r^2\)</span></div>
+</div>
+<div class="example"><span class="tag">דוגמה 1</span>
+<p>רדיוס עיגול 5 ס״מ. <span class="m">\(P=10\pi\approx31.4\)</span> ס״מ, <span class="m">\(S=25\pi\approx78.5\)</span> סמ״ר.</p></div>
+<div class="example"><span class="tag">דוגמה 2: הפוך</span>
+<p>היקף מעגל 18.84 ס״מ. <span class="m">\(2\cdot3.14\cdot r=18.84\Rightarrow r=3\)</span> ס״מ, ושטח העיגול <span class="m">\(9\pi\approx28.26\)</span> סמ״ר.</p></div>
+<div class="note"><strong>שימו לב:</strong> אם נתון קוטר, קודם מחלקים ב־2. בשטח מעלים בריבוע רק את הרדיוס: <span class="m">\(\pi r^2\neq(\pi r)^2\)</span>.</div>
+</section>
+
+<section class="ch" id="cylinder"><h2>גליל</h2>
+<div class="two">
+<figure><svg viewBox="0 0 220 220" width="200" role="img" aria-label="גליל עם רדיוס r וגובה h">
+<path class="fa" d="M40,40 L40,180 A60,15 0 0 0 160,180 L160,40 Z"/>
+<ellipse class="fa" cx="100" cy="40" rx="60" ry="15"/>
+<path class="dash" d="M40,180 A60,15 0 0 1 160,180"/>
+<line class="mk" x1="100" y1="180" x2="160" y2="180"/><circle class="dot" cx="100" cy="180" r="3"/>
+<line class="dash" x1="178" y1="40" x2="178" y2="180" style="stroke:var(--mark)"/>
+<text x="124" y="174" class="k">r</text><text x="184" y="115" class="k">h</text>
+</svg><figcaption>גליל: שני בסיסים עגולים ומעטפת</figcaption></figure>
+<figure><svg viewBox="0 0 300 200" width="280" role="img" aria-label="פריסה של גליל: מלבן ושני עיגולים">
+<rect class="fa" x="60" y="50" width="220" height="100"/>
+<circle class="fm" cx="110" cy="25" r="22"/><circle class="fm" cx="110" cy="175" r="22"/>
+<text x="140" y="104">2πr</text><text x="36" y="104">h</text>
+</svg><figcaption>פריסה: המעטפת היא מלבן שאורכו היקף הבסיס</figcaption></figure>
+</div>
+<div class="formulas">
+<div class="f"><b>שטח מעטפת</b><span class="m">\(2\pi r\cdot h\)</span></div>
+<div class="f"><b>שטח פנים (כולל בסיסים)</b><span class="m">\(2\pi r^2+2\pi rh\)</span></div>
+<div class="f"><b>נפח</b><span class="m">\(V=\pi r^2\cdot h\)</span> (שטח הבסיס × גובה)</div>
+</div>
+<div class="example"><span class="tag">דוגמה 3</span>
+<p>גליל עם רדיוס 3 ס״מ וגובה 10 ס״מ.</p>
+<p>מעטפת: <span class="m">\(2\pi\cdot3\cdot10=60\pi\approx188.4\)</span> סמ״ר.</p>
+<p>שטח פנים: <span class="m">\(18\pi+60\pi=78\pi\approx244.9\)</span> סמ״ר.</p>
+<p>נפח: <span class="m">\(\pi\cdot9\cdot10=90\pi\approx282.6\)</span> סמ״ק.</p></div>
+<div class="tip"><strong>יחידות:</strong> אורך בס״מ, שטח בסמ״ר, נפח בסמ״ק. 1 ליטר = 1,000 סמ״ק.</div>
+</section>
+
+<section class="ch" id="cone"><h2>חרוט</h2>
+<div class="two">
+<figure><svg viewBox="0 0 220 220" width="200" role="img" aria-label="חרוט עם רדיוס r, גובה h וקו יוצר l">
+<path class="fa" d="M100,20 L30,170 A70,18 0 0 0 170,170 Z"/>
+<path class="dash" d="M30,170 A70,18 0 0 1 170,170"/>
+<line class="dash" x1="100" y1="20" x2="100" y2="170" style="stroke:var(--mark)"/>
+<line class="mk" x1="100" y1="170" x2="170" y2="170"/><line class="ac" x1="100" y1="20" x2="170" y2="170"/>
+<path class="ln" d="M100,158 h12 v12" style="stroke-width:1.5"/>
+<text x="130" y="164" class="k">r</text><text x="86" y="110" class="k">h</text><text x="142" y="90" class="a">l</text>
+</svg><figcaption><span class="m">\(r\)</span> רדיוס, <span class="m">\(h\)</span> גובה, <span class="m">\(l\)</span> קו יוצר</figcaption></figure>
+<div class="meaning">
+<p>בחרוט יש בסיס עגול וקודקוד. ה<strong>גובה</strong> <span class="m">\(h\)</span> יורד מהקודקוד למרכז הבסיס, מאונך לו. ה<strong>קו היוצר</strong> <span class="m">\(l\)</span> הוא הקטע מהקודקוד לשפת הבסיס.</p>
+<p><span class="m">\(r\)</span>, <span class="m">\(h\)</span> ו־<span class="m">\(l\)</span> יוצרים משולש ישר זווית, ולכן לפי פיתגורס:</p>
+<div class="big"><span class="m">\(l^2=r^2+h^2\)</span></div>
+</div>
+</div>
+<div class="formulas">
+<div class="f"><b>נפח</b><span class="m">\(V=\frac{1}{3}\pi r^2h\)</span></div>
+<div class="f"><b>שטח מעטפת</b><span class="m">\(\pi rl\)</span></div>
+<div class="f"><b>שטח פנים</b><span class="m">\(\pi r^2+\pi rl\)</span></div>
+</div>
+<div class="example"><span class="tag">דוגמה 4</span>
+<p>חרוט עם רדיוס 6 ס״מ וגובה 8 ס״מ.</p>
+<p>קו יוצר: <span class="m">\(l=\sqrt{36+64}=10\)</span> ס״מ.</p>
+<p>נפח: <span class="m">\(\frac{1}{3}\pi\cdot36\cdot8=96\pi\approx301.4\)</span> סמ״ק.</p>
+<p>מעטפת: <span class="m">\(\pi\cdot6\cdot10=60\pi\approx188.4\)</span> סמ״ר. שטח פנים: <span class="m">\(36\pi+60\pi=96\pi\approx301.4\)</span> סמ״ר.</p></div>
+<div class="tip"><strong>קשר חשוב:</strong> נפח חרוט הוא בדיוק <strong>שליש</strong> מנפח גליל עם אותו בסיס ואותו גובה. שלושה משפכים מלאים ממלאים את הגליל.</div>
+</section>
+
+<section class="ch" id="mistakes"><h2>טעויות נפוצות</h2>
+<ul class="mistakes">
+<li>להשתמש בקוטר במקום ברדיוס.</li>
+<li>לשכוח את <span class="m">\(\frac{1}{3}\)</span> בנפח החרוט.</li>
+<li>לבלבל בין הגובה <span class="m">\(h\)</span> לקו היוצר <span class="m">\(l\)</span> בחרוט.</li>
+<li>לערבב יחידות (ס״מ ומטרים) באותו חישוב.</li>
+</ul>
+</section>
+
+<section class="ch level" id="check"><h2>בדקו את עצמכם <small>6 שאלות</small></h2>
+<p class="lead">השאירו את התשובות עם <span class="m">\(\pi\)</span>, או השתמשו ב־<span class="m">\(\pi\approx3.14\)</span>.</p>
+<ol class="exercises">
+<li>קוטר מעגל 14. מה ההיקף ומה השטח?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(r=7\)</span>. <span class="m">\(P=14\pi\approx43.96\)</span>, <span class="m">\(S=49\pi\approx153.86\)</span>.</p></div></details></li>
+<li>שטח עיגול <span class="m">\(36\pi\)</span>. מה הרדיוס?<details><summary>הצג פתרון</summary><div class="sol"><p>6.</p></div></details></li>
+<li>נפח גליל עם רדיוס 2 וגובה 5?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(20\pi\approx62.8\)</span>.</p></div></details></li>
+<li>שטח המעטפת של גליל עם רדיוס 4 וגובה 7?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(56\pi\approx175.8\)</span>.</p></div></details></li>
+<li>חרוט עם רדיוס 3 וגובה 4. מה הקו היוצר ומה הנפח?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(l=5\)</span>, <span class="m">\(V=12\pi\approx37.68\)</span>.</p></div></details></li>
+<li>נפח גליל <span class="m">\(60\pi\)</span>. מה נפח חרוט עם אותו בסיס ואותו גובה?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(20\pi\)</span>.</p></div></details></li>
+</ol>
+</section>
+
+<section class="ch next" id="next"><h2>ממשיכים לתרגול</h2><p><a href="geometry-03-circle-cylinder-cone-practice.html">תרגול: מעגל, גליל וחרוט</a>.</p></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

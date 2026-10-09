@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: library index on graph-paper ground; one section per topic, each document a row with number, title, description, question count */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px}
+.wrap{max-width:900px;margin:0 auto;padding-inline:16px;padding-block:40px 64px;display:flex;flex-direction:column;gap:32px}
+h1,h2{font-family:var(--f-display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:2.6rem}
+h2{font-size:1.6rem;color:var(--accent)}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+header{display:flex;flex-direction:column;gap:12px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.lead{max-width:66ch;font-size:1.08rem}
+.about{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.about div{display:flex;flex-direction:column;gap:6px;min-width:0}
+.about h3{margin:0;font-size:1rem;color:var(--mark)}
+.about p{color:var(--muted);font-size:.97rem}
+section.topic{display:flex;flex-direction:column;gap:14px}
+.topic-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--accent);padding-bottom:8px}
+.topic-head span{color:var(--muted);font-size:.92rem}
+ul.docs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+ul.docs li a{display:grid;grid-template-columns:3.2rem 1fr auto;gap:4px 16px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:inherit;text-decoration:none;transition:border-color .15s}
+ul.docs li a:hover,ul.docs li a:focus-visible{border-color:var(--accent);outline:none}
+ul.docs li a:focus-visible{box-shadow:0 0 0 3px var(--accent-soft)}
+.no{font-family:var(--f-math);color:var(--accent);font-size:1.3rem;font-weight:600;grid-row:span 2;line-height:1.4}
+.t{font-family:var(--f-display);font-weight:700;font-size:1.18rem;min-width:0}
+.d{grid-column:2 / 4;color:var(--muted);font-size:.96rem;min-width:0}
+.q{font-size:.82rem;font-weight:700;color:var(--mark);background:var(--accent-soft);border-radius:99px;padding:2px 10px;white-space:nowrap;align-self:center}
+@media (max-width:520px){h1{font-size:2rem} ul.docs li a{grid-template-columns:2.4rem 1fr} .q{grid-column:2;justify-self:start} .d{grid-column:2}}
+footer{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:16px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* Table of contents: jump links to each main topic */
+html{scroll-behavior:smooth}
+section.topic{scroll-margin-top:16px}
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 22px;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}
+nav.toc h2{font-size:1.2rem;color:var(--ink)}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+nav.toc a{display:flex;flex-direction:column;gap:0;padding:8px 12px;border:1px solid var(--line);border-radius:8px;color:var(--accent);font-weight:700;text-decoration:none;min-width:0}
+nav.toc a small{color:var(--muted);font-weight:400;font-size:.82rem;white-space:nowrap}
+nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--accent);background:var(--accent-soft);outline:none}
+.to-top{position:fixed;inset-inline-start:auto;left:16px;bottom:16px;background:var(--accent);color:var(--paper);text-decoration:none;font-weight:700;font-size:.9rem;padding:8px 14px;border-radius:99px;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.to-top:hover,.to-top:focus-visible{filter:brightness(1.1);outline:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<!-- KaTeX: renders the LaTeX inside \( ... \) in every span.m (pinned version with integrity hashes) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>
+/* KaTeX inside the site's math spans: a bit larger than the old monospace, kept left-to-right inside Hebrew text */
+.m .katex{font-size:1.14em;position:relative}
+/* long formulas may wrap at = and operators on narrow screens */
+.m:has(.katex){white-space:normal}
+/* rows that hold a full-size fraction get extra line height */
+*:has(> .m .mfrac){line-height:2.15}
+td .m .katex{font-size:1.2em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="eyebrow">אתר לימוד · מתמטיקה · כיתה ח׳ · הכנה ל־4 יחידות לימוד</span>
+  <h1>מתמטיקה לכיתה ח׳</h1>
+  <p class="lead">דפי לימוד ותרגול במתמטיקה לכיתה ח׳, לפי תוכנית הלימודים ופריסת ההוראה של משרד החינוך לתשפ״ז. לכל נושא יש שני דפים: <strong>דף הסבר</strong> עם הסברים, דוגמאות פתורות ותרגילים קצרים, ו<strong>דף תרגול</strong> ללמידה דרך פתרון תרגילים, עם רמזים ופתרונות מלאים.</p>
+</header>
+
+<nav class="toc" id="toc" aria-label="תוכן עניינים">
+  <h2>תוכן עניינים</h2>
+  <ol><li><a href="#curriculum">תוכנית הלימודים</a></li></ol>
+</nav>
+
+<div class="about">
+  <div><h3>דף הסבר (א)</h3><p>מה המשמעות של הנושא, הכללים והנוסחאות, דוגמאות פתורות שלב אחר שלב, טעויות נפוצות ותרגילים קצרים לבדיקה עצמית.</p></div>
+  <div><h3>דף תרגול (ב)</h3><p>לומדים דרך עשייה: תזכורת קצרה ואחריה שאלות בשלוש רמות (בסיס, ביסוס, אתגר). בשאלות רבות יש רמז לפני הפתרון.</p></div>
+  <div><h3>איך לתרגל</h3><p>הפתרונות מוסתרים. פתרו קודם לבד, היעזרו ברמז אם נתקעתם, ורק בסוף לחצו על ״הצג פתרון״ כדי לבדוק.</p></div>
+</div>
+
+<section class="topic" id="curriculum">
+  <div class="topic-head"><h2>תוכנית הלימודים</h2><span>מסמך עזר אחד</span></div>
+  <ul class="docs">
+<li><a href="curriculum-grade8.html"><span class="no">00</span><span class="t">נושאי הלימוד בכיתה ח׳ (תשפ״ז)</span><span class="q">מסמך עזר</span><span class="d">רשימת כל נושאי הלימוד בשנה לפי ארבעת התחומים (מספרי, אלגברי, גאומטרי ואי־ודאות), עם חודש ומספר שעות לכל נושא, לוח זמנים חודשי, מועדי משימות ההערכה ומבחן המפמ״ר, דגשים לקראת 4 יחידות ותוכנית דפי האתר.</span></a></li>
+  </ul>
+</section>
+
+<section class="topic" id="number">
+  <div class="topic-head"><h2>תחום מספרי</h2><span>4 דפים · 68 שאלות</span></div>
+  <ul class="docs">
+<li><a href="number-01-ratio-proportion-learn.html"><span class="no">01א</span><span class="t">יחס, פרופורציה וקנה מידה</span><span class="q">דף הסבר · 8 שאלות</span><span class="d">יחס בין שני גדלים ובין כמה גדלים, צמצום יחס, חלוקה לפי יחס, פרופורציה ומכפלה בהצלבה, יחס ישר, וקנה מידה במפות ובשרטוטים. עם דוגמאות פתורות וטעויות נפוצות.</span></a></li>
+<li><a href="number-01-ratio-proportion-practice.html"><span class="no">01ב</span><span class="t">תרגול: יחס, פרופורציה וקנה מידה</span><span class="q">26 שאלות</span><span class="d">תרגול מדורג: פישוט יחסים, חלוקת כמות לפי יחס, פתרון פרופורציות, בעיות יחס ישר ובעיות קנה מידה (מפה ↔ מציאות, שטחים בקנה מידה).</span></a></li>
+<li><a href="number-02-percent-learn.html"><span class="no">02א</span><span class="t">אחוזים</span><span class="q">דף הסבר · 8 שאלות</span><span class="d">אחוז כשבר עשרוני, חישוב אחוז מכמות, מציאת השלם, כמה אחוזים מהווה חלק, מקדם שינוי (עלייה, הנחה), אחוז השינוי, שינויים חוזרים ומע״מ.</span></a></li>
+<li><a href="number-02-percent-practice.html"><span class="no">02ב</span><span class="t">תרגול: אחוזים</span><span class="q">26 שאלות</span><span class="d">תרגול מדורג: חישובי אחוזים, מקדם שינוי, מציאת המחיר המקורי, שינויים חוזרים (למה עלייה של 10% והנחה של 10% אינן מתקזזות) ובעיות קנייה ומשכורת.</span></a></li>
+  </ul>
+</section>
+
+<section class="topic" id="algebra">
+  <div class="topic-head"><h2>תחום אלגברי</h2><span>10 דפים · 143 שאלות</span></div>
+  <ul class="docs">
+<li><a href="algebra-01-functions-learn.html"><span class="no">03א</span><span class="t">מבוא לפונקציות וייצוגיהן</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">משתנה תלוי ובלתי תלוי, ייצוג בטבלה, בגרף ובביטוי, הצבה, תחומי עלייה וירידה, נקודות קיצון, חיתוך עם הצירים וגרפים של סיפורים מהחיים.</span></a></li>
+<li><a href="algebra-01-functions-practice.html"><span class="no">03ב</span><span class="t">תרגול: מבוא לפונקציות וייצוגיהן</span><span class="q">21 שאלות</span><span class="d">תרגול: האם זו פונקציה, השלמת טבלאות, הצבה, קריאת גרף מרחק־זמן, תחומי עלייה וירידה, והתאמת גרף לסיפור.</span></a></li>
+<li><a href="algebra-02-linear-function-learn.html"><span class="no">04א</span><span class="t">הפונקציה הקווית: קצב שינוי ושיפוע</span><span class="q">דף הסבר · 7 שאלות</span><span class="d">קצב שינוי אחיד ולא אחיד, חישוב שיפוע משתי נקודות, משמעות m ו־b, שיפוע חיובי, שלילי ואפס, ישרים מקבילים, ומציאת משוואת ישר.</span></a></li>
+<li><a href="algebra-02-linear-function-practice.html"><span class="no">04ב</span><span class="t">תרגול: הפונקציה הקווית: קצב שינוי ושיפוע</span><span class="q">22 שאלות</span><span class="d">תרגול מדורג: שיפוע מטבלה ומגרף, זיהוי m ו־b, משוואת ישר דרך שתי נקודות, חיתוך עם הצירים, נקודה על ישר, ובעיות מחיר ומונית.</span></a></li>
+<li><a href="algebra-03-equations-word-problems-learn.html"><span class="no">05א</span><span class="t">משוואות ובעיות מילוליות</span><span class="q">דף הסבר · 7 שאלות</span><span class="d">כללי הפתרון (פעולה זהה בשני האגפים), פתיחת סוגריים, הכפלה במכנה משותף, משוואות ללא פתרון ועם אינסוף פתרונות, ובעיות מספרים, גילים, אחוזים ותנועה.</span></a></li>
+<li><a href="algebra-03-equations-word-problems-practice.html"><span class="no">05ב</span><span class="t">תרגול: משוואות ובעיות מילוליות</span><span class="q">24 שאלות</span><span class="d">תרגול מדורג: משוואות עם סוגריים ושברים, משוואות מיוחדות, ובעיות מילוליות (מספרים, גילים, קנייה, אחוזים, תנועה בכיוונים מנוגדים ובאותו כיוון).</span></a></li>
+<li><a href="algebra-04-systems-learn.html"><span class="no">06א</span><span class="t">מערכת של שתי משוואות</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">מהו פתרון של מערכת, שיטת ההצבה, שיטת השוואת המקדמים, פתרון גרפי כנקודת חיתוך, מערכות ללא פתרון ועם אינסוף פתרונות, ובעיות מילוליות.</span></a></li>
+<li><a href="algebra-04-systems-practice.html"><span class="no">06ב</span><span class="t">תרגול: מערכת של שתי משוואות</span><span class="q">22 שאלות</span><span class="d">תרגול מדורג: מערכות פשוטות, מערכות עם מקדמים ושברים, בחירת שיטה, מספר הפתרונות, ובעיות מילוליות (כרטיסים, מטבעות, השוואת חברות).</span></a></li>
+<li><a href="algebra-05-inequalities-learn.html"><span class="no">07א</span><span class="t">אי־שוויונות</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">מהו אי־שוויון ומהו פתרונו, פעולות שמותרות, היפוך כיוון במספר שלילי, ציור על ישר המספרים, אי־שוויונות עם ״וגם״ ו״או״ (הרחבה) ובעיות מילוליות.</span></a></li>
+<li><a href="algebra-05-inequalities-practice.html"><span class="no">07ב</span><span class="t">תרגול: אי־שוויונות</span><span class="q">22 שאלות</span><span class="d">תרגול מדורג: אי־שוויונות פשוטים, עם סוגריים ושברים, מציאת הפתרונות השלמים, מערכות ״וגם״/״או״, ובעיות תקציב וכדאיות.</span></a></li>
+  </ul>
+</section>
+
+<section class="topic" id="geometry">
+  <div class="topic-head"><h2>תחום גאומטרי</h2><span>18 דפים · 218 שאלות</span></div>
+  <ul class="docs">
+<li><a href="geometry-01-parallel-angles-learn.html"><span class="no">08א</span><span class="t">זוויות בין ישרים מקבילים</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">זוויות צמודות וקודקודיות (חזרה), שמות הזוויות בחותך, מתחלפות ומתאימות שוות, חד־צדדיות משלימות ל־180°, המשפטים ההפוכים, וקו עזר מקביל.</span></a></li>
+<li><a href="geometry-01-parallel-angles-practice.html"><span class="no">08ב</span><span class="t">תרגול: זוויות בין ישרים מקבילים</span><span class="q">18 שאלות</span><span class="d">תרגול מדורג: חישוב זוויות עם נימוק, משוואות עם זוויות, בדיקה אם ישרים מקבילים, וקו עזר בצורת ״Z״ ו״M״.</span></a></li>
+<li><a href="geometry-02-pythagoras-learn.html"><span class="no">09א</span><span class="t">משפט פיתגורס</span><span class="q">דף הסבר · 7 שאלות</span><span class="d">יתר וניצבים, הנוסחה והמשמעות הגאומטרית שלה (ריבועים על הצלעות), חישוב יתר וניצב, שלשות פיתגוריות, המשפט ההפוך, אלכסון מלבן, גובה במשולש שווה שוקיים ומרחק בין נקודות.</span></a></li>
+<li><a href="geometry-02-pythagoras-practice.html"><span class="no">09ב</span><span class="t">תרגול: משפט פיתגורס</span><span class="q">21 שאלות</span><span class="d">תרגול מדורג: חישוב צלע חסרה, האם המשולש ישר זווית, סולם על קיר, אלכסון מסך, מעוין, מרחק במערכת צירים ובעיות של שני משולשים.</span></a></li>
+<li><a href="geometry-03-circle-cylinder-cone-learn.html"><span class="no">10א</span><span class="t">מעגל, גליל וחרוט</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">המספר π, היקף מעגל ושטח עיגול, גליל (פריסה, מעטפת, שטח פנים, נפח), חרוט (רדיוס, גובה וקו יוצר, מעטפת, נפח), והקשר בין נפח חרוט לנפח גליל.</span></a></li>
+<li><a href="geometry-03-circle-cylinder-cone-practice.html"><span class="no">10ב</span><span class="t">תרגול: מעגל, גליל וחרוט</span><span class="q">20 שאלות</span><span class="d">תרגול מדורג: היקף ושטח, חישוב רדיוס מתוך היקף או שטח, נפחים ושטחי פנים של גליל וחרוט, פחית, משפך, ובעיות מילוי.</span></a></li>
+<li><a href="geometry-04-transformations-learn.html"><span class="no">11א</span><span class="t">טרנספורמציות וצורות חופפות</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">הזזה לפי וקטור, שיקוף בציר x, בציר y ובישר, סיבוב סביב נקודה ב־90° וב־180°, מה נשמר (אורכים, זוויות, שטח), וחפיפה כהתאמה בין צורות.</span></a></li>
+<li><a href="geometry-04-transformations-practice.html"><span class="no">11ב</span><span class="t">תרגול: טרנספורמציות וצורות חופפות</span><span class="q">18 שאלות</span><span class="d">תרגול מדורג: קואורדינטות אחרי הזזה, שיקוף וסיבוב, הרכבת שתי טרנספורמציות, צירי סימטריה, וזיהוי הטרנספורמציה בין שתי צורות.</span></a></li>
+<li><a href="geometry-05-congruence-learn.html"><span class="no">12א</span><span class="t">חפיפת משולשים</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">משולשים חופפים והתאמה בין קודקודים, שלושת משפטי החפיפה, למה ז.ז.ז ו־צ.צ.ז אינם משפטי חפיפה, כתיבת הוכחה בטבלת טענה ונימוק, ושימוש בחפיפה להוכחת שוויון קטעים וזוויות.</span></a></li>
+<li><a href="geometry-05-congruence-practice.html"><span class="no">12ב</span><span class="t">תרגול: חפיפת משולשים</span><span class="q">15 שאלות</span><span class="d">תרגול מדורג: איזה משפט חפיפה מתאים, השלמת הוכחות, והוכחות מלאות (צלע משותפת, זוויות קודקודיות, מקבילים).</span></a></li>
+<li><a href="geometry-06-triangle-sides-median-learn.html"><span class="no">13א</span><span class="t">צלעות במשולש, תיכון וזווית חיצונית</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">סכום הזוויות במשולש (חזרה), אי־שוויון המשולש, מול הצלע הגדולה הזווית הגדולה, תיכון במשולש, וזווית חיצונית שווה לסכום שתי הזוויות הפנימיות שאינן צמודות לה.</span></a></li>
+<li><a href="geometry-06-triangle-sides-median-practice.html"><span class="no">13ב</span><span class="t">תרגול: צלעות במשולש, תיכון וזווית חיצונית</span><span class="q">18 שאלות</span><span class="d">תרגול מדורג: האם קיים משולש, טווח אורכים לצלע שלישית, סידור צלעות וזוויות, חישובים עם תיכון, וזוויות חיצוניות.</span></a></li>
+<li><a href="geometry-07-isosceles-learn.html"><span class="no">14א</span><span class="t">משולש שווה שוקיים</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">שוקיים, בסיס וזווית ראש, זוויות הבסיס שוות, התלכדות התיכון, הגובה וחוצה הזווית לבסיס, משולש שווה צלעות, והמשפטים ההפוכים (מתי משולש הוא שווה שוקיים).</span></a></li>
+<li><a href="geometry-07-isosceles-practice.html"><span class="no">14ב</span><span class="t">תרגול: משולש שווה שוקיים</span><span class="q">18 שאלות</span><span class="d">תרגול מדורג: זוויות במשולש שווה שוקיים, משוואות עם זוויות, גובה לבסיס (עם פיתגורס), והוכחות שמשולש הוא שווה שוקיים.</span></a></li>
+<li><a href="geometry-08-similarity-learn.html"><span class="no">15א</span><span class="t">דמיון משולשים</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">הגדלה והקטנה, יחס דמיון, משפטי הדמיון (ז.ז, צ.ז.צ, צ.צ.צ), כתיבת התאמה נכונה, ישר מקביל לצלע, יחס היקפים k ויחס שטחים k², ומדידת גובה בעזרת צל.</span></a></li>
+<li><a href="geometry-08-similarity-practice.html"><span class="no">15ב</span><span class="t">תרגול: דמיון משולשים</span><span class="q">18 שאלות</span><span class="d">תרגול מדורג: מציאת יחס דמיון, אורכים חסרים, משולשים ״מקוננים״ (מקביל לצלע), שטחים, ובעיות צל ומראה.</span></a></li>
+<li><a href="geometry-09-pythagoras-3d-learn.html"><span class="no">16א</span><span class="t">משפט פיתגורס במרחב</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">מישורים ומשולשים בתוך גוף, אלכסון פאה, אלכסון תיבה d² = a² + b² + c², אלכסון קובייה, גובה פירמידה ישרה וגובה חרוט.</span></a></li>
+<li><a href="geometry-09-pythagoras-3d-practice.html"><span class="no">16ב</span><span class="t">תרגול: משפט פיתגורס במרחב</span><span class="q">17 שאלות</span><span class="d">תרגול מדורג: אלכסוני תיבה וקובייה, מציאת מקצוע חסר, מקל בקופסה, גובה פירמידה ומקצוע צדדי, וחרוט.</span></a></li>
+  </ul>
+</section>
+
+<section class="topic" id="stats">
+  <div class="topic-head"><h2>תחום אי־ודאות: סטטיסטיקה והסתברות</h2><span>8 דפים · 83 שאלות</span></div>
+  <ul class="docs">
+<li><a href="stats-01-frequency-learn.html"><span class="no">17א</span><span class="t">איסוף מידע, שכיחות ושכיחות יחסית</span><span class="q">דף הסבר · 5 שאלות</span><span class="d">שאלת מחקר ואוכלוסייה, סוגי נתונים, טבלת שכיחויות, דיאגרמת עמודות ודיאגרמת עיגול, שכיחות יחסית כשבר וכאחוז, והשוואה בין קבוצות בגדלים שונים.</span></a></li>
+<li><a href="stats-01-frequency-practice.html"><span class="no">17ב</span><span class="t">תרגול: איסוף מידע, שכיחות ושכיחות יחסית</span><span class="q">14 שאלות</span><span class="d">תרגול מדורג: בניית טבלה מנתונים גולמיים, שכיחות יחסית, זוויות בדיאגרמת עיגול, השוואת קבוצות, וזיהוי גרף מטעה.</span></a></li>
+<li><a href="stats-02-measures-learn.html"><span class="no">18א</span><span class="t">מדדי מרכז, טווח ושני מקורות מידע</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">ממוצע (גם מטבלת שכיחויות), חציון במספר זוגי ואי־זוגי של נתונים, שכיח, טווח, השפעת ערך חריג, בחירת המדד המתאים והשוואה בין שני מקורות מידע.</span></a></li>
+<li><a href="stats-02-measures-practice.html"><span class="no">18ב</span><span class="t">תרגול: מדדי מרכז, טווח ושני מקורות מידע</span><span class="q">17 שאלות</span><span class="d">תרגול מדורג: חישוב ממוצע, חציון, שכיח וטווח, ציון חסר כדי להגיע לממוצע, שינוי בנתונים, ממוצע מטבלה, והשוואה בין שתי כיתות.</span></a></li>
+<li><a href="stats-03-interpolation-learn.html"><span class="no">19א</span><span class="t">אינטרפולציה ואקסטרפולציה</span><span class="q">דף הסבר · 5 שאלות</span><span class="d">מגמה בנתונים, אינטרפולציה לינארית בין שתי מדידות, אקסטרפולציה והמשך מגמה, וזהירות: מתי המגמה נשברת.</span></a></li>
+<li><a href="stats-03-interpolation-practice.html"><span class="no">19ב</span><span class="t">תרגול: אינטרפולציה ואקסטרפולציה</span><span class="q">12 שאלות</span><span class="d">תרגול מדורג: הערכה מתוך טבלה וגרף, המשך מגמה קבועה, השוואה בין שתי הערכות, ושאלות ״האם החיזוי סביר?״.</span></a></li>
+<li><a href="stats-04-probability-learn.html"><span class="no">20א</span><span class="t">הסתברות</span><span class="q">דף הסבר · 6 שאלות</span><span class="d">מרחב תוצאות, מאורע, הסתברות כיחס, הסתברות בין 0 ל־1, מאורע משלים, שכיחות יחסית כהערכה להסתברות, וטבלה ועץ לניסוי בשני שלבים.</span></a></li>
+<li><a href="stats-04-probability-practice.html"><span class="no">20ב</span><span class="t">תרגול: הסתברות</span><span class="q">18 שאלות</span><span class="d">תרגול מדורג: הסתברות בהטלת קובייה, שליפה משקית, מאורע משלים, שתי קוביות (טבלת 36), שני מטבעות, ושליפה עם החזרה ובלי החזרה.</span></a></li>
+  </ul>
+</section>
+
+
+<footer>האתר נבנה בהדרגה, ודפים חדשים יתווספו לרשימה זו. סדר הנושאים בכל תחום הוא סדר הלימוד בשנה. כדאי לוודא מול פריסת ההוראה העדכנית של משרד החינוך.</footer>
+</div>
+<a class="to-top" href="#toc">↑ תוכן עניינים</a>
+<script>
+// Build the table of contents from the topic sections, so new topics are listed automatically
+(function(){
+  var ol=document.querySelector('#toc ol'); if(!ol) return;
+  var html='';
+  document.querySelectorAll('section.topic[id]').forEach(function(sec){
+    var h=sec.querySelector('h2'); if(!h) return;
+    var c=sec.querySelector('.topic-head span');
+    html+='<li><a href="#'+sec.id+'">'+h.textContent+(c?'<small>'+c.textContent+'</small>':'')+'</a></li>';
+  });
+  if(html) ol.innerHTML=html;
+})();
+</script>
+</body>
+</html>

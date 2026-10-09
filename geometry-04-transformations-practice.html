@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תרגול: טרנספורמציות וצורות חופפות · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="geometry-04-transformations-learn.html">← לדף ההסבר</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום גאומטרי · דף תרגול</span><h1>תרגול: טרנספורמציות וצורות חופפות</h1><p class="lead">תרגול טרנספורמציות במערכת צירים ובשרטוט, וזיהוי צורות חופפות, עם רמזים ופתרונות מלאים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#remind">תזכורת קצרה</a></li><li><a href="#lvl1">רמה א׳: בסיס </a></li><li><a href="#lvl2">רמה ב׳: ביסוס </a></li><li><a href="#lvl3">רמה ג׳: אתגר </a></li></ol></nav>
+<section class="ch" id="remind"><h2>תזכורת קצרה</h2>
+<div class="formulas">
+<div class="f"><b>הזזה</b><span class="m">\((x,y)\to(x+a,y+b)\)</span></div>
+<div class="f"><b>שיקוף</b>ציר x: <span class="m">\((x,-y)\)</span>. ציר y: <span class="m">\((-x,y)\)</span></div>
+<div class="f"><b>סיבוב סביב הראשית</b>90° נגד השעון: <span class="m">\((-y,x)\)</span>. 180°: <span class="m">\((-x,-y)\)</span></div>
+<div class="f"><b>נשמרים</b>אורכים, זוויות, שטח</div>
+</div>
+<p>הסברים ב<a class="inline" href="geometry-04-transformations-learn.html">דף ההסבר</a>.</p>
+</section>
+
+<section class="ch level" id="lvl1"><h2>רמה א׳: בסיס <small>שאלות 1–8</small></h2>
+<figure><svg viewBox="0 0 260 260" width="260" role="img" aria-label="משולש לתרגול טרנספורמציות"><g class="gr"><line x1="20" y1="20" x2="20" y2="240"/><line x1="20" y1="20" x2="240" y2="20"/><line x1="42" y1="20" x2="42" y2="240"/><line x1="20" y1="42" x2="240" y2="42"/><line x1="64" y1="20" x2="64" y2="240"/><line x1="20" y1="64" x2="240" y2="64"/><line x1="86" y1="20" x2="86" y2="240"/><line x1="20" y1="86" x2="240" y2="86"/><line x1="108" y1="20" x2="108" y2="240"/><line x1="20" y1="108" x2="240" y2="108"/><line x1="130" y1="20" x2="130" y2="240"/><line x1="20" y1="130" x2="240" y2="130"/><line x1="152" y1="20" x2="152" y2="240"/><line x1="20" y1="152" x2="240" y2="152"/><line x1="174" y1="20" x2="174" y2="240"/><line x1="20" y1="174" x2="240" y2="174"/><line x1="196" y1="20" x2="196" y2="240"/><line x1="20" y1="196" x2="240" y2="196"/><line x1="218" y1="20" x2="218" y2="240"/><line x1="20" y1="218" x2="240" y2="218"/><line x1="240" y1="20" x2="240" y2="240"/><line x1="20" y1="240" x2="240" y2="240"/></g><line class="ax" x1="16" y1="130" x2="244" y2="130"/><line class="ax" x1="130" y1="16" x2="130" y2="244"/><text x="238" y="124">x</text><text x="136" y="32">y</text>
+<polygon class="fa" points="42,152 86,152 86,86"/>
+<text x="28" y="168" class="a">A</text><text x="90" y="168" class="a">B</text><text x="90" y="82" class="a">C</text></svg><figcaption>המשולש <span class="m">\(A(-4,-1)\)</span>, <span class="m">\(B(-2,-1)\)</span>, <span class="m">\(C(-2,2)\)</span> לשאלות 1–6</figcaption></figure>
+<ol class="exercises" start="1">
+<li>מצאו את קודקודי התמונה בהזזה של 5 ימינה ו־1 למעלה.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(A'(1,0)\)</span>, <span class="m">\(B'(3,0)\)</span>, <span class="m">\(C'(3,3)\)</span>.</p></div></details></li>
+<li>מצאו את קודקודי התמונה בשיקוף בציר x.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(A'(-4,1)\)</span>, <span class="m">\(B'(-2,1)\)</span>, <span class="m">\(C'(-2,-2)\)</span>.</p></div></details></li>
+<li>מצאו את קודקודי התמונה בשיקוף בציר y.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(A'(4,-1)\)</span>, <span class="m">\(B'(2,-1)\)</span>, <span class="m">\(C'(2,2)\)</span>.</p></div></details></li>
+<li>מצאו את קודקודי התמונה בסיבוב של 180° סביב הראשית.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(A'(4,1)\)</span>, <span class="m">\(B'(2,1)\)</span>, <span class="m">\(C'(2,-2)\)</span>.</p></div></details></li>
+<li>מה אורכי הצלעות <span class="m">\(AB\)</span>, <span class="m">\(BC\)</span>, <span class="m">\(AC\)</span>? מה שטח המשולש? האם הם משתנים בטרנספורמציות?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(AB=2\)</span>, <span class="m">\(BC=3\)</span>, <span class="m">\(AC=\sqrt{4+9}=\sqrt{13}\)</span>. שטח: 3. לא משתנים.</p></div></details></li>
+<li>מצאו את התמונה של C בסיבוב של 90° נגד כיוון השעון סביב הראשית.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((-2,2)\to(-2,-2)\)</span>.</p></div></details></li>
+<li>כמה צירי סימטריה יש לכל צורה? ריבוע, מלבן, מעוין, משולש שווה שוקיים, טרפז שווה שוקיים, מקבילית.<details><summary>הצג פתרון</summary><div class="sol"><p>4, 2, 2, 1, 1, 0.</p></div></details></li>
+<li>אילו מהאותיות הבאות סימטריות לציר אנכי? A, B, H, M, N, T, Z<details><summary>הצג פתרון</summary><div class="sol"><p>A, H, M, T. (B סימטרית לציר אופקי, N ו־Z לא סימטריות לשום ציר, אבל הן סימטריות לסיבוב של 180°.)</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl2"><h2>רמה ב׳: ביסוס <small>שאלות 9–14</small></h2>
+<ol class="exercises" start="9">
+<li>הנקודה <span class="m">\(P(-3,7)\)</span> שוקפה בציר y, ואחר כך הוזזה 4 למטה. מה התמונה הסופית?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((3,7)\to(3,3)\)</span>.</p></div></details></li>
+<li>שיקוף בציר x ואחריו שיקוף בציר y. לאיזו טרנספורמציה אחת זה שווה? בדקו על <span class="m">\((2,5)\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((2,5)\to(2,-5)\to(-2,-5)\)</span>. זה סיבוב של 180° סביב הראשית.</p></div></details></li>
+<li>הנקודה <span class="m">\(Q\)</span> עברה בשיקוף בציר x לנקודה <span class="m">\((4,-6)\)</span>. מהי <span class="m">\(Q\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((4,6)\)</span>.</p></div></details></li>
+<li>הזזה מעבירה את <span class="m">\((2,-1)\)</span> ל־<span class="m">\((-3,4)\)</span>. לאן היא מעבירה את <span class="m">\((-1,-1)\)</span>? ואיזו נקודה עוברת ל־<span class="m">\((0,0)\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p>ההזזה: 5 שמאלה, 5 למעלה. <span class="m">\((-1,-1)\to(-6,4)\)</span>. הנקודה <span class="m">\((5,-5)\)</span> עוברת לראשית.</p></div></details></li>
+<li>הנקודה <span class="m">\((a,3)\)</span> בשיקוף בציר y עוברת ל־<span class="m">\((5,b)\)</span>. מצאו את a ו־b.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(a=-5\)</span>, <span class="m">\(b=3\)</span>.</p></div></details></li>
+<li>המלבן <span class="m">\(ABCD\)</span>: <span class="m">\(A(1,1)\)</span>, <span class="m">\(B(5,1)\)</span>, <span class="m">\(C(5,3)\)</span>, <span class="m">\(D(1,3)\)</span>. מסובבים אותו ב־90° נגד כיוון השעון סביב הראשית. מצאו את קודקודי התמונה ואת שטחה.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(A'(-1,1)\)</span>, <span class="m">\(B'(-1,5)\)</span>, <span class="m">\(C'(-3,5)\)</span>, <span class="m">\(D'(-3,1)\)</span>. שטח 8, כמו המקור.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl3"><h2>רמה ג׳: אתגר <small>שאלות 15–18</small></h2>
+<ol class="exercises" start="15">
+<li>שיקוף בישר <span class="m">\(x=2\)</span> (ישר אנכי). מה התמונה של <span class="m">\((5,1)\)</span>? ושל <span class="m">\((0,4)\)</span>?<details class="hint"><summary>רמז</summary><div class="sol"><p>המרחק של הנקודה מהישר שווה למרחק של התמונה, בצד השני.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((5,1)\)</span> במרחק 3 ימינה מהישר: <span class="m">\((-1,1)\)</span>. <span class="m">\((0,4)\)</span> במרחק 2 שמאלה: <span class="m">\((4,4)\)</span>.</p></div></details></li>
+<li>שיקוף בישר <span class="m">\(y=x\)</span> מחליף בין הקואורדינטות: <span class="m">\((x,y)\to(y,x)\)</span>. הראו ששיקוף בציר x ואחריו שיקוף ב־<span class="m">\(y=x\)</span> שווה לסיבוב של 90°. באיזה כיוון?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((x,y)\to(x,-y)\to(-y,x)\)</span>. זה סיבוב של 90° נגד כיוון השעון.</p></div></details></li>
+<li>שתי הזזות בזו אחר זו: <span class="m">\((+3,-2)\)</span> ואחריה <span class="m">\((-1,+5)\)</span>. לאיזו הזזה אחת זה שווה?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((+2,+3)\)</span>.</p></div></details></li>
+<li>המשולש <span class="m">\(A(0,0),B(3,0),C(0,2)\)</span> והמשולש <span class="m">\(D(0,0),E(0,3),F(-2,0)\)</span>. הראו שהם חופפים, ומצאו טרנספורמציה אחת שמעבירה את הראשון לשני. כתבו את החפיפה בסדר הנכון.<details><summary>הצג פתרון</summary><div class="sol"><p>סיבוב של 90° נגד כיוון השעון: <span class="m">\(A\to(0,0)=D\)</span>, <span class="m">\(B(3,0)\to(0,3)=E\)</span>, <span class="m">\(C(0,2)\to(-2,0)=F\)</span>. <span class="m">\(\triangle ABC\cong\triangle DEF\)</span>.</p></div></details></li>
+</ol></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

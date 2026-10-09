@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תרגול: מדדי מרכז, טווח ושני מקורות מידע · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="stats-02-measures-learn.html">← לדף ההסבר</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום אי־ודאות · דף תרגול</span><h1>תרגול: מדדי מרכז, טווח ושני מקורות מידע</h1><p class="lead">תרגול חישוב מדדים, שאלות ״הפוכות״ על ממוצע, והשוואת קבוצות, עם רמזים ופתרונות מלאים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#remind">תזכורת קצרה</a></li><li><a href="#lvl1">רמה א׳: בסיס </a></li><li><a href="#lvl2">רמה ב׳: ביסוס </a></li><li><a href="#lvl3">רמה ג׳: אתגר </a></li></ol></nav>
+<section class="ch" id="remind"><h2>תזכורת קצרה</h2>
+<div class="formulas">
+<div class="f"><b>ממוצע</b>סכום ÷ מספר הנתונים</div>
+<div class="f"><b>חציון</b>מסדרים, ולוקחים את האמצעי (או ממוצע שני האמצעיים)</div>
+<div class="f"><b>שכיח</b>הערך הנפוץ ביותר</div>
+<div class="f"><b>טווח</b>הגדול פחות הקטן</div>
+</div>
+<p>הסברים ב<a class="inline" href="stats-02-measures-learn.html">דף ההסבר</a>.</p>
+</section>
+
+<section class="ch level" id="lvl1"><h2>רמה א׳: בסיס <small>שאלות 1–7</small></h2>
+<ol class="exercises" start="1">
+<li>מצאו ממוצע, חציון, שכיח וטווח: 12, 15, 11, 15, 17, 14, 14, 15, 13.<details><summary>הצג פתרון</summary><div class="sol"><p>סכום 126, ממוצע 14. מסודר: 11, 12, 13, 14, 14, 15, 15, 15, 17: חציון 14. שכיח 15. טווח 6.</p></div></details></li>
+<li>מצאו את החציון: 3.5, 2, 4, 6, 1.5, 5, 2.5, 4.5.<details><summary>הצג פתרון</summary><div class="sol"><p>1.5, 2, 2.5, 3.5, 4, 4.5, 5, 6: <span class="m">\(\frac{3.5+4}{2}=3.75\)</span>.</p></div></details></li>
+<li>טמפרטורות בשבוע: 22°, 24°, 25°, 21°, 23°, 26°, 27°. מה הממוצע ומה הטווח?<details><summary>הצג פתרון</summary><div class="sol"><p>ממוצע: <span class="m">\(168:7=24°\)</span>. טווח: 6°.</p></div></details></li>
+<li>חשבו את הממוצע מהטבלה:<div class="tablebox"><table><thead><tr><th>ציון</th><td>60</td><td>70</td><td>80</td><td>90</td><td>100</td></tr></thead><tbody><tr><th>שכיחות</th><td>2</td><td>5</td><td>8</td><td>4</td><td>1</td></tr></tbody></table></div><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(120+350+640+360+100=1570\)</span>, 20 תלמידים. ממוצע <span class="m">\(78.5\)</span>.</p></div></details></li>
+<li>מה החציון ומה השכיח בטבלה של שאלה 4?<details><summary>הצג פתרון</summary><div class="sol"><p>20 נתונים: האמצעיים הם ה־10 וה־11. שניהם 80 (ה־8 עד ה־15 הם 80). חציון 80. שכיח 80.</p></div></details></li>
+<li>ממוצע של 5 מספרים 9. ארבעה מהם 7, 8, 10, 12. מה החמישי?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(45-37=8\)</span>.</p></div></details></li>
+<li>הוסיפו לכל אחד מהנתונים 4, 6, 8 את המספר 10. מה קורה לממוצע, לחציון ולטווח?<details><summary>הצג פתרון</summary><div class="sol"><p>14, 16, 18: הממוצע והחציון גדלים ב־10 (מ־6 ל־16), הטווח לא משתנה (4).</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl2"><h2>רמה ב׳: ביסוס <small>שאלות 8–13</small></h2>
+<ol class="exercises" start="8">
+<li>ממוצע הציונים בכיתה של 25 תלמידים הוא 76. הצטרף תלמיד עם ציון 89. מה הממוצע החדש?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((1900+89):26=1989:26=76.5\)</span>.</p></div></details></li>
+<li>ממוצע של 10 מספרים 20. הורידו מספר אחד, והממוצע של 9 הנותרים 19. איזה מספר הורידו?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(200-171=29\)</span>.</p></div></details></li>
+<li>מחירי דירות ברחוב (באלפי ₪): 1,800, 1,950, 2,000, 2,100, 2,200, 6,500. מה הממוצע ומה החציון? איזה מדד מייצג טוב יותר את מחיר הדירה ״הטיפוסי״?<details><summary>הצג פתרון</summary><div class="sol"><p>ממוצע: <span class="m">\(16{,}550:6\approx2{,}758\)</span>. חציון: 2,050. החציון, כי יש ערך חריג (6,500).</p></div></details></li>
+<li>שתי כיתות כתבו מבחן. כיתה א׳: 65, 70, 75, 80, 85, 90, 95. כיתה ב׳: 50, 60, 80, 80, 80, 100, 100. השוו בעזרת ממוצע, חציון וטווח.<details><summary>הצג פתרון</summary><div class="sol"><p>א׳: ממוצע 80, חציון 80, טווח 30. ב׳: ממוצע 78.57, חציון 80, טווח 50. החציונים שווים, הממוצעים קרובים, אבל בכיתה ב׳ הפיזור גדול יותר.</p></div></details></li>
+<li>כתבו חמישה מספרים שהממוצע שלהם 10, החציון 8 והשכיח 6.<details><summary>הצג פתרון</summary><div class="sol"><p>לדוגמה: 6, 6, 8, 12, 18. (סכום 50 ✓, אמצעי 8 ✓, 6 פעמיים ✓)</p></div></details></li>
+<li>ממוצע הגובה של 12 בנים הוא 160 ס״מ, וממוצע הגובה של 18 בנות הוא 155 ס״מ. מה ממוצע הגובה בכל הכיתה?<details class="hint"><summary>רמז</summary><div class="sol"><p>אי אפשר פשוט לעשות ממוצע של 160 ו־155, כי הקבוצות בגדלים שונים. חשבו את סכום הגבהים.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((1920+2790):30=4710:30=157\)</span> ס״מ.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl3"><h2>רמה ג׳: אתגר <small>שאלות 14–17</small></h2>
+<ol class="exercises" start="14">
+<li>ממוצע הציונים של רון בחמישה מבחנים 84. המורה ביטלה את הציון הנמוך ביותר, והממוצע עלה ל־88. מה היה הציון שבוטל?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(420-352=68\)</span>.</p></div></details></li>
+<li>המורה הוסיפה 5 נקודות לכל ציון בכיתה. מה קרה לממוצע, לחציון, לשכיח ולטווח? ואם הכפילה כל ציון ב־1.1?<details><summary>הצג פתרון</summary><div class="sol"><p>תוספת 5: ממוצע, חציון ושכיח גדלים ב־5; טווח לא משתנה. כפל ב־1.1: כל ארבעת המדדים גדלים פי 1.1 (גם הטווח).</p></div></details></li>
+<li>ב־7 נתונים, החציון 10 והממוצע 10. מחליפים את הנתון הגדול ביותר במספר גדול ממנו ב־14. מה הממוצע החדש? והחציון?<details><summary>הצג פתרון</summary><div class="sol"><p>ממוצע: <span class="m">\(10+\frac{14}{7}=12\)</span>. החציון לא משתנה: 10.</p></div></details></li>
+<li>נתונים: 4, 7, x, 9, 12. הממוצע שווה לחציון. מצאו את כל ערכי x האפשריים.<details class="hint"><summary>רמז</summary><div class="sol"><p>החציון תלוי במקום של x: אם <span class="m">\(x\le7\)</span> החציון 7, אם <span class="m">\(7\le x\le9\)</span> החציון x, ואם <span class="m">\(x\ge9\)</span> החציון 9.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p>ממוצע: <span class="m">\(\frac{32+x}{5}\)</span>.</p><p>חציון 7: <span class="m">\(32+x=35\Rightarrow x=3\)</span> (✓, <span class="m">\(3\le7\)</span>).</p><p>חציון x: <span class="m">\(32+x=5x\Rightarrow x=8\)</span> (✓).</p><p>חציון 9: <span class="m">\(32+x=45\Rightarrow x=13\)</span> (✓).</p><p>שלושה ערכים: 3, 8, 13.</p></div></details></li>
+</ol></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

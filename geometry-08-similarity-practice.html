@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תרגול: דמיון משולשים · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="geometry-08-similarity-learn.html">← לדף ההסבר</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום גאומטרי · דף תרגול</span><h1>תרגול: דמיון משולשים</h1><p class="lead">תרגול זיהוי משולשים דומים וחישוב אורכים, היקפים ושטחים, עם רמזים ופתרונות מלאים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#remind">תזכורת קצרה</a></li><li><a href="#lvl1">רמה א׳: בסיס </a></li><li><a href="#lvl2">רמה ב׳: ביסוס </a></li><li><a href="#lvl3">רמה ג׳: אתגר </a></li></ol></nav>
+<section class="ch" id="remind"><h2>תזכורת קצרה</h2>
+<div class="formulas">
+<div class="f"><b>משפטי דמיון</b>ז.ז · צ.ז.צ (פרופורציה) · צ.צ.צ (פרופורציה)</div>
+<div class="f"><b>מקביל לצלע</b><span class="m">\(\frac{AD}{AB}=\frac{AE}{AC}=\frac{DE}{BC}\)</span></div>
+<div class="f"><b>היקפים</b>יחס <span class="m">\(k\)</span></div>
+<div class="f"><b>שטחים</b>יחס <span class="m">\(k^2\)</span></div>
+</div>
+<p>הסברים ב<a class="inline" href="geometry-08-similarity-learn.html">דף ההסבר</a>.</p>
+</section>
+
+<section class="ch level" id="lvl1"><h2>רמה א׳: בסיס <small>שאלות 1–8</small></h2>
+<ol class="exercises" start="1">
+<li><span class="m">\(\triangle ABC\sim\triangle PQR\)</span> עם <span class="m">\(AB=6\)</span>, <span class="m">\(BC=8\)</span>, <span class="m">\(AC=10\)</span>, ו־<span class="m">\(PQ=9\)</span>. מצאו את <span class="m">\(QR\)</span> ו־<span class="m">\(PR\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(k=1.5\)</span>: <span class="m">\(QR=12\)</span>, <span class="m">\(PR=15\)</span>.</p></div></details></li>
+<li>אילו זוגות דומים? <ol class="sub"><li>2, 3, 4 ו־6, 9, 12</li><li>5, 5, 8 ו־10, 10, 14</li><li>1, 2, 2 ו־1.5, 3, 3</li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. כן (k=3)&emsp;ב. לא (<span class="m">\(\frac{14}{8}\neq2\)</span>)&emsp;ג. כן (k=1.5)</p></div></details></li>
+<li>במשולש אחד זוויות 35° ו־75°, ובשני זוויות 70° ו־75°. האם דומים?<details><summary>הצג פתרון</summary><div class="sol"><p>בראשון השלישית 70°. שתי זוויות שוות (70°, 75°): דומים, ז.ז.</p></div></details></li>
+<li><span class="m">\(DE\parallel BC\)</span> (D על AB, E על AC). <span class="m">\(AD=2\)</span>, <span class="m">\(DB=3\)</span>, <span class="m">\(AE=4\)</span>. מצאו את EC.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{2}{5}=\frac{4}{AC}\Rightarrow AC=10\)</span>, <span class="m">\(EC=6\)</span>.</p></div></details></li>
+<li><span class="m">\(DE\parallel BC\)</span>, <span class="m">\(AD=6\)</span>, <span class="m">\(AB=15\)</span>, <span class="m">\(DE=8\)</span>. מצאו את BC.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(BC=8\cdot\frac{15}{6}=20\)</span>.</p></div></details></li>
+<li>יחס הדמיון בין שני משולשים הוא <span class="m">\(2:5\)</span>. היקף הקטן 18. מה היקף הגדול?<details><summary>הצג פתרון</summary><div class="sol"><p>45.</p></div></details></li>
+<li>יחס הדמיון <span class="m">\(1:4\)</span>, ושטח הגדול 80. מה שטח הקטן?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(80:16=5\)</span>.</p></div></details></li>
+<li>תצלום בגודל 10×15 ס״מ מוגדל כך שהצלע הקצרה 25 ס״מ. מה הצלע הארוכה? פי כמה גדל השטח?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(k=2.5\)</span>: 37.5 ס״מ. השטח פי 6.25.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl2"><h2>רמה ב׳: ביסוס <small>שאלות 9–14</small></h2>
+<ol class="exercises" start="9">
+<li>עמוד חשמל מטיל צל של 12 מ׳, ובאותו זמן ילד בגובה 1.4 מ׳ מטיל צל של 2.1 מ׳. מה גובה העמוד?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{h}{1.4}=\frac{12}{2.1}\Rightarrow h=8\)</span> מ׳.</p></div></details></li>
+<li>במשולש ישר זווית ABC (<span class="m">\(\angle C=90°\)</span>) מורידים גובה CD ליתר. הוכיחו: <span class="m">\(\triangle ACD\sim\triangle ABC\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle A\)</span> משותפת, <span class="m">\(\angle ADC=\angle ACB=90°\)</span>. ז.ז.</p></div></details></li>
+<li>הקטעים AB ו־CD נחתכים ב־O, ו־<span class="m">\(AC\parallel DB\)</span>. <span class="m">\(AO=6\)</span>, <span class="m">\(OB=9\)</span>, <span class="m">\(AC=8\)</span>. מצאו את DB.<details class="hint"><summary>רמז</summary><div class="sol"><p>זוויות קודקודיות ב־O וזוויות מתחלפות בין המקבילים.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\triangle AOC\sim\triangle BOD\)</span> (ז.ז), <span class="m">\(k=1.5\)</span>. <span class="m">\(DB=12\)</span>.</p></div></details></li>
+<li><span class="m">\(DE\parallel BC\)</span> ו־<span class="m">\(AD:DB=1:2\)</span>. שטח <span class="m">\(\triangle ADE\)</span> הוא 5. מה שטח הטרפז DECB?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{AD}{AB}=\frac{1}{3}\)</span>, יחס שטחים <span class="m">\(1:9\)</span>. <span class="m">\(\triangle ABC=45\)</span>, הטרפז <span class="m">\(40\)</span>.</p></div></details></li>
+<li>במפה בקנה מידה <span class="m">\(1:1000\)</span> שטח מגרש הוא 12 סמ״ר. מה שטחו במציאות במ״ר?<details><summary>הצג פתרון</summary><div class="sol"><p>יחס שטחים <span class="m">\(1000^2\)</span>: 12,000,000 סמ״ר = 1,200 מ״ר.</p></div></details></li>
+<li>ב־<span class="m">\(\triangle ABC\)</span>: <span class="m">\(AB=12\)</span>, <span class="m">\(AC=8\)</span>. על AB נקודה D עם <span class="m">\(AD=4\)</span>, ועל AC נקודה E עם <span class="m">\(AE=6\)</span>. הוכיחו: <span class="m">\(\triangle ADE\sim\triangle ACB\)</span>, ומצאו את DE אם <span class="m">\(BC=10\)</span>.<details class="hint"><summary>רמז</summary><div class="sol"><p>שימו לב להתאמה: AD מתאים ל־AC, ו־AE ל־AB.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{AD}{AC}=\frac{4}{8}=\frac12\)</span>, <span class="m">\(\frac{AE}{AB}=\frac{6}{12}=\frac12\)</span>, ו־<span class="m">\(\angle A\)</span> משותפת: צ.ז.צ. <span class="m">\(DE=\frac{1}{2}BC=5\)</span>.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl3"><h2>רמה ג׳: אתגר <small>שאלות 15–18</small></h2>
+<ol class="exercises" start="15">
+<li>בטרפז ABCD (<span class="m">\(AB\parallel DC\)</span>), <span class="m">\(AB=6\)</span>, <span class="m">\(DC=15\)</span>. האלכסונים נחתכים ב־O. <span class="m">\(AO=4\)</span>. מצאו את OC ואת יחס השטחים של <span class="m">\(\triangle AOB\)</span> ו־<span class="m">\(\triangle COD\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\triangle AOB\sim\triangle COD\)</span> (ז.ז), <span class="m">\(k=2.5\)</span>. <span class="m">\(OC=10\)</span>. יחס השטחים <span class="m">\(4:25\)</span>.</p></div></details></li>
+<li>במשולש ישר זווית (<span class="m">\(\angle C=90°\)</span>), CD גובה ליתר, <span class="m">\(AD=4\)</span>, <span class="m">\(DB=9\)</span>. מצאו את CD.<details class="hint"><summary>רמז</summary><div class="sol"><p><span class="m">\(\triangle ACD\sim\triangle CBD\)</span>.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{AD}{CD}=\frac{CD}{DB}\Rightarrow CD^2=36\Rightarrow CD=6\)</span>.</p></div></details></li>
+<li>מראה מונחת על הקרקע במרחק 5 מ׳ מבניין. נועה עומדת במרחק 1.5 מ׳ מהמראה, וגובה עיניה 1.6 מ׳. היא רואה במראה את ראש הבניין. מה גובה הבניין? (זווית הפגיעה שווה לזווית ההחזרה.)<details><summary>הצג פתרון</summary><div class="sol"><p>משולשים דומים (ז.ז, זוויות ישרות וזוויות שוות במראה): <span class="m">\(\frac{h}{1.6}=\frac{5}{1.5}\Rightarrow h\approx5.33\)</span> מ׳.</p></div></details></li>
+<li>שטח של משולש 50. מעבירים ישר מקביל לבסיס, שמחלק אותו למשולש קטן ולטרפז שווי שטח. באיזה יחס הישר מחלק את השוק (מהקודקוד)? (בקירוב)<details><summary>הצג פתרון</summary><div class="sol"><p>שטח הקטן 25, יחס שטחים <span class="m">\(1:2\)</span>, ולכן <span class="m">\(k=\frac{1}{\sqrt2}\approx0.71\)</span>. הישר עובר בכ־71% מהשוק מהקודקוד, כלומר יחס של בערך <span class="m">\(0.71:0.29\)</span>.</p></div></details></li>
+</ol></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

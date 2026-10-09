@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תרגול: זוויות בין ישרים מקבילים · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="geometry-01-parallel-angles-learn.html">← לדף ההסבר</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום גאומטרי · דף תרגול</span><h1>תרגול: זוויות בין ישרים מקבילים</h1><p class="lead">תרגול מציאת זוויות ונימוקן, והוכחה שישרים מקבילים, עם רמזים ופתרונות מלאים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#remind">תזכורת קצרה</a></li><li><a href="#lvl1">רמה א׳: בסיס </a></li><li><a href="#lvl2">רמה ב׳: ביסוס </a></li><li><a href="#lvl3">רמה ג׳: אתגר </a></li></ol></nav>
+<section class="ch" id="remind"><h2>תזכורת קצרה</h2>
+<div class="formulas">
+<div class="f"><b>צמודות</b>סכומן <span class="m">\(180°\)</span></div>
+<div class="f"><b>קודקודיות</b>שוות</div>
+<div class="f"><b>בין מקבילים</b>מתאימות ומתחלפות שוות, חד־צדדיות סכומן <span class="m">\(180°\)</span></div>
+<div class="f"><b>הפוך</b>אם אחד התנאים מתקיים, הישרים מקבילים</div>
+</div>
+<figure><svg viewBox="0 0 440 280" width="420" role="img" aria-label="שני ישרים מקבילים a ו-b נחתכים על ידי ישר c, ושמונה זוויות ממוספרות">
+<line class="ln" x1="30" y1="80" x2="410" y2="80"/><line class="ln" x1="30" y1="200" x2="410" y2="200"/>
+<path class="ln" d="M380,74 l8,6 l-8,6 M380,194 l8,6 l-8,6"/>
+<line class="ac" x1="122" y1="10" x2="318" y2="272"/>
+<text x="414" y="85">a</text><text x="414" y="205">b</text><text x="108" y="18" class="a">c</text>
+<text x="190" y="68" class="k">1</text><text x="150" y="72" class="k">2</text><text x="150" y="102" class="k">3</text><text x="190" y="102" class="k">4</text>
+<text x="280" y="188" class="k">5</text><text x="240" y="192" class="k">6</text><text x="240" y="222" class="k">7</text><text x="280" y="222" class="k">8</text>
+</svg>
+<figcaption>השרטוט לשאלות 1–8. אם לא נאמר אחרת, <span class="m">\(a\parallel b\)</span>.</figcaption></figure>
+<p>הסברים ודוגמאות ב<a class="inline" href="geometry-01-parallel-angles-learn.html">דף ההסבר</a>.</p>
+</section>
+
+<section class="ch level" id="lvl1"><h2>רמה א׳: בסיס <small>שאלות 1–8</small></h2>
+<ol class="exercises" start="1">
+<li>מה שם הזוג? <ol class="sub"><li><span class="m">\(\angle1,\angle5\)</span></li><li><span class="m">\(\angle4,\angle6\)</span></li><li><span class="m">\(\angle3,\angle6\)</span></li><li><span class="m">\(\angle2,\angle4\)</span></li><li><span class="m">\(\angle7,\angle8\)</span></li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. מתאימות&emsp;ב. מתחלפות&emsp;ג. חד־צדדיות&emsp;ד. קודקודיות&emsp;ה. צמודות</p></div></details></li>
+<li><span class="m">\(\angle2=70°\)</span>. מצאו את כל שאר הזוויות, עם נימוק.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle4=70°\)</span> (קודקודית), <span class="m">\(\angle1=\angle3=110°\)</span> (צמודות ל־2).</p><p><span class="m">\(\angle6=70°\)</span> (מתאימה ל־2), <span class="m">\(\angle8=70°\)</span>, <span class="m">\(\angle5=\angle7=110°\)</span>.</p></div></details></li>
+<li><span class="m">\(\angle5=118°\)</span>. מצאו את <span class="m">\(\angle3\)</span> ואת <span class="m">\(\angle4\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle3=118°\)</span> (מתחלפות), <span class="m">\(\angle4=62°\)</span> (חד־צדדיות).</p></div></details></li>
+<li><span class="m">\(\angle7=x+40°\)</span> ו־<span class="m">\(\angle1=2x-15°\)</span>. מצאו את x.<details class="hint"><summary>רמז</summary><div class="sol"><p><span class="m">\(\angle7=\angle5\)</span> (קודקודיות), ו־<span class="m">\(\angle5=\angle1\)</span> (מתאימות).</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x+40=2x-15\Rightarrow x=55\)</span>. שתי הזוויות <span class="m">\(95°\)</span>.</p></div></details></li>
+<li><span class="m">\(\angle4=3x\)</span> ו־<span class="m">\(\angle5=6x\)</span>. מצאו את x ואת הזוויות.<details><summary>הצג פתרון</summary><div class="sol"><p>חד־צדדיות: <span class="m">\(9x=180\Rightarrow x=20\)</span>. <span class="m">\(60°\)</span> ו־<span class="m">\(120°\)</span>.</p></div></details></li>
+<li><span class="m">\(\angle3\)</span> גדולה פי 4 מ־<span class="m">\(\angle6\)</span>. מצאו את שתיהן.<details><summary>הצג פתרון</summary><div class="sol"><p>חד־צדדיות: <span class="m">\(5x=180\Rightarrow x=36\)</span>. <span class="m">\(\angle6=36°\)</span>, <span class="m">\(\angle3=144°\)</span>.</p></div></details></li>
+<li>הפרש בין <span class="m">\(\angle1\)</span> ל־<span class="m">\(\angle2\)</span> הוא <span class="m">\(50°\)</span>. מצאו את שתיהן.<details><summary>הצג פתרון</summary><div class="sol"><p>סכומן 180 והפרשן 50: <span class="m">\(\angle1=115°\)</span>, <span class="m">\(\angle2=65°\)</span>.</p></div></details></li>
+<li>בלי לדעת אם a ו־b מקבילים: <span class="m">\(\angle2=75°\)</span> ו־<span class="m">\(\angle8=75°\)</span>. האם <span class="m">\(a\parallel b\)</span>?<details class="hint"><summary>רמז</summary><div class="sol"><p>מצאו זווית ששווה ל־2 ויוצרת עם 8 זוג מתאימות או מתחלפות.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle4=\angle2=75°\)</span> (קודקודיות). <span class="m">\(\angle4\)</span> ו־<span class="m">\(\angle8\)</span> מתאימות ושוות, לכן <span class="m">\(a\parallel b\)</span>.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl2"><h2>רמה ב׳: ביסוס <small>שאלות 9–14</small></h2>
+<figure><svg viewBox="0 0 380 220" width="360" role="img" aria-label="משולש ABC וישר DE דרך A המקביל ל-BC">
+<line class="ln" x1="20" y1="40" x2="360" y2="40"/>
+<polygon class="fa" points="150,40 60,190 320,190"/>
+<text x="144" y="30">A</text><text x="40" y="205">B</text><text x="326" y="205">C</text><text x="22" y="32">D</text><text x="346" y="32">E</text>
+<text x="74" y="182" class="k">β</text><text x="284" y="182" class="k">γ</text><text x="118" y="56" class="a">β</text><text x="172" y="56" class="a">γ</text>
+</svg>
+<figcaption>משולש <span class="m">\(ABC\)</span> והישר <span class="m">\(DE\)</span> דרך <span class="m">\(A\)</span>, <span class="m">\(DE\parallel BC\)</span></figcaption></figure>
+<ol class="exercises" start="9">
+<li>הוכיחו בעזרת השרטוט שסכום הזוויות במשולש הוא <span class="m">\(180°\)</span>.<details class="hint"><summary>רמז</summary><div class="sol"><p>מצאו בנקודה A זוויות ששוות ל־<span class="m">\(\angle B\)</span> ול־<span class="m">\(\angle C\)</span>.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle DAB=\angle B\)</span> ו־<span class="m">\(\angle EAC=\angle C\)</span> (מתחלפות בין מקבילים).</p><p>שלוש הזוויות ב־A, <span class="m">\(\angle DAB+\angle BAC+\angle EAC\)</span>, יוצרות זווית שטוחה, <span class="m">\(180°\)</span>. לכן <span class="m">\(\angle B+\angle BAC+\angle C=180°\)</span>.</p></div></details></li>
+<li>בשרטוט, <span class="m">\(\angle DAB=50°\)</span> ו־<span class="m">\(\angle EAC=65°\)</span>. מצאו את זוויות המשולש.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle B=50°\)</span>, <span class="m">\(\angle C=65°\)</span>, <span class="m">\(\angle A=180-115=65°\)</span>.</p></div></details></li>
+<li>שני ישרים מקבילים נחתכים על ידי חותך. זוג זוויות חד־צדדיות: אחת מהן גדולה ב־<span class="m">\(30°\)</span> מפי 2 של השנייה. מצאו אותן.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x+(2x+30)=180\Rightarrow x=50\)</span>. הזוויות: <span class="m">\(50°\)</span> ו־<span class="m">\(130°\)</span>.</p></div></details></li>
+<li>במקבילית <span class="m">\(ABCD\)</span>, <span class="m">\(\angle A=72°\)</span>. מצאו את שאר הזוויות. הסבירו בעזרת זוויות בין מקבילים.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(AD\parallel BC\)</span>, ו־<span class="m">\(AB\)</span> חותך: <span class="m">\(\angle A+\angle B=180°\)</span> (חד־צדדיות). <span class="m">\(\angle B=108°\)</span>. באותו אופן <span class="m">\(\angle C=72°\)</span>, <span class="m">\(\angle D=108°\)</span>.</p></div></details></li>
+<li>ישר <span class="m">\(c\)</span> חותך את <span class="m">\(a\)</span> ו־<span class="m">\(b\)</span>. זוג זוויות חד־צדדיות הן <span class="m">\(5x+10°\)</span> ו־<span class="m">\(4x+8°\)</span>. לאיזה x יהיו הישרים מקבילים?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(9x+18=180\Rightarrow x=18\)</span>.</p></div></details></li>
+<li>בשרטוט ״קו עזר״ מדף ההסבר: <span class="m">\(\alpha=2\beta\)</span> ו־<span class="m">\(\angle APB=96°\)</span>. מצאו את <span class="m">\(\alpha\)</span> ו־<span class="m">\(\beta\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(3\beta=96\Rightarrow\beta=32°,\;\alpha=64°\)</span>.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl3"><h2>רמה ג׳: אתגר <small>שאלות 15–18</small></h2>
+<ol class="exercises" start="15">
+<li>שני ישרים מקבילים נחתכים על ידי חותך. אחת מ־8 הזוויות היא <span class="m">\(x\)</span>. מהו סכום כל 8 הזוויות? הסבירו בלי לדעת את x.<details><summary>הצג פתרון</summary><div class="sol"><p>בכל צומת ארבע זוויות סביב נקודה: <span class="m">\(360°\)</span>. סה״כ <span class="m">\(720°\)</span>, בלי קשר להקבלה.</p></div></details></li>
+<li>בין שני ישרים מקבילים יש נקודה P. הזווית בין הישר העליון ל־PA היא <span class="m">\(x+10°\)</span>, הזווית בין הישר התחתון ל־PB היא <span class="m">\(2x\)</span>, ו־<span class="m">\(\angle APB=100°\)</span> (כמו בשרטוט ״קו עזר״). מצאו את x.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x+10+2x=100\Rightarrow x=30\)</span>.</p></div></details></li>
+<li>הוכיחו: אם שני ישרים מאונכים לאותו ישר, הם מקבילים זה לזה.<details><summary>הצג פתרון</summary><div class="sol"><p>הישר המשותף חותך את שניהם. כל אחד יוצר איתו זווית של <span class="m">\(90°\)</span>, והזוויות האלה מתאימות ושוות, לכן הישרים מקבילים.</p></div></details></li>
+<li>בטרפז <span class="m">\(ABCD\)</span> (<span class="m">\(AB\parallel DC\)</span>), <span class="m">\(\angle A=3\angle D\)</span> ו־<span class="m">\(\angle B=\angle C+40°\)</span>. מצאו את ארבע הזוויות.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\angle A+\angle D=180\Rightarrow 4\angle D=180\Rightarrow\angle D=45°,\;\angle A=135°\)</span>.</p><p><span class="m">\(\angle B+\angle C=180\Rightarrow 2\angle C+40=180\Rightarrow\angle C=70°,\;\angle B=110°\)</span>.</p></div></details></li>
+</ol></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

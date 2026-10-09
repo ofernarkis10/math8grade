@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מבוא לפונקציות וייצוגיהן · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="algebra-01-functions-practice.html">לתרגול מעשי ←</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום אלגברי · דף הסבר</span><h1>מבוא לפונקציות וייצוגיהן</h1><p class="lead">מהי פונקציה, ארבעת הייצוגים (מילולי, טבלה, גרף וביטוי אלגברי), וקריאת גרף: עלייה וירידה, מקסימום ומינימום וחיתוך עם הצירים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#what">מהי פונקציה?</a></li><li><a href="#reps">ארבעה ייצוגים של פונקציה</a></li><li><a href="#substitute">הצבה בפונקציה</a></li><li><a href="#read">קריאת גרף</a></li><li><a href="#story">גרף שמספר סיפור</a></li><li><a href="#mistakes">טעויות נפוצות</a></li><li><a href="#check">בדקו את עצמכם </a></li><li><a href="#next">ממשיכים לתרגול</a></li></ol></nav>
+<section class="ch" id="what"><h2>מהי פונקציה?</h2>
+<div class="meaning">
+<p><strong>פונקציה</strong> היא כלל שמתאים לכל ערך של משתנה אחד (<span class="m">\(x\)</span>) <strong>ערך אחד בלבד</strong> של משתנה שני (<span class="m">\(y\)</span>).</p>
+<p><span class="m">\(x\)</span> הוא <strong>המשתנה הבלתי תלוי</strong>: בוחרים אותו. <span class="m">\(y\)</span> הוא <strong>המשתנה התלוי</strong>: הערך שלו נקבע לפי <span class="m">\(x\)</span>. למשל, מחיר הנסיעה במונית (<span class="m">\(y\)</span>) תלוי במספר הקילומטרים (<span class="m">\(x\)</span>).</p>
+<p>כותבים <span class="m">\(f(x)\)</span> וקוראים ״f של x״: זה הערך שהפונקציה <span class="m">\(f\)</span> נותנת ל־<span class="m">\(x\)</span>.</p>
+</div>
+<div class="note"><strong>חשוב:</strong> לכל <span class="m">\(x\)</span> מתאים רק <span class="m">\(y\)</span> אחד. מותר ששני ערכים שונים של <span class="m">\(x\)</span> יקבלו אותו <span class="m">\(y\)</span>, אבל אסור ש־<span class="m">\(x\)</span> אחד יקבל שני ערכים שונים.</div>
+</section>
+
+<section class="ch" id="reps"><h2>ארבעה ייצוגים של פונקציה</h2>
+<div class="meaning"><p>אפשר לתאר את אותה פונקציה בארבע דרכים. נראה אותן על אותה דוגמה: בבריכה יש 2 מ״ק מים, ובכל שעה נכנסים עוד 3 מ״ק.</p></div>
+<div class="two">
+<div class="f"><b>1. מילולי</b>כמות המים היא 2 מ״ק ועוד 3 מ״ק לכל שעה.</div>
+<div class="f"><b>2. אלגברי (נוסחה)</b><span class="m">\(f(x)=3x+2\)</span></div>
+</div>
+<div class="two">
+<div><b>3. טבלה</b>
+<div class="tablebox"><table><thead><tr><th>x (שעות)</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><th>y (מ״ק)</th><td>2</td><td>5</td><td>8</td><td>11</td><td>14</td></tr></tbody></table></div></div>
+<figure><b>4. גרף</b>
+<svg viewBox="0 0 300 200" width="300" role="img" aria-label="גרף של y=3x+2, ישר עולה">
+<g class="gr"><line x1="40" y1="20" x2="40" y2="170"/><line x1="90" y1="20" x2="90" y2="170"/><line x1="140" y1="20" x2="140" y2="170"/><line x1="190" y1="20" x2="190" y2="170"/><line x1="240" y1="20" x2="240" y2="170"/><line x1="40" y1="67" x2="280" y2="67"/><line x1="40" y1="125" x2="280" y2="125"/><line x1="40" y1="20" x2="280" y2="20"/></g>
+<line class="ax" x1="40" y1="170" x2="285" y2="170"/><line class="ax" x1="40" y1="175" x2="40" y2="12"/>
+<polyline class="ac" points="40,160 240,20"/>
+<g class="dot"><circle cx="40" cy="160" r="4"/><circle cx="90" cy="125" r="4"/><circle cx="140" cy="90" r="4"/><circle cx="190" cy="55" r="4"/><circle cx="240" cy="20" r="4"/></g>
+<text x="86" y="190">1</text><text x="136" y="190">2</text><text x="186" y="190">3</text><text x="236" y="190">4</text><text x="20" y="130">5</text><text x="12" y="72">10</text><text x="270" y="190">x</text><text x="46" y="16">y</text>
+</svg></figure>
+</div>
+<div class="tip"><strong>מעבר בין ייצוגים:</strong> מנוסחה לטבלה מציבים ערכים של <span class="m">\(x\)</span>. מטבלה לגרף מסמנים כל זוג <span class="m">\((x,y)\)</span> כנקודה. מגרף לטבלה קוראים את הנקודות.</div>
+</section>
+
+<section class="ch" id="substitute"><h2>הצבה בפונקציה</h2>
+<div class="example"><span class="tag">דוגמה 1</span>
+<p>נתונה הפונקציה <span class="m">\(f(x)=x^2-2x\)</span>. חשבו את <span class="m">\(f(3)\)</span>, <span class="m">\(f(0)\)</span> ו־<span class="m">\(f(-2)\)</span>.</p>
+<p><span class="m">\(f(3)=9-6=3\)</span>&emsp;<span class="m">\(f(0)=0\)</span>&emsp;<span class="m">\(f(-2)=4+4=8\)</span></p>
+<p>הנקודות <span class="m">\((3,3)\)</span>, <span class="m">\((0,0)\)</span> ו־<span class="m">\((-2,8)\)</span> נמצאות על הגרף של <span class="m">\(f\)</span>.</p></div>
+<div class="example"><span class="tag">דוגמה 2: הפוך</span>
+<p>נתונה <span class="m">\(g(x)=4x-5\)</span>. לאיזה <span class="m">\(x\)</span> מתקיים <span class="m">\(g(x)=11\)</span>?</p>
+<p><span class="m">\(4x-5=11\Rightarrow 4x=16\Rightarrow x=4\)</span>.</p></div>
+<div class="note"><strong>שימו לב:</strong> מציבים מספר שלילי בתוך סוגריים: <span class="m">\((-2)^2=4\)</span>, ולא <span class="m">\(-4\)</span>.</div>
+</section>
+
+<section class="ch" id="read"><h2>קריאת גרף</h2>
+<div class="two">
+<figure>
+<svg viewBox="0 0 360 300" width="360" role="img" aria-label="גרף של פרבולה הפוכה עם מקסימום בנקודה (2,4)">
+<g class="gr"><line x1="30" y1="25" x2="30" y2="275"/><line x1="130" y1="25" x2="130" y2="275"/><line x1="180" y1="25" x2="180" y2="275"/><line x1="230" y1="25" x2="230" y2="275"/><line x1="280" y1="25" x2="280" y2="275"/><line x1="330" y1="25" x2="330" y2="275"/><line x1="30" y1="50" x2="340" y2="50"/><line x1="30" y1="100" x2="340" y2="100"/><line x1="30" y1="200" x2="340" y2="200"/><line x1="30" y1="250" x2="340" y2="250"/></g>
+<line class="ax" x1="20" y1="150" x2="345" y2="150"/><line class="ax" x1="80" y1="285" x2="80" y2="15"/>
+<path class="ac" d="M30,275 Q180,-175 330,275"/>
+<g class="dot"><circle cx="180" cy="50" r="5"/><circle cx="80" cy="150" r="5"/><circle cx="280" cy="150" r="5"/></g>
+<text x="186" y="44" class="k">(2,4)</text><text x="86" y="168">0</text><text x="284" y="168">4</text><text x="176" y="168">2</text><text x="60" y="104">2</text><text x="60" y="54">4</text><text x="54" y="204">−2</text><text x="338" y="168">x</text><text x="86" y="18">y</text>
+</svg><figcaption>הגרף של הפונקציה <span class="m">\(f\)</span></figcaption></figure>
+<div class="meaning">
+<p><strong>תחום עלייה:</strong> כשהולכים ימינה על ציר x, הגרף עולה. כאן: <span class="m">\(x\lt2\)</span>.</p>
+<p><strong>תחום ירידה:</strong> כשהולכים ימינה, הגרף יורד. כאן: <span class="m">\(x\gt2\)</span>.</p>
+<p><strong>נקודת מקסימום:</strong> הנקודה הגבוהה ביותר, שבה העלייה הופכת לירידה: <span class="m">\((2,4)\)</span>. נקודת <strong>מינימום</strong> היא הנקודה שבה הירידה הופכת לעלייה.</p>
+<p><strong>חיתוך עם ציר x:</strong> הנקודות שבהן <span class="m">\(y=0\)</span>: <span class="m">\((0,0)\)</span> ו־<span class="m">\((4,0)\)</span>.</p>
+<p><strong>חיתוך עם ציר y:</strong> הנקודה שבה <span class="m">\(x=0\)</span>: <span class="m">\((0,0)\)</span>.</p>
+<p><strong>חיובית ושלילית:</strong> הפונקציה חיובית (הגרף מעל ציר x) כש־<span class="m">\(0\lt x\lt4\)</span>, ושלילית כש־<span class="m">\(x\lt0\)</span> או <span class="m">\(x\gt4\)</span>.</p>
+</div>
+</div>
+<div class="note"><strong>שימו לב:</strong> תחומי עלייה וירידה הם ערכים של <span class="m">\(x\)</span>, לא של <span class="m">\(y\)</span>. קוראים את הגרף תמיד משמאל לימין, גם כשכותבים בעברית מימין לשמאל.</div>
+</section>
+
+<section class="ch" id="story"><h2>גרף שמספר סיפור</h2>
+<div class="two">
+<figure>
+<svg viewBox="0 0 500 300" width="480" role="img" aria-label="גרף מרחק מהבית לפי זמן של רוכב אופניים">
+<g class="gr"><line x1="50" y1="20" x2="490" y2="20"/><line x1="50" y1="100" x2="490" y2="100"/><line x1="50" y1="180" x2="490" y2="180"/><line x1="120" y1="20" x2="120" y2="260"/><line x1="190" y1="20" x2="190" y2="260"/><line x1="260" y1="20" x2="260" y2="260"/><line x1="330" y1="20" x2="330" y2="260"/><line x1="400" y1="20" x2="400" y2="260"/><line x1="470" y1="20" x2="470" y2="260"/></g>
+<line class="ax" x1="50" y1="260" x2="495" y2="260"/><line class="ax" x1="50" y1="265" x2="50" y2="10"/>
+<polyline class="ac" points="50,260 190,100 260,100 330,20 470,260"/>
+<g class="dot"><circle cx="190" cy="100" r="4"/><circle cx="260" cy="100" r="4"/><circle cx="330" cy="20" r="4"/></g>
+<text x="116" y="280">1</text><text x="186" y="280">2</text><text x="256" y="280">3</text><text x="326" y="280">4</text><text x="396" y="280">5</text><text x="466" y="280">6</text><text x="22" y="184">20</text><text x="22" y="104">40</text><text x="22" y="24">60</text>
+<text x="380" y="296">זמן (שעות)</text><text x="56" y="14">מרחק מהבית (ק״מ)</text>
+</svg></figure></div>
+<div class="example"><span class="tag">דוגמה 3: קוראים את הסיפור</span>
+<p>הגרף מתאר את המרחק של רוכב אופניים מביתו.</p>
+<ul class="plain">
+<li>בשעתיים הראשונות התרחק 40 ק״מ, כלומר רכב במהירות <span class="m">\(40:2=20\)</span> קמ״ש.</li>
+<li>בין שעה 2 לשעה 3 המרחק לא השתנה: הוא עצר למנוחה (קטע אופקי).</li>
+<li>בין שעה 3 לשעה 4 התרחק עוד 20 ק״מ, במהירות 20 קמ״ש, והגיע למרחק המרבי, 60 ק״מ.</li>
+<li>בין שעה 4 לשעה 6 חזר הביתה: 60 ק״מ בשעתיים, במהירות 30 קמ״ש. הקטע הזה יורד, כי המרחק מהבית קטן.</li>
+</ul></div>
+<div class="tip"><strong>כלל אצבע:</strong> קטע תלול יותר פירושו שינוי מהיר יותר. קטע אופקי פירושו שאין שינוי.</div>
+</section>
+
+<section class="ch" id="mistakes"><h2>טעויות נפוצות</h2>
+<ul class="mistakes">
+<li>לכתוב תחומי עלייה וירידה לפי ערכי <span class="m">\(y\)</span> במקום לפי ערכי <span class="m">\(x\)</span>.</li>
+<li>לחשוב שגרף מרחק־זמן הוא ציור של הדרך עצמה (״עלייה״ בגרף אינה עלייה על הר).</li>
+<li>להציב מספר שלילי בלי סוגריים.</li>
+<li>לבלבל בין נקודת חיתוך עם ציר x (שבה <span class="m">\(y=0\)</span>) לנקודת חיתוך עם ציר y (שבה <span class="m">\(x=0\)</span>).</li>
+</ul>
+</section>
+
+<section class="ch level" id="check"><h2>בדקו את עצמכם <small>6 שאלות</small></h2>
+<ol class="exercises">
+<li>נתונה <span class="m">\(f(x)=5-2x\)</span>. חשבו <span class="m">\(f(1)\)</span>, <span class="m">\(f(-3)\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(f(1)=3\)</span>, <span class="m">\(f(-3)=11\)</span>.</p></div></details></li>
+<li>נתונה <span class="m">\(f(x)=5-2x\)</span>. לאיזה <span class="m">\(x\)</span> מתקיים <span class="m">\(f(x)=-7\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(5-2x=-7\Rightarrow x=6\)</span>.</p></div></details></li>
+<li>האם הנקודה <span class="m">\((2,7)\)</span> נמצאת על הגרף של <span class="m">\(y=x^2+3\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(2^2+3=7\)</span>. כן.</p></div></details></li>
+<li>האם הטבלה מתארת פונקציה? <div class="tablebox"><table><thead><tr><th>x</th><td>1</td><td>2</td><td>2</td><td>3</td></tr></thead><tbody><tr><th>y</th><td>4</td><td>5</td><td>6</td><td>7</td></tr></tbody></table></div><details><summary>הצג פתרון</summary><div class="sol"><p>לא. ל־<span class="m">\(x=2\)</span> מתאימים שני ערכים, 5 ו־6.</p></div></details></li>
+<li>לפי הגרף של הרוכב: מה היה המרחק מהבית אחרי שעה אחת? ומתי היה במרחק 30 ק״מ?<details><summary>הצג פתרון</summary><div class="sol"><p>אחרי שעה: 20 ק״מ. במרחק 30 ק״מ היה פעמיים: אחרי שעה וחצי (בדרך הלוך) ואחרי 5 שעות (בדרך חזרה).</p></div></details></li>
+<li>לפי גרף הפרבולה שלמעלה: מה הערך הגדול ביותר של הפונקציה, ובאיזה <span class="m">\(x\)</span> הוא מתקבל?<details><summary>הצג פתרון</summary><div class="sol"><p>הערך הגדול ביותר הוא 4, ב־<span class="m">\(x=2\)</span>.</p></div></details></li>
+</ol>
+</section>
+
+<section class="ch next" id="next"><h2>ממשיכים לתרגול</h2><p><a href="algebra-01-functions-practice.html">תרגול: מבוא לפונקציות וייצוגיהן</a>.</p></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

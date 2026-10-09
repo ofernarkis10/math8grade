@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>אינטרפולציה ואקסטרפולציה · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="stats-03-interpolation-practice.html">לתרגול מעשי ←</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום אי־ודאות · דף הסבר</span><h1>אינטרפולציה ואקסטרפולציה</h1><p class="lead">הערכת ערכים שלא נמדדו: בין הנתונים (אינטרפולציה) ומחוץ להם (אקסטרפולציה), ומתי חיזוי כזה אמין.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#trend">מגמה בנתונים</a></li><li><a href="#example">דוגמה: גובה של צמח</a></li><li><a href="#linear">אינטרפולציה לינארית: חישוב</a></li><li><a href="#careful">זהירות: מתי החיזוי לא אמין</a></li><li><a href="#mistakes">טעויות נפוצות</a></li><li><a href="#check">בדקו את עצמכם </a></li><li><a href="#next">ממשיכים לתרגול</a></li></ol></nav>
+<section class="ch" id="trend"><h2>מגמה בנתונים</h2>
+<div class="meaning">
+<p>לעתים קרובות מודדים משהו רק בכמה נקודות זמן, ורוצים להעריך את הערך בזמן שבו לא מדדנו. אם יש בנתונים <strong>מגמה</strong> (למשל עלייה קבועה), אפשר להעריך:</p>
+<ul class="plain">
+<li><strong>אינטרפולציה</strong>: הערכה <strong>בין</strong> שתי מדידות קיימות.</li>
+<li><strong>אקסטרפולציה</strong>: הערכה <strong>מחוץ</strong> לטווח המדידות, כלומר המשך המגמה (חיזוי).</li>
+</ul>
+</div>
+</section>
+
+<section class="ch" id="example"><h2>דוגמה: גובה של צמח</h2>
+<div class="tablebox"><table><thead><tr><th>שבוע</th><td>0</td><td>2</td><td>4</td><td>6</td></tr></thead><tbody><tr><th>גובה (ס״מ)</th><td>2</td><td>6</td><td>10</td><td>14</td></tr></tbody></table></div>
+<figure><svg viewBox="0 0 400 250" width="380" role="img" aria-label="גובה צמח לפי שבועות, עם הערכות"><g class="gr"><line x1="50" y1="220" x2="50" y2="40"/><line x1="90" y1="220" x2="90" y2="40"/><line x1="130" y1="220" x2="130" y2="40"/><line x1="170" y1="220" x2="170" y2="40"/><line x1="210" y1="220" x2="210" y2="40"/><line x1="250" y1="220" x2="250" y2="40"/><line x1="290" y1="220" x2="290" y2="40"/><line x1="330" y1="220" x2="330" y2="40"/><line x1="370" y1="220" x2="370" y2="40"/><line x1="50" y1="220" x2="370" y2="220"/><line x1="50" y1="175" x2="370" y2="175"/><line x1="50" y1="130" x2="370" y2="130"/><line x1="50" y1="85" x2="370" y2="85"/><line x1="50" y1="40" x2="370" y2="40"/></g><line class="ax" x1="50" y1="220" x2="376" y2="220"/><line class="ax" x1="50" y1="224" x2="50" y2="34"/><text x="46" y="238">0</text><text x="126" y="238">2</text><text x="206" y="238">4</text><text x="286" y="238">6</text><text x="366" y="238">8</text><text x="26" y="225">0</text><text x="26" y="180">5</text><text x="26" y="135">10</text><text x="26" y="90">15</text><text x="26" y="45">20</text><line class="ac" x1="50" y1="202" x2="290" y2="94"/><line class="dash" x1="290" y1="94" x2="370" y2="58" style="stroke:var(--accent)"/><circle cx="50" cy="202" r="5" style="fill:var(--accent)"/><circle cx="130" cy="166" r="5" style="fill:var(--accent)"/><circle cx="210" cy="130" r="5" style="fill:var(--accent)"/><circle cx="290" cy="94" r="5" style="fill:var(--accent)"/><circle class="dot" cx="170" cy="148" r="5"/><circle class="dot" cx="370" cy="58" r="5"/><text x="178" y="164" class="k">(3, 8)</text><text x="314" y="52" class="k">(8, 18)</text><text x="320" y="254">שבועות</text><text x="56" y="32">גובה (ס״מ)</text></svg><figcaption>כחול: מדידות. כתום: הערכות.</figcaption></figure>
+<div class="example"><span class="tag">אינטרפולציה</span>
+<p>מה היה הגובה בשבוע 3? שבוע 3 נמצא באמצע בין שבוע 2 לשבוע 4, ולכן נעריך את האמצע בין 6 ל־10: <strong>8 ס״מ</strong>.</p></div>
+<div class="example"><span class="tag">אקסטרפולציה</span>
+<p>מה יהיה הגובה בשבוע 8? הצמח גדל 4 ס״מ כל שבועיים (2 ס״מ בשבוע). נמשיך את המגמה: <span class="m">\(14+4=18\)</span> ס״מ.</p></div>
+</section>
+
+<section class="ch" id="linear"><h2>אינטרפולציה לינארית: חישוב</h2>
+<div class="meaning"><p>כשהערך המבוקש לא נמצא בדיוק באמצע, מחשבים את <strong>קצב השינוי</strong> בין שתי המדידות, וכופלים במרחק.</p></div>
+<div class="example"><span class="tag">דוגמה</span>
+<p>טמפרטורה בשעה 10:00 הייתה 18°, ובשעה 14:00 הייתה 26°. מה הייתה הטמפרטורה בערך בשעה 11:00?</p>
+<p>קצב: <span class="m">\(\frac{26-18}{4}=2°\)</span> לשעה. בשעה 11:00: <span class="m">\(18+2\cdot1=20°\)</span>.</p></div>
+<div class="tip"><strong>זה קשור לפונקציה הקווית:</strong> כשמניחים שקצב השינוי בין שתי מדידות קבוע, בעצם מעבירים קו ישר ביניהן. ראו <a class="inline" href="algebra-02-linear-function-learn.html">הפונקציה הקווית</a>.</div>
+</section>
+
+<section class="ch" id="careful"><h2>זהירות: מתי החיזוי לא אמין</h2>
+<div class="meaning">
+<p>אינטרפולציה בדרך כלל אמינה יחסית, כי היא בין נתונים שמדדנו. אקסטרפולציה מסוכנת יותר: אנחנו מניחים שהמגמה תימשך, וזה לא תמיד נכון.</p>
+</div>
+<div class="example"><span class="tag">דוגמה</span>
+<p>לפי המגמה, הצמח יגיע בשבוע 50 לגובה <span class="m">\(2+2\cdot50=102\)</span> ס״מ. האם זה סביר? כנראה שלא: צמחים מפסיקים לגדול בשלב מסוים. ככל שמתרחקים מהנתונים, החיזוי פחות אמין.</p></div>
+<div class="example"><span class="tag">דוגמה: מגמה לא קבועה</span>
+<p>ילד גבה 50 ס״מ בלידה ו־75 ס״מ בגיל שנה. האם בגיל 10 יהיה בגובה <span class="m">\(50+25\cdot10=300\)</span> ס״מ? ודאי שלא. קצב הגדילה בשנה הראשונה גבוה מאוד, ואחר כך הוא מאט.</p></div>
+</section>
+
+<section class="ch" id="mistakes"><h2>טעויות נפוצות</h2>
+<ul class="mistakes">
+<li>להניח שהמגמה נמשכת לנצח.</li>
+<li>לחשב קצב שינוי בלי לשים לב שהמרווחים בין המדידות אינם שווים.</li>
+<li>לבלבל בין שני המושגים: ״אינטר״ פירושו ״בין״, ו״אקסטרה״ פירושו ״מחוץ״.</li>
+</ul>
+</section>
+
+<section class="ch level" id="check"><h2>בדקו את עצמכם <small>5 שאלות</small></h2>
+<ol class="exercises">
+<li>מספר התלמידים בבית ספר: 2020: 600, 2022: 660. הערכו את מספר התלמידים ב־2021. האם זו אינטרפולציה או אקסטרפולציה?<details><summary>הצג פתרון</summary><div class="sol"><p>630. אינטרפולציה.</p></div></details></li>
+<li>לפי אותה מגמה, מה תהיה ההערכה ל־2025?<details><summary>הצג פתרון</summary><div class="sol"><p>30 בשנה: <span class="m">\(660+3\cdot30=750\)</span>. אקסטרפולציה.</p></div></details></li>
+<li>מכונית: אחרי שעה נסעה 70 ק״מ, ואחרי 3 שעות 210 ק״מ. הערכו את המרחק אחרי שעתיים וחצי.<details><summary>הצג פתרון</summary><div class="sol"><p>70 קמ״ש: 175 ק״מ.</p></div></details></li>
+<li>טמפרטורה ב־6:00 הייתה 12°, וב־12:00 הייתה 24°. הערכו את הטמפרטורה ב־8:00.<details><summary>הצג פתרון</summary><div class="sol"><p>קצב 2° לשעה: 16°.</p></div></details></li>
+<li>לפי המדידות של הצמח, האם סביר להעריך את גובהו בשבוע 7? בשבוע 100?<details><summary>הצג פתרון</summary><div class="sol"><p>בשבוע 7 (16 ס״מ) סביר, כי קרוב לנתונים. בשבוע 100 לא סביר.</p></div></details></li>
+</ol>
+</section>
+
+<section class="ch next" id="next"><h2>ממשיכים לתרגול</h2><p><a href="stats-03-interpolation-practice.html">תרגול: אינטרפולציה ואקסטרפולציה</a>.</p></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

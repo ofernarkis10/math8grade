@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תרגול: מבוא לפונקציות וייצוגיהן · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="algebra-01-functions-learn.html">← לדף ההסבר</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום אלגברי · דף תרגול</span><h1>תרגול: מבוא לפונקציות וייצוגיהן</h1><p class="lead">תרגול קריאת גרפים, מעבר בין ייצוגים והצבה בפונקציה, עם רמזים ופתרונות מלאים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#remind">תזכורת קצרה</a></li><li><a href="#lvl1">רמה א׳: בסיס </a></li><li><a href="#lvl2">רמה ב׳: קריאת גרפים </a></li><li><a href="#lvl3">רמה ג׳: אתגר </a></li></ol></nav>
+<section class="ch" id="remind"><h2>תזכורת קצרה</h2>
+<div class="formulas">
+<div class="f"><b>פונקציה</b>לכל <span class="m">\(x\)</span> מתאים <span class="m">\(y\)</span> אחד בלבד</div>
+<div class="f"><b>הצבה</b><span class="m">\(f(a)\)</span>: מציבים <span class="m">\(a\)</span> במקום <span class="m">\(x\)</span></div>
+<div class="f"><b>חיתוך עם הצירים</b>ציר x: <span class="m">\(y=0\)</span>. ציר y: <span class="m">\(x=0\)</span></div>
+<div class="f"><b>עלייה וירידה</b>קוראים משמאל לימין, ועונים בערכי <span class="m">\(x\)</span></div>
+</div>
+<p>הסברים ודוגמאות ב<a class="inline" href="algebra-01-functions-learn.html">דף ההסבר</a>.</p>
+</section>
+
+<section class="ch level" id="lvl1"><h2>רמה א׳: בסיס <small>שאלות 1–9</small></h2>
+<ol class="exercises" start="1">
+<li>נתונה <span class="m">\(f(x)=2x+3\)</span>. השלימו את הטבלה:<div class="tablebox"><table><thead><tr><th>x</th><td>−2</td><td>−1</td><td>0</td><td>1</td><td>2</td><td>5</td></tr></thead><tbody><tr><th>f(x)</th><td>?</td><td>?</td><td>?</td><td>?</td><td>?</td><td>?</td></tr></tbody></table></div><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(-1,\;1,\;3,\;5,\;7,\;13\)</span></p></div></details></li>
+<li>נתונה <span class="m">\(g(x)=x^2+1\)</span>. חשבו <span class="m">\(g(0)\)</span>, <span class="m">\(g(3)\)</span>, <span class="m">\(g(-3)\)</span>. מה אתם שמים לב?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(1,\;10,\;10\)</span>. ל־3 ול־(−3) אותו ערך. זה מותר בפונקציה.</p></div></details></li>
+<li>נתונה <span class="m">\(f(x)=3x-4\)</span>. מצאו <span class="m">\(x\)</span> כך ש־<span class="m">\(f(x)=8\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(3x-4=8\Rightarrow x=4\)</span>.</p></div></details></li>
+<li>אילו מהנקודות נמצאות על הגרף של <span class="m">\(y=2x-1\)</span>? <span class="m">\((0,-1)\)</span>, <span class="m">\((3,5)\)</span>, <span class="m">\((-1,-2)\)</span>, <span class="m">\((4,7)\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\((0,-1)\)</span>, <span class="m">\((3,5)\)</span>, <span class="m">\((4,7)\)</span> כן. <span class="m">\((-1,-2)\)</span> לא, כי <span class="m">\(2(-1)-1=-3\)</span>.</p></div></details></li>
+<li>האם זו פונקציה? (x הוא הראשון בכל זוג) <ol class="sub"><li>כל תלמיד ← תאריך הלידה שלו</li><li>כל תאריך ← התלמידים שנולדו בו</li><li><span class="m">\((1,2),(2,2),(3,2)\)</span></li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. כן, לכל תלמיד תאריך לידה אחד.</p><p>ב. לא, בתאריך אחד יכולים להיוולד כמה תלמידים.</p><p>ג. כן. לכל x ערך אחד (גם אם תמיד אותו ערך).</p></div></details></li>
+<li>הנוסחה <span class="m">\(f(x)=12+5x\)</span> נותנת את מחיר ההשכרה של אופניים (בש״ח) ל־<span class="m">\(x\)</span> שעות. <ol class="sub"><li>מה המחיר ל־3 שעות?</li><li>כמה שעות אפשר לשכור ב־47 ₪?</li><li>מה המשמעות של המספר 12?</li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. 27 ₪.&emsp;ב. <span class="m">\(12+5x=47\Rightarrow x=7\)</span> שעות.&emsp;ג. דמי פתיחה (משלמים גם לפני שעה אחת).</p></div></details></li>
+<li>מצאו את נקודות החיתוך של <span class="m">\(y=2x-6\)</span> עם הצירים.<details><summary>הצג פתרון</summary><div class="sol"><p>ציר y: <span class="m">\(x=0\Rightarrow(0,-6)\)</span>. ציר x: <span class="m">\(2x-6=0\Rightarrow(3,0)\)</span>.</p></div></details></li>
+<li>כתבו נוסחה לפונקציה: ״כל מספר מוכפל ב־4 ומחסירים 1״. מה הערך עבור 2.5?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(f(x)=4x-1\)</span>, <span class="m">\(f(2.5)=9\)</span>.</p></div></details></li>
+<li>כתבו נוסחה לפונקציה המתוארת בטבלה:<div class="tablebox"><table><thead><tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td></tr></thead><tbody><tr><th>y</th><td>1</td><td>4</td><td>7</td><td>10</td></tr></tbody></table></div><details class="hint"><summary>רמז</summary><div class="sol"><p>בכמה y גדל כש־x גדל ב־1? ומה y כש־x=0?</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(y=3x+1\)</span>.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl2"><h2>רמה ב׳: קריאת גרפים <small>שאלות 10–16</small></h2>
+<figure>
+<svg viewBox="0 0 420 260" width="420" role="img" aria-label="גרף של פונקציה: יורדת עד (1,-2), עולה עד (4,3), ואחר כך יורדת">
+<g class="gr"><line x1="40" y1="20" x2="40" y2="240"/><line x1="100" y1="20" x2="100" y2="240"/><line x1="160" y1="20" x2="160" y2="240"/><line x1="220" y1="20" x2="220" y2="240"/><line x1="280" y1="20" x2="280" y2="240"/><line x1="340" y1="20" x2="340" y2="240"/><line x1="400" y1="20" x2="400" y2="240"/><line x1="40" y1="40" x2="410" y2="40"/><line x1="40" y1="70" x2="410" y2="70"/><line x1="40" y1="100" x2="410" y2="100"/><line x1="40" y1="160" x2="410" y2="160"/><line x1="40" y1="190" x2="410" y2="190"/><line x1="40" y1="220" x2="410" y2="220"/></g>
+<line class="ax" x1="30" y1="130" x2="415" y2="130"/><line class="ax" x1="100" y1="245" x2="100" y2="15"/>
+<polyline class="ac" points="40,70 160,190 340,40 400,100"/>
+<g class="dot"><circle cx="160" cy="190" r="4"/><circle cx="340" cy="40" r="4"/></g>
+<text x="36" y="148">−1</text><text x="104" y="148">0</text><text x="156" y="148">1</text><text x="216" y="148">2</text><text x="276" y="148">3</text><text x="336" y="148">4</text><text x="396" y="148">5</text><text x="80" y="74">2</text><text x="76" y="194">−2</text><text x="80" y="44">3</text><text x="406" y="124">x</text><text x="106" y="20">y</text>
+</svg><figcaption>הגרף של פונקציה <span class="m">\(h\)</span> בתחום <span class="m">\(-1\le x\le5\)</span></figcaption></figure>
+<ol class="exercises" start="10">
+<li>מה הערך של <span class="m">\(h(1)\)</span>? ושל <span class="m">\(h(4)\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(h(1)=-2\)</span>, <span class="m">\(h(4)=3\)</span>.</p></div></details></li>
+<li>מהם תחומי העלייה ותחומי הירידה של <span class="m">\(h\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p>ירידה: <span class="m">\(-1\lt x\lt1\)</span> ו־<span class="m">\(4\lt x\lt5\)</span>. עלייה: <span class="m">\(1\lt x\lt4\)</span>.</p></div></details></li>
+<li>מהן נקודות המינימום והמקסימום?<details><summary>הצג פתרון</summary><div class="sol"><p>מינימום: <span class="m">\((1,-2)\)</span>. מקסימום: <span class="m">\((4,3)\)</span>.</p></div></details></li>
+<li>כמה פעמים חותך הגרף את ציר x? היכן?<details><summary>הצג פתרון</summary><div class="sol"><p>פעמיים. פעם אחת ב־<span class="m">\(x=0\)</span> (הגרף עובר דרך ראשית הצירים בירידה), ופעם בין 2 ל־3 בעלייה (בערך <span class="m">\(x=2.2\)</span>). בקטע האחרון הגרף נשאר מעל ציר x, כי <span class="m">\(h(5)=1\)</span>.</p></div></details></li>
+<li>באיזה <span class="m">\(x\)</span> מתקיים <span class="m">\(h(x)=2\)</span>? (יש יותר מתשובה אחת)<details class="hint"><summary>רמז</summary><div class="sol"><p>העבירו קו אופקי בגובה 2 וחפשו את נקודות המפגש עם הגרף.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p>שלוש נקודות: <span class="m">\(x=-1\)</span>, בעלייה בערך <span class="m">\(x=3.4\)</span>, ובירידה האחרונה <span class="m">\(x=4.5\)</span> (באמצע הדרך בין 3 ל־1).</p></div></details></li>
+<li>שירה יצאה מהבית בהליכה לחנות, קנתה שם, וחזרה הביתה בריצה. איזה מהתיאורים מתאים לגרף מרחק־מהבית לפי זמן? <ol class="sub"><li>עולה בתלילות, אופקי, יורד לאט</li><li>עולה לאט, אופקי, יורד בתלילות</li><li>עולה לאט, יורד לאט, אופקי</li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>ב׳. הליכה היא איטית (עלייה מתונה), הקנייה היא עמידה במקום (אופקי), והריצה חזרה מהירה (ירידה תלולה).</p></div></details></li>
+<li>שרטטו גרף מרחק־זמן לסיפור: ״רכבת יצאה מתחנה, נסעה שעה במהירות 60 קמ״ש, עמדה חצי שעה, ונסעה עוד שעה במהירות 90 קמ״ש באותו כיוון.״ מה המרחק מהתחנה בסוף?<details><summary>הצג פתרון</summary><div class="sol"><p>הנקודות: <span class="m">\((0,0)\)</span>, <span class="m">\((1,60)\)</span>, <span class="m">\((1.5,60)\)</span>, <span class="m">\((2.5,150)\)</span>. המרחק בסוף: 150 ק״מ. הקטע האחרון תלול מהראשון.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl3"><h2>רמה ג׳: אתגר <small>שאלות 17–21</small></h2>
+<ol class="exercises" start="17">
+<li>נתונה <span class="m">\(f(x)=x^2-4x\)</span>. <ol class="sub"><li>השלימו טבלה עבור <span class="m">\(x=-1,0,1,2,3,4,5\)</span>.</li><li>מהי נקודת המינימום?</li><li>מהן נקודות החיתוך עם ציר x?</li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. <span class="m">\(5,\;0,\;-3,\;-4,\;-3,\;0,\;5\)</span></p><p>ב. <span class="m">\((2,-4)\)</span>, לפי הסימטריה בטבלה.</p><p>ג. <span class="m">\((0,0)\)</span> ו־<span class="m">\((4,0)\)</span>.</p></div></details></li>
+<li>נתונות <span class="m">\(f(x)=3x-2\)</span> ו־<span class="m">\(g(x)=x+6\)</span>. לאיזה <span class="m">\(x\)</span> מתקיים <span class="m">\(f(x)=g(x)\)</span>? מה המשמעות הגרפית?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(3x-2=x+6\Rightarrow x=4\)</span>. שם הגרפים נפגשים, בנקודה <span class="m">\((4,10)\)</span>.</p></div></details></li>
+<li>הנקודה <span class="m">\((2,k)\)</span> נמצאת על הגרף של <span class="m">\(y=5-x^2\)</span>, והנקודה <span class="m">\((m,1)\)</span> נמצאת על הגרף של <span class="m">\(y=2x-7\)</span>. מצאו את <span class="m">\(k\)</span> ואת <span class="m">\(m\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(k=5-4=1\)</span>. <span class="m">\(2m-7=1\Rightarrow m=4\)</span>.</p></div></details></li>
+<li>נתונה <span class="m">\(f(x)=ax+3\)</span>, ו־<span class="m">\(f(2)=11\)</span>. מצאו את <span class="m">\(a\)</span> ואת <span class="m">\(f(-1)\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(2a+3=11\Rightarrow a=4\)</span>. <span class="m">\(f(-1)=-4+3=-1\)</span>.</p></div></details></li>
+<li>מכל של 40 ליטר מתרוקן בקצב קבוע של 5 ליטר בדקה. <ol class="sub"><li>כתבו נוסחה לכמות המים <span class="m">\(V\)</span> אחרי <span class="m">\(t\)</span> דקות.</li><li>מתי יתרוקן המכל?</li><li>מה התחום שבו לנוסחה יש משמעות?</li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. <span class="m">\(V(t)=40-5t\)</span>&emsp;ב. <span class="m">\(t=8\)</span> דקות&emsp;ג. <span class="m">\(0\le t\le8\)</span>. אחרי 8 דקות אין מים, והנוסחה הייתה נותנת כמות שלילית.</p></div></details></li>
+</ol></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

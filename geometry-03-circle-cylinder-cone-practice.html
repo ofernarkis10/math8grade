@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תרגול: מעגל, גליל וחרוט · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="geometry-03-circle-cylinder-cone-learn.html">← לדף ההסבר</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום גאומטרי · דף תרגול</span><h1>תרגול: מעגל, גליל וחרוט</h1><p class="lead">תרגול חישובי מעגל, גליל וחרוט, כולל שימוש בפיתגורס לקו היוצר, עם רמזים ופתרונות מלאים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#remind">תזכורת קצרה</a></li><li><a href="#lvl1">רמה א׳: בסיס </a></li><li><a href="#lvl2">רמה ב׳: ביסוס </a></li><li><a href="#lvl3">רמה ג׳: אתגר </a></li></ol></nav>
+<section class="ch" id="remind"><h2>תזכורת קצרה</h2>
+<div class="formulas">
+<div class="f"><b>מעגל ועיגול</b><span class="m">\(P=2\pi r\)</span>, <span class="m">\(S=\pi r^2\)</span></div>
+<div class="f"><b>גליל</b><span class="m">\(V=\pi r^2h\)</span>, מעטפת <span class="m">\(2\pi rh\)</span></div>
+<div class="f"><b>חרוט</b><span class="m">\(V=\frac{1}{3}\pi r^2h\)</span>, מעטפת <span class="m">\(\pi rl\)</span></div>
+<div class="f"><b>קו יוצר</b><span class="m">\(l^2=r^2+h^2\)</span></div>
+</div>
+<p>אפשר להשאיר תשובות עם <span class="m">\(\pi\)</span>, או לחשב עם <span class="m">\(\pi\approx3.14\)</span>. הסברים ב<a class="inline" href="geometry-03-circle-cylinder-cone-learn.html">דף ההסבר</a>.</p>
+</section>
+
+<section class="ch level" id="lvl1"><h2>רמה א׳: בסיס <small>שאלות 1–9</small></h2>
+<ol class="exercises" start="1">
+<li>חשבו היקף ושטח: <ol class="sub"><li><span class="m">\(r=4\)</span></li><li><span class="m">\(d=10\)</span></li><li><span class="m">\(r=1.5\)</span></li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. <span class="m">\(8\pi\approx25.12\)</span>, <span class="m">\(16\pi\approx50.24\)</span></p><p>ב. <span class="m">\(10\pi\approx31.4\)</span>, <span class="m">\(25\pi\approx78.5\)</span></p><p>ג. <span class="m">\(3\pi\approx9.42\)</span>, <span class="m">\(2.25\pi\approx7.07\)</span></p></div></details></li>
+<li>היקף מעגל <span class="m">\(20\pi\)</span>. מה הרדיוס ומה השטח?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(r=10\)</span>, <span class="m">\(S=100\pi\)</span>.</p></div></details></li>
+<li>שטח עיגול 314 סמ״ר (<span class="m">\(\pi=3.14\)</span>). מה הרדיוס?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(r^2=100\Rightarrow r=10\)</span> ס״מ.</p></div></details></li>
+<li>גלגל אופניים בקוטר 70 ס״מ. כמה מטרים עוברים האופניים בסיבוב אחד של הגלגל? ובמאה סיבובים?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(70\pi\approx219.8\)</span> ס״מ, כ־2.2 מ׳. במאה סיבובים: כ־220 מ׳.</p></div></details></li>
+<li>חשבו את נפח הגליל: <ol class="sub"><li><span class="m">\(r=5,\;h=4\)</span></li><li><span class="m">\(d=6,\;h=10\)</span></li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. <span class="m">\(100\pi\approx314\)</span>&emsp;ב. <span class="m">\(r=3\)</span>: <span class="m">\(90\pi\approx282.6\)</span></p></div></details></li>
+<li>גליל עם רדיוס 2 ס״מ וגובה 9 ס״מ. חשבו את שטח המעטפת ואת שטח הפנים.<details><summary>הצג פתרון</summary><div class="sol"><p>מעטפת <span class="m">\(36\pi\)</span>, שטח פנים <span class="m">\(8\pi+36\pi=44\pi\approx138.2\)</span> סמ״ר.</p></div></details></li>
+<li>חשבו את נפח החרוט: <ol class="sub"><li><span class="m">\(r=3,\;h=10\)</span></li><li><span class="m">\(r=6,\;h=5\)</span></li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. <span class="m">\(30\pi\)</span>&emsp;ב. <span class="m">\(60\pi\)</span></p></div></details></li>
+<li>בחרוט <span class="m">\(r=5\)</span> ו־<span class="m">\(h=12\)</span>. מצאו את הקו היוצר ואת שטח המעטפת.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(l=13\)</span>, מעטפת <span class="m">\(65\pi\approx204.1\)</span>.</p></div></details></li>
+<li>בחרוט הקו היוצר 10 והרדיוס 6. מה הגובה?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(h=\sqrt{100-36}=8\)</span>.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl2"><h2>רמה ב׳: ביסוס <small>שאלות 10–16</small></h2>
+<ol class="exercises" start="10">
+<li>פחית שתייה בצורת גליל: קוטר 6.6 ס״מ וגובה 11.5 ס״מ. האם נכנסים בה 330 מ״ל? (1 מ״ל = 1 סמ״ק)<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\pi\cdot3.3^2\cdot11.5\approx393\)</span> סמ״ק. כן, ויש מקום פנוי.</p></div></details></li>
+<li>כמה נייר צריך כדי לעטוף את המעטפת של פחית עם רדיוס 4 ס״מ וגובה 12 ס״מ? מה מידות המלבן?<details><summary>הצג פתרון</summary><div class="sol"><p>מלבן <span class="m">\(8\pi\approx25.1\)</span> ס״מ על 12 ס״מ. שטח <span class="m">\(96\pi\approx301.4\)</span> סמ״ר.</p></div></details></li>
+<li>נפח גליל <span class="m">\(72\pi\)</span> סמ״ק, וגובהו 8 ס״מ. מה הרדיוס?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(r^2\cdot8=72\Rightarrow r=3\)</span> ס״מ.</p></div></details></li>
+<li>משפך בצורת חרוט בקוטר 12 ס״מ ובגובה 10 ס״מ. כמה מים (במ״ל) נכנסים בו?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{1}{3}\pi\cdot36\cdot10=120\pi\approx377\)</span> מ״ל.</p></div></details></li>
+<li>גליל וחרוט עם אותו בסיס. נפח הגליל פי 2 מנפח החרוט. מה היחס בין הגבהים?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\pi r^2H=2\cdot\frac{1}{3}\pi r^2h\Rightarrow H=\frac{2}{3}h\)</span>. היחס <span class="m">\(H:h=2:3\)</span>.</p></div></details></li>
+<li>בריכה עגולה בקוטר 4 מ׳ ובעומק 1.2 מ׳. כמה ליטר מים צריך כדי למלא אותה עד הסוף?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\pi\cdot4\cdot1.2\approx15.07\)</span> מ״ק, כלומר כ־15,070 ליטר.</p></div></details></li>
+<li>מה יותר גדול: מעטפת של גליל עם <span class="m">\(r=3,\;h=8\)</span>, או מעטפת של חרוט עם <span class="m">\(r=6,\;h=8\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p>גליל: <span class="m">\(48\pi\)</span>. חרוט: <span class="m">\(l=10\)</span>, <span class="m">\(60\pi\)</span>. של החרוט.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl3"><h2>רמה ג׳: אתגר <small>שאלות 17–20</small></h2>
+<ol class="exercises" start="17">
+<li>מה קורה לנפח של גליל אם מכפילים את הרדיוס פי 2 ומשאירים את הגובה? ואם מכפילים את הגובה פי 2?<details><summary>הצג פתרון</summary><div class="sol"><p>רדיוס פי 2: הנפח פי 4 (כי <span class="m">\(r^2\)</span>). גובה פי 2: הנפח פי 2.</p></div></details></li>
+<li>גביע גלידה הוא חרוט עם רדיוס 3 ס״מ וגובה 12 ס״מ. כמה גביעים אפשר למלא מקופסה גלילית עם רדיוס 9 ס״מ וגובה 16 ס״מ?<details class="hint"><summary>רמז</summary><div class="sol"><p>חלקו את נפח הקופסה בנפח הגביע.</p></div></details><details><summary>הצג פתרון</summary><div class="sol"><p>גביע: <span class="m">\(\frac{1}{3}\pi\cdot9\cdot12=36\pi\)</span>. קופסה: <span class="m">\(\pi\cdot81\cdot16=1296\pi\)</span>. <span class="m">\(1296:36=36\)</span> גביעים.</p></div></details></li>
+<li>מסובבים מלבן 3 ס״מ על 5 ס״מ סביב הצלע של 5 ס״מ. איזה גוף מתקבל, ומה נפחו? ואם מסובבים סביב הצלע של 3 ס״מ?<details><summary>הצג פתרון</summary><div class="sol"><p>סביב 5: גליל עם <span class="m">\(r=3,\;h=5\)</span>, נפח <span class="m">\(45\pi\)</span>. סביב 3: <span class="m">\(r=5,\;h=3\)</span>, נפח <span class="m">\(75\pi\)</span>.</p></div></details></li>
+<li>מסובבים משולש ישר זווית עם ניצבים 6 ו־8 סביב הניצב של 8. איזה גוף מתקבל? חשבו את נפחו ואת שטח הפנים שלו.<details><summary>הצג פתרון</summary><div class="sol"><p>חרוט עם <span class="m">\(r=6,\;h=8,\;l=10\)</span>. נפח <span class="m">\(96\pi\)</span>, שטח פנים <span class="m">\(36\pi+60\pi=96\pi\)</span>.</p></div></details></li>
+</ol></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>אחוזים · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="number-02-percent-practice.html">לתרגול מעשי ←</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום מספרי · דף הסבר</span><h1>אחוזים</h1><p class="lead">אחוז כשבר, שלושת סוגי השאלות באחוזים, עלייה והנחה בעזרת מקדם שינוי, ושינויים חוזרים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#meaning">מהו אחוז?</a></li><li><a href="#three">שלושה סוגי שאלות</a></li><li><a href="#change">עלייה והנחה: מקדם השינוי</a></li><li><a href="#pct-change">אחוז השינוי</a></li><li><a href="#repeat">שינויים חוזרים</a></li><li><a href="#mistakes">טעויות נפוצות</a></li><li><a href="#check">בדקו את עצמכם </a></li><li><a href="#next">ממשיכים לתרגול</a></li></ol></nav>
+<section class="ch" id="meaning"><h2>מהו אחוז?</h2>
+<div class="meaning">
+<p><strong>אחוז</strong> הוא חלק אחד ממאה. <span class="m">\(p\%\)</span> פירושו <span class="m">\(\frac{p}{100}\)</span>. אחוזים מאפשרים להשוות חלקים של כמויות שונות, כי תמיד משווים ל־100.</p>
+</div>
+<div class="tablebox"><table>
+<thead><tr><th>אחוז</th><td>1%</td><td>10%</td><td>20%</td><td>25%</td><td>50%</td><td>75%</td><td>100%</td><td>150%</td></tr></thead>
+<tbody><tr><th>שבר עשרוני</th><td>0.01</td><td>0.1</td><td>0.2</td><td>0.25</td><td>0.5</td><td>0.75</td><td>1</td><td>1.5</td></tr>
+<tr><th>שבר פשוט</th><td><span class="m">\(\frac{1}{100}\)</span></td><td><span class="m">\(\frac{1}{10}\)</span></td><td><span class="m">\(\frac{1}{5}\)</span></td><td><span class="m">\(\frac{1}{4}\)</span></td><td><span class="m">\(\frac{1}{2}\)</span></td><td><span class="m">\(\frac{3}{4}\)</span></td><td>1</td><td><span class="m">\(1\frac{1}{2}\)</span></td></tr></tbody>
+</table></div>
+<div class="tip"><strong>טיפ:</strong> כדי לעבור מאחוז לשבר עשרוני מזיזים את הנקודה שני מקומות שמאלה: <span class="m">\(35\%=0.35\)</span>, <span class="m">\(7\%=0.07\)</span>, <span class="m">\(120\%=1.2\)</span>.</div>
+</section>
+
+<section class="ch" id="three"><h2>שלושה סוגי שאלות</h2>
+<div class="meaning"><p>בכל שאלת אחוזים יש שלושה גדלים: <strong>השלם</strong>, <strong>החלק</strong> ו<strong>האחוז</strong>. נותנים שניים, ומחפשים את השלישי. הקשר ביניהם:</p></div>
+<div class="big"><p>החלק = השלם × <span class="m">\(\frac{p}{100}\)</span></p></div>
+<div class="example"><span class="tag">סוג 1: חלק מכמות</span>
+<p>כמה זה 15% מ־240?</p>
+<p><span class="m">\(240\cdot0.15=36\)</span>.</p></div>
+<div class="example"><span class="tag">סוג 2: מציאת השלם</span>
+<p>18 תלמידים הם 30% מהשכבה. כמה תלמידים בשכבה?</p>
+<p><span class="m">\(x\cdot0.3=18\Rightarrow x=18:0.3=60\)</span> תלמידים.</p>
+<p>דרך נוספת: 10% הם 6 תלמידים, ולכן 100% הם 60.</p></div>
+<div class="example"><span class="tag">סוג 3: כמה אחוזים?</span>
+<p>במבחן היו 40 שאלות, ונועה ענתה נכון על 34. כמה אחוזים זה?</p>
+<p><span class="m">\(\frac{34}{40}\cdot100=85\%\)</span>.</p></div>
+</section>
+
+<section class="ch" id="change"><h2>עלייה והנחה: מקדם השינוי</h2>
+<div class="meaning">
+<p>כשמחיר עולה ב־<span class="m">\(p\%\)</span>, המחיר החדש הוא <span class="m">\(100\%+p\%\)</span> מהמחיר הישן. כשיש הנחה של <span class="m">\(p\%\)</span>, משלמים <span class="m">\(100\%-p\%\)</span>. את המספר שבו כופלים קוראים <strong>מקדם השינוי</strong>.</p>
+</div>
+<div class="formulas">
+<div class="f"><b>עלייה ב־p%</b>החדש = הישן × <span class="m">\(\left(1+\frac{p}{100}\right)\)</span></div>
+<div class="f"><b>ירידה (הנחה) ב־p%</b>החדש = הישן × <span class="m">\(\left(1-\frac{p}{100}\right)\)</span></div>
+</div>
+<div class="example"><span class="tag">דוגמה 1</span>
+<p>מחיר חולצה 80 ₪, ויש הנחה של 25%. מה המחיר אחרי ההנחה?</p>
+<p>משלמים 75%: <span class="m">\(80\cdot0.75=60\)</span> ₪.</p></div>
+<div class="example"><span class="tag">דוגמה 2: מע״מ</span>
+<p>מחיר מוצר לפני מע״מ הוא 200 ₪. המע״מ הוא 18%. מה המחיר הסופי?</p>
+<p><span class="m">\(200\cdot1.18=236\)</span> ₪.</p></div>
+<div class="example"><span class="tag">דוגמה 3: מציאת המחיר המקורי</span>
+<p>אחרי הנחה של 20% שילם דני 96 ₪. מה היה המחיר המקורי?</p>
+<p><span class="m">\(x\cdot0.8=96\Rightarrow x=120\)</span> ₪.</p>
+<p>טעות נפוצה: להוסיף 20% ל־96. זה נותן 115.2, כי ה־20% הם מהמחיר המקורי, לא מ־96.</p></div>
+</section>
+
+<section class="ch" id="pct-change"><h2>אחוז השינוי</h2>
+<div class="big"><p>אחוז השינוי = (החדש − הישן) ÷ הישן × 100</p><small>תמיד מחלקים בערך ה<strong>מקורי</strong></small></div>
+<div class="example"><span class="tag">דוגמה 4</span>
+<p>מספר המנויים לחוג עלה מ־40 ל־50. בכמה אחוזים עלה?</p>
+<p><span class="m">\(\frac{50-40}{40}\cdot100=25\%\)</span>.</p>
+<p>ואם המספר ירד מ־50 ל־40? <span class="m">\(\frac{40-50}{50}\cdot100=-20\%\)</span>, ירידה של 20%. אותו הפרש, אחוז אחר, כי השלם שונה.</p></div>
+</section>
+
+<section class="ch" id="repeat"><h2>שינויים חוזרים</h2>
+<div class="meaning"><p>כשיש כמה שינויים בזה אחר זה, כל שינוי מחושב מהמחיר שהתקבל בשלב הקודם. לכן <strong>כופלים את המקדמים</strong>, ולא מחברים את האחוזים.</p></div>
+<div class="example"><span class="tag">דוגמה 5</span>
+<p>מחיר של 100 ₪ עלה ב־10%, ואחר כך ירד ב־10%. מה המחיר הסופי?</p>
+<p><span class="m">\(100\cdot1.1\cdot0.9=99\)</span> ₪. המחיר <strong>לא</strong> חזר ל־100, כי ה־10% של הירידה חושבו מ־110.</p></div>
+<div class="example"><span class="tag">דוגמה 6</span>
+<p>מחיר דירה עלה ב־5% בכל שנה במשך שנתיים. בכמה אחוזים עלה בסך הכול?</p>
+<p><span class="m">\(1.05\cdot1.05=1.1025\)</span>, כלומר עלייה של 10.25% (ולא 10%).</p></div>
+</section>
+
+<section class="ch" id="mistakes"><h2>טעויות נפוצות</h2>
+<ul class="mistakes">
+<li>לחלק בערך החדש במקום בערך המקורי כשמחשבים אחוז שינוי.</li>
+<li>במציאת מחיר מקורי, ״להחזיר״ את האחוז לערך הסופי במקום לחלק במקדם.</li>
+<li>לחבר אחוזים בשינויים חוזרים במקום לכפול מקדמים.</li>
+<li>לבלבל בין ״ירד ב־30%״ (נשאר 70%) לבין ״ירד ל־30%״ (נשאר 30%).</li>
+</ul>
+</section>
+
+<section class="ch level" id="check"><h2>בדקו את עצמכם <small>8 שאלות</small></h2>
+<ol class="exercises">
+<li>כמה זה 35% מ־60?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(60\cdot0.35=21\)</span>.</p></div></details></li>
+<li>12 הם 40% מאיזה מספר?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(12:0.4=30\)</span>.</p></div></details></li>
+<li>כמה אחוזים הם 9 מתוך 36?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{9}{36}=0.25=25\%\)</span>.</p></div></details></li>
+<li>מחיר נעליים 250 ₪, ויש הנחה של 30%. כמה משלמים?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(250\cdot0.7=175\)</span> ₪.</p></div></details></li>
+<li>משכורת של 6,000 ₪ עלתה ב־4%. מה המשכורת החדשה?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(6000\cdot1.04=6240\)</span> ₪.</p></div></details></li>
+<li>אחרי עלייה של 25% המחיר הוא 150 ₪. מה היה המחיר לפני?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(150:1.25=120\)</span> ₪.</p></div></details></li>
+<li>מחיר ירד מ־80 ₪ ל־68 ₪. בכמה אחוזים ירד?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{12}{80}=0.15\)</span>, ירידה של 15%.</p></div></details></li>
+<li>מחיר עלה ב־20% ואחר כך ירד ב־20%. בכמה אחוזים השתנה בסך הכול?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(1.2\cdot0.8=0.96\)</span>, ירידה של 4%.</p></div></details></li>
+</ol>
+</section>
+
+<section class="ch next" id="next"><h2>ממשיכים לתרגול</h2><p>שאלות נוספות בשלוש רמות, עם רמזים: <a href="number-02-percent-practice.html">תרגול: אחוזים</a>.</p></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

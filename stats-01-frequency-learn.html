@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>איסוף מידע, שכיחות ושכיחות יחסית · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="stats-01-frequency-practice.html">לתרגול מעשי ←</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום אי־ודאות · דף הסבר</span><h1>איסוף מידע, שכיחות ושכיחות יחסית</h1><p class="lead">איך אוספים נתונים ומארגנים אותם בטבלת שכיחויות, דיאגרמת עמודות ודיאגרמת עיגול, ומהי שכיחות יחסית.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#research">איסוף מידע</a></li><li><a href="#table">טבלת שכיחויות</a></li><li><a href="#relative">שכיחות יחסית</a></li><li><a href="#charts">דיאגרמות</a></li><li><a href="#mistakes">טעויות נפוצות</a></li><li><a href="#check">בדקו את עצמכם </a></li><li><a href="#next">ממשיכים לתרגול</a></li></ol></nav>
+<section class="ch" id="research"><h2>איסוף מידע</h2>
+<div class="meaning">
+<p>סטטיסטיקה מתחילה ב<strong>שאלת מחקר</strong>: מה רוצים לדעת? למשל: ״מה ענף הספורט האהוב על תלמידי הכיתה?״. ה<strong>אוכלוסייה</strong> היא כל מי שהשאלה עוסקת בהם, וה<strong>מדגם</strong> הוא החלק שבאמת שאלנו.</p>
+<p>יש שני סוגי נתונים: <strong>איכותיים</strong> (מילים: ענף ספורט, צבע) ו<strong>כמותיים</strong> (מספרים: גובה, ציון, מספר אחים).</p>
+</div>
+<div class="note"><strong>שימו לב:</strong> כדי שהתוצאות יהיו אמינות, המדגם צריך לייצג את האוכלוסייה. סקר על ״ספורט אהוב״ שנעשה רק בקבוצת הכדורגל ייתן תמונה מוטה.</div>
+</section>
+
+<section class="ch" id="table"><h2>טבלת שכיחויות</h2>
+<div class="meaning"><p><strong>שכיחות</strong> היא מספר הפעמים שערך מופיע בנתונים. בטבלת שכיחויות רושמים כל ערך ואת השכיחות שלו. סכום השכיחויות שווה למספר הנתונים.</p></div>
+<div class="example"><span class="tag">דוגמה 1</span>
+<p>שאלו 25 תלמידים מה ענף הספורט האהוב עליהם:</p>
+<div class="tablebox"><table><thead><tr><th>ענף</th><th>כדורגל</th><th>כדורסל</th><th>שחייה</th><th>טניס</th><th>אחר</th><th>סה״כ</th></tr></thead>
+<tbody><tr><th>שכיחות</th><td>8</td><td>6</td><td>5</td><td>4</td><td>2</td><td>25</td></tr>
+<tr><th>שכיחות יחסית</th><td>0.32</td><td>0.24</td><td>0.2</td><td>0.16</td><td>0.08</td><td>1</td></tr>
+<tr><th>באחוזים</th><td>32%</td><td>24%</td><td>20%</td><td>16%</td><td>8%</td><td>100%</td></tr></tbody></table></div></div>
+</section>
+
+<section class="ch" id="relative"><h2>שכיחות יחסית</h2>
+<div class="big"><p>שכיחות יחסית = השכיחות ÷ מספר הנתונים</p><small>אפשר לכתוב כשבר, כשבר עשרוני או באחוזים. סכום כל השכיחויות היחסיות הוא 1 (100%).</small></div>
+<div class="example"><span class="tag">דוגמה 2: השוואה בין קבוצות</span>
+<p>בכיתה ח׳1 (25 תלמידים) 8 אוהבים כדורגל. בכיתה ח׳2 (40 תלמידים) 12 אוהבים כדורגל. באיזו כיתה כדורגל פופולרי יותר?</p>
+<p>לפי השכיחות, ב־ח׳2 (12 לעומת 8). אבל הכיתות בגדלים שונים, ולכן משווים <strong>שכיחות יחסית</strong>: ח׳1: <span class="m">\(\frac{8}{25}=32\%\)</span>, ח׳2: <span class="m">\(\frac{12}{40}=30\%\)</span>. דווקא ב־ח׳1 הכדורגל פופולרי יותר.</p></div>
+</section>
+
+<section class="ch" id="charts"><h2>דיאגרמות</h2>
+<div class="two">
+<figure><svg viewBox="0 0 380 240" width="360" role="img" aria-label="דיאגרמת עמודות של הענף האהוב בכיתה"><g class="gr"><line x1="40" y1="200" x2="370" y2="200"/><line x1="40" y1="160" x2="370" y2="160"/><line x1="40" y1="120" x2="370" y2="120"/><line x1="40" y1="80" x2="370" y2="80"/><line x1="40" y1="40" x2="370" y2="40"/></g><line class="ax" x1="40" y1="200" x2="372" y2="200"/><line class="ax" x1="40" y1="204" x2="40" y2="20"/><text x="22" y="205">0</text><text x="22" y="165">2</text><text x="22" y="125">4</text><text x="22" y="85">6</text><text x="22" y="45">8</text><rect x="60" y="40" width="40" height="160" style="fill:var(--accent)"/><text x="80" y="34" text-anchor="middle" class="a">8</text><text x="80" y="222" text-anchor="middle">כדורגל</text><rect x="122" y="80" width="40" height="120" style="fill:var(--accent)"/><text x="142" y="74" text-anchor="middle" class="a">6</text><text x="142" y="222" text-anchor="middle">כדורסל</text><rect x="184" y="100" width="40" height="100" style="fill:var(--accent)"/><text x="204" y="94" text-anchor="middle" class="a">5</text><text x="204" y="222" text-anchor="middle">שחייה</text><rect x="246" y="120" width="40" height="80" style="fill:var(--accent)"/><text x="266" y="114" text-anchor="middle" class="a">4</text><text x="266" y="222" text-anchor="middle">טניס</text><rect x="308" y="160" width="40" height="40" style="fill:var(--accent)"/><text x="328" y="154" text-anchor="middle" class="a">2</text><text x="328" y="222" text-anchor="middle">אחר</text></svg><figcaption>דיאגרמת עמודות: גובה כל עמודה הוא השכיחות</figcaption></figure>
+<figure><svg viewBox="0 0 360 220" width="340" role="img" aria-label="דיאגרמת עיגול של הענף האהוב"><path d="M110,110 L110.0,15.0 A95,95 0 0 1 196.0,150.4 Z" style="fill:#1f6f8b;stroke:var(--paper);stroke-width:2"/><rect x="240" y="30" width="14" height="14" style="fill:#1f6f8b"/><text x="262" y="42">כדורגל 32%</text><path d="M110,110 L196.0,150.4 A95,95 0 0 1 75.0,198.3 Z" style="fill:#b4561e;stroke:var(--paper);stroke-width:2"/><rect x="240" y="60" width="14" height="14" style="fill:#b4561e"/><text x="262" y="72">כדורסל 24%</text><path d="M110,110 L75.0,198.3 A95,95 0 0 1 15.2,104.0 Z" style="fill:#5a7f3a;stroke:var(--paper);stroke-width:2"/><rect x="240" y="90" width="14" height="14" style="fill:#5a7f3a"/><text x="262" y="102">שחייה 20%</text><path d="M110,110 L15.2,104.0 A95,95 0 0 1 64.2,26.8 Z" style="fill:#7a5aa6;stroke:var(--paper);stroke-width:2"/><rect x="240" y="120" width="14" height="14" style="fill:#7a5aa6"/><text x="262" y="132">טניס 16%</text><path d="M110,110 L64.2,26.8 A95,95 0 0 1 110.0,15.0 Z" style="fill:#8a8f96;stroke:var(--paper);stroke-width:2"/><rect x="240" y="150" width="14" height="14" style="fill:#8a8f96"/><text x="262" y="162">אחר 8%</text></svg><figcaption>דיאגרמת עיגול: כל גזרה מראה חלק מהשלם</figcaption></figure>
+</div>
+<div class="meaning">
+<p><strong>דיאגרמת עמודות</strong> טובה להשוואה בין קטגוריות. <strong>דיאגרמת עיגול</strong> טובה כדי לראות איזה חלק מהשלם כל קטגוריה תופסת.</p>
+<p>בדיאגרמת עיגול, הזווית של כל גזרה היא השכיחות היחסית כפול <span class="m">\(360°\)</span>.</p>
+</div>
+<div class="example"><span class="tag">דוגמה 3</span>
+<p>הזווית של ״כדורגל״: <span class="m">\(0.32\cdot360=115.2°\)</span>. של ״שחייה״: <span class="m">\(0.2\cdot360=72°\)</span>.</p></div>
+<div class="note"><strong>גרף מטעה:</strong> אם ציר y של דיאגרמת עמודות לא מתחיל ב־0, הבדלים קטנים נראים ענקיים. תמיד בודקים את הצירים לפני שמסיקים מסקנה.</div>
+</section>
+
+<section class="ch" id="mistakes"><h2>טעויות נפוצות</h2>
+<ul class="mistakes">
+<li>להשוות שכיחויות בין קבוצות בגדלים שונים, במקום שכיחויות יחסיות.</li>
+<li>לחלק במספר הקטגוריות במקום במספר הנתונים.</li>
+<li>בדיאגרמת עיגול, לשכוח שהזוויות צריכות להסתכם ב־<span class="m">\(360°\)</span>.</li>
+</ul>
+</section>
+
+<section class="ch level" id="check"><h2>בדקו את עצמכם <small>5 שאלות</small></h2>
+<ol class="exercises">
+<li>מספר האחים של 20 תלמידים: 0, 1, 2, 1, 3, 2, 1, 0, 2, 1, 4, 2, 1, 1, 3, 2, 0, 1, 2, 1. בנו טבלת שכיחויות.<details><summary>הצג פתרון</summary><div class="sol"><p>0: 3, 1: 8, 2: 6, 3: 2, 4: 1. סה״כ 20 ✓</p></div></details></li>
+<li>מה השכיחות היחסית של ״1 אחים״ בשאלה הקודמת, באחוזים?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(\frac{8}{20}=40\%\)</span>.</p></div></details></li>
+<li>שכיחות יחסית של ערך היא 15%, ויש 60 נתונים. מה השכיחות?<details><summary>הצג פתרון</summary><div class="sol"><p>9.</p></div></details></li>
+<li>בדיאגרמת עיגול, לגזרה מסוימת זווית של 90°. איזה חלק מהנתונים היא מייצגת?<details><summary>הצג פתרון</summary><div class="sol"><p>רבע, 25%.</p></div></details></li>
+<li>האם ״גובה התלמיד״ הוא נתון איכותי או כמותי? ו״צבע העיניים״?<details><summary>הצג פתרון</summary><div class="sol"><p>גובה: כמותי. צבע עיניים: איכותי.</p></div></details></li>
+</ol>
+</section>
+
+<section class="ch next" id="next"><h2>ממשיכים לתרגול</h2><p><a href="stats-01-frequency-practice.html">תרגול: איסוף מידע, שכיחות ושכיחות יחסית</a>.</p></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>

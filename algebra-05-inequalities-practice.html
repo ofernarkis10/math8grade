@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תרגול: אי־שוויונות · מתמטיקה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: same worksheet system as the grade 11 site; graph-paper ground, one card per chapter, worked examples, folding hints and solutions */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#1c2633; --muted:#5b6878; --line:#d9dfe6;
+  --accent:#1f6f8b; --accent-soft:#e3f0f5; --mark:#b4561e; --mark-soft:#fbeee5; --ok:#3d7a3a; --ok-soft:#e8f3e6; --grid:rgba(31,111,139,.06);
+  --f-display:"Frank Ruhl Libre", "David", Georgia, serif;
+  --f-body:"Assistant", "Arial Hebrew", Arial, sans-serif;
+  --f-math:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --paper:#1a2129; --ink:#e4e9ef; --muted:#9aa7b6; --line:#2c3642;
+  --accent:#6cbcd6; --accent-soft:#1b313b; --mark:#f0a46f; --mark-soft:#3a2a1f; --ok:#8fcf87; --ok-soft:#1f2f1e; --grid:rgba(108,188,214,.05); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.4rem}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.2rem;margin-top:6px}
+p{margin:0}
+.m{font-family:var(--f-math);direction:ltr;unicode-bidi:isolate;font-size:.92em}
+.lead{color:var(--muted);max-width:65ch}
+.lead a,.inline{color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.back{color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem;width:fit-content}
+.back:hover,.back:focus-visible{text-decoration:underline}
+.pair{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--mark);background:var(--mark-soft);border-radius:99px;padding:4px 14px}
+.pair:hover,.pair:focus-visible{filter:brightness(.97);text-decoration:underline}
+nav{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+nav ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media (max-width:560px){nav ol{columns:1}}
+.tablebox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+table.text td,table.text th{text-align:start}
+section.ch{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.meaning{max-width:68ch;display:flex;flex-direction:column;gap:10px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.f{background:var(--accent-soft);border-radius:8px;padding:10px 14px;min-width:0}
+.f b{display:block;font-size:.85rem;color:var(--muted);font-weight:600}
+.f .m{font-size:1.02rem}
+.big{background:var(--accent-soft);border-radius:10px;padding:16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.big .m{font-size:1.2rem;font-weight:600}
+.big small{color:var(--muted);font-size:.92rem}
+.example{border:1px dashed var(--accent);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.example .tag{font-size:.78rem;letter-spacing:.06em;font-weight:700;color:var(--accent)}
+.note{background:var(--mark-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.note strong{color:var(--mark)}
+.tip{background:var(--ok-soft);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.tip strong{color:var(--ok)}
+ul.mistakes,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+ol.exercises{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:16px}
+ol.exercises li::marker{font-weight:700;color:var(--accent)}
+ol.sub{margin:4px 0 0;padding-inline-start:22px;list-style:hebrew;display:flex;flex-direction:column;gap:2px}
+details{margin-top:6px}
+summary{cursor:pointer;color:var(--mark);font-weight:600;font-size:.92rem;width:fit-content}
+details.hint summary{color:var(--ok)}
+summary:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:4px}
+details .sol{margin-top:6px;padding:10px 14px;border-inline-start:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:4px}
+details.hint .sol{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.level h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.level h2 small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:600}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+figure svg{max-width:100%;height:auto;color:var(--ink);direction:ltr}
+figure figcaption{font-size:.85rem;color:var(--muted)}
+svg .ln{stroke:currentColor;stroke-width:2;fill:none}
+svg .ac{stroke:var(--accent);stroke-width:2.5;fill:none}
+svg .mk{stroke:var(--mark);stroke-width:2.5;fill:none}
+svg .fa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+svg .fm{fill:var(--mark-soft);stroke:var(--mark);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+svg .gr{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--muted);stroke-width:1.5}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+svg text.a{fill:var(--accent);font-weight:700}
+svg text.k{fill:var(--mark);font-weight:700}
+svg .dot{fill:var(--mark)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;align-items:start}
+.next{background:var(--accent-soft);border-color:var(--accent)}
+.next a{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:480px){h1{font-size:1.9rem} section.ch{padding:18px 16px 22px}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff} details,details .sol{display:block} summary{display:none} nav,.pair{display:none}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
+<style>.m .katex{font-size:1.12em}.m:has(.katex){white-space:normal}*:has(> .m .mfrac){line-height:2.1}td .m .katex{font-size:1.15em}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a class="back" href="index.html">→ חזרה לדף הראשי</a><a class="pair" href="algebra-05-inequalities-learn.html">← לדף ההסבר</a></div>
+<header><span class="eyebrow">מתמטיקה · כיתה ח׳ · תחום אלגברי · דף תרגול</span><h1>תרגול: אי־שוויונות</h1><p class="lead">תרגול פתרון אי־שוויונות, הצגה על ישר המספרים ובעיות מילוליות, עם רמזים ופתרונות מלאים.</p></header>
+<nav aria-label="תוכן"><strong>תוכן</strong><ol><li><a href="#remind">תזכורת קצרה</a></li><li><a href="#lvl1">רמה א׳: בסיס </a></li><li><a href="#lvl2">רמה ב׳: ביסוס </a></li><li><a href="#lvl3">רמה ג׳: אתגר </a></li></ol></nav>
+<section class="ch" id="remind"><h2>תזכורת קצרה</h2>
+<div class="formulas">
+<div class="f"><b>פתרון</b>כמו משוואה, והתשובה היא תחום</div>
+<div class="f"><b>הכלל החשוב</b>כפל או חילוק במספר שלילי ← הופכים את הסימן</div>
+<div class="f"><b>ישר מספרים</b>עיגול ריק: <span class="m">\(\lt,\gt\)</span>. עיגול מלא: <span class="m">\(\le,\ge\)</span></div>
+<div class="f"><b>מילים</b>״לכל היותר״: <span class="m">\(\le\)</span>. ״לפחות״: <span class="m">\(\ge\)</span></div>
+</div>
+<p>הסברים ודוגמאות ב<a class="inline" href="algebra-05-inequalities-learn.html">דף ההסבר</a>.</p>
+</section>
+
+<section class="ch level" id="lvl1"><h2>רמה א׳: בסיס <small>שאלות 1–9</small></h2>
+<ol class="exercises" start="1">
+<li>אמת או שקר? <span class="m">\(-3\lt-1\)</span>, <span class="m">\(-5\gt-2\)</span>, <span class="m">\(4\le4\)</span>, <span class="m">\(0\ge-0.5\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p>אמת, שקר, אמת, אמת.</p></div></details></li>
+<li><span class="m">\(x+7\le3\)</span><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x\le-4\)</span>.</p></div></details></li>
+<li><span class="m">\(5x\gt-20\)</span><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x\gt-4\)</span> (מחלקים ב־5 חיובי, הסימן נשמר).</p></div></details></li>
+<li><span class="m">\(-4x\gt12\)</span><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x\lt-3\)</span>.</p></div></details></li>
+<li><span class="m">\(2x-5\ge9\)</span><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x\ge7\)</span>.</p></div></details></li>
+<li><span class="m">\(10-x\lt4\)</span><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(-x\lt-6\Rightarrow x\gt6\)</span>.</p></div></details></li>
+<li><span class="m">\(-\frac{x}{3}\le2\)</span><details><summary>הצג פתרון</summary><div class="sol"><p>כפול (−3): <span class="m">\(x\ge-6\)</span>.</p></div></details></li>
+<li>כתבו אי־שוויון לכל תיאור: <ol class="sub"><li>x גדול מ־5</li><li>x לכל היותר 10</li><li>x לפחות −2</li><li>x בין 0 ל־8, כולל 8</li></ol><details><summary>הצג פתרון</summary><div class="sol"><p>א. <span class="m">\(x\gt5\)</span>&emsp;ב. <span class="m">\(x\le10\)</span>&emsp;ג. <span class="m">\(x\ge-2\)</span>&emsp;ד. <span class="m">\(0\lt x\le8\)</span></p></div></details></li>
+<li>אילו מהמספרים <span class="m">\(-2,\;0,\;1.5,\;3,\;4\)</span> הם פתרונות של <span class="m">\(3x-2\lt7\)</span>?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x\lt3\)</span>: <span class="m">\(-2,\;0,\;1.5\)</span>.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl2"><h2>רמה ב׳: ביסוס <small>שאלות 10–17</small></h2>
+<ol class="exercises" start="10">
+<li><span class="m">\(3(x+2)\lt x-4\)</span><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(3x+6\lt x-4\Rightarrow 2x\lt-10\Rightarrow x\lt-5\)</span>.</p></div></details></li>
+<li><span class="m">\(5-2(x-3)\ge x+2\)</span><details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(11-2x\ge x+2\Rightarrow 9\ge3x\Rightarrow x\le3\)</span>.</p></div></details></li>
+<li><span class="m">\(\frac{x}{2}-\frac{x}{3}\gt1\)</span><details><summary>הצג פתרון</summary><div class="sol"><p>כפול 6: <span class="m">\(3x-2x\gt6\Rightarrow x\gt6\)</span>.</p></div></details></li>
+<li><span class="m">\(\frac{2x-1}{3}\le\frac{x+4}{2}\)</span><details><summary>הצג פתרון</summary><div class="sol"><p>כפול 6: <span class="m">\(4x-2\le3x+12\Rightarrow x\le14\)</span>.</p></div></details></li>
+<li>מצאו את כל המספרים הטבעיים שמקיימים <span class="m">\(4x-3\lt2x+7\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(2x\lt10\Rightarrow x\lt5\)</span>: 1, 2, 3, 4.</p></div></details></li>
+<li>לאיזה <span class="m">\(x\)</span> הביטוי <span class="m">\(3x-12\)</span> חיובי? ולאיזה <span class="m">\(x\)</span> הביטוי <span class="m">\(6-2x\)</span> שלילי?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(3x-12\gt0\Rightarrow x\gt4\)</span>. <span class="m">\(6-2x\lt0\Rightarrow x\gt3\)</span>.</p></div></details></li>
+<li>לאחת יש 50 ₪ ולשני 120 ₪. הראשון חוסך 15 ₪ בשבוע והשני מוציא 10 ₪ בשבוע. מאיזה שבוע יהיה לראשון יותר כסף?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(50+15x\gt120-10x\Rightarrow 25x\gt70\Rightarrow x\gt2.8\)</span>. מהשבוע השלישי.</p></div></details></li>
+<li>במעלית מותר להעמיס לכל היותר 600 ק״ג. במעלית נמצא אדם השוקל 80 ק״ג. כמה ארגזים של 35 ק״ג לכל היותר אפשר להכניס?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(80+35x\le600\Rightarrow x\le14.86\)</span>. לכל היותר 14 ארגזים.</p></div></details></li>
+</ol></section>
+
+<section class="ch level" id="lvl3"><h2>רמה ג׳: אתגר <small>שאלות 18–22</small></h2>
+<ol class="exercises" start="18">
+<li><span class="m">\(-5\le3x+1\lt10\)</span>. הציגו על ישר המספרים.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(-6\le3x\lt9\Rightarrow -2\le x\lt3\)</span>. עיגול מלא ב־(−2), ריק ב־3, והקטע ביניהם צבוע.</p></div></details></li>
+<li>פתרו: <span class="m">\(2x-1\gt5\)</span> וגם <span class="m">\(x+4\le12\)</span>. מהם הפתרונות השלמים?<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x\gt3\)</span> וגם <span class="m">\(x\le8\)</span>: <span class="m">\(3\lt x\le8\)</span>. שלמים: 4, 5, 6, 7, 8.</p></div></details></li>
+<li>פתרו: <span class="m">\(3x\lt-6\)</span> או <span class="m">\(x-1\ge4\)</span>.<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(x\lt-2\)</span> או <span class="m">\(x\ge5\)</span>. שני תחומים נפרדים.</p></div></details></li>
+<li>פתרו: <span class="m">\(x\gt4\)</span> וגם <span class="m">\(x\lt1\)</span>. מה קרה?<details><summary>הצג פתרון</summary><div class="sol"><p>אין מספר שגדול מ־4 וגם קטן מ־1. אין פתרון.</p></div></details></li>
+<li>אורכי צלעות משולש הם <span class="m">\(x\)</span>, <span class="m">\(x+3\)</span> ו־10. היקפו לפחות 25 ס״מ ולכל היותר 33 ס״מ. מהו התחום של <span class="m">\(x\)</span>? (בלי להתחשב באי־שוויון המשולש)<details><summary>הצג פתרון</summary><div class="sol"><p><span class="m">\(25\le2x+13\le33\Rightarrow 12\le2x\le20\Rightarrow 6\le x\le10\)</span>.</p></div></details></li>
+</ol></section>
+
+<footer>הפתרונות מוסתרים כדי לאפשר תרגול עצמי. פתרו קודם לבד, ואז לחצו על ״הצג פתרון״. בהדפסה כל הפתרונות מוצגים.</footer>
+</div>
+</body>
+</html>
